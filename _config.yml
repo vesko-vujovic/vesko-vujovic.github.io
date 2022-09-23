@@ -26,7 +26,11 @@ title: Chronicles of data engineering   # the main title
 tagline: Read about distributed systems, big data, data engineering, and much more related to these topics.  # it will display as the sub-title
 
 description: >-                         # used by seo meta and the atom feed
-  Start Data Engineering Big data Deep Learning Statistics
+  - Modern data engineering with spark
+  - Delta lakes 
+  - Big data
+  - Deep Learning
+  - Start Data engineering
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: ''
@@ -121,6 +125,9 @@ pwa:
 paginate: 10
 
 # ------------ The following options are not recommended to be modified ------------------
+
+plugins:
+  - jemoji
 
 kramdown:
   syntax_highlighter: rouge
