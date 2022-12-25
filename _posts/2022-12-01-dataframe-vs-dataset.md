@@ -4,7 +4,7 @@ title:  "Apache Spark: Dataset vs Dataframe - The Tortoise and Hare"
 tags: [big-data, data-engineering, apache-spark]
 ---
 
-![spark](/assets/img/spark_cover.png)
+![spark](/assets/img/tortoise.jpeg)
 
 # Introduction
 Hi, welcome to my first blog post. This post is the first one in a series of many that will follow.
@@ -44,7 +44,7 @@ On this [link](https://github.com/vesko-vujovic/SparkExamples/blob/master/src/ma
 
 In this example, we can see that on `2M records` we have a `20%` improvement over the dataset. Please keep in mind that this test is ultra simple we just read the CSV file and then we group and sum, I'm pretty much convinced that improvement in time would be even more than **20%** in `execution time` on large scale applications.
 
-Dataframe API will be the most performant solution because it avoids garbage collection and works directly on binary data which means that we also don't have `serialization/deserialization` of objects which is a really heavy operation when using datasets, a lot of time is spent on this operation. 
+Dataframe API will be the most performant solution because it avoids garbage collection and works directly on binary data which means that we also don't have `serialization` of objects which is a really heavy operation when using datasets, a lot of time is spent on this operation. 
 
 Another big problem with Java objects is that they have a big memory overhead. For example, to store a simple `AAAA` string that would take 4 bytes to store in UTF-8 encoding, Java will pack it in `~48 bytes` in total. The characters themselves each will use 2 bytes with a UTF-16 encoding, 12 bytes would be spent on the header and the other 8 bytes are used for hash code. To facilitate a common workloads we will make a trade-off for a larger memory overhead. If you use [Java Object Layout tool](https://openjdk.org/projects/code-tools/jol/) you will get the following output:
 
@@ -60,12 +60,46 @@ OFFSET  SIZE   TYPE DESCRIPTION                    VALUE
 Instance size: 24 bytes (reported by Instrumentation API)
 
 ```
-GC will work well when he's able to predict the lifecycle of transient objects but it will fail short if some transient objects spill into the old generation. since this approach is based on heuristics and estimation squeeizng out the performance from JVM would take dark arts and dozens of parameters to teach JVM about the life cycle of objects. 
+GC will work well when he's able to predict the lifecycle of transient objects but it will fail short if some transient objects spill into the old generation. Since this approach is based on heuristics and estimation squeeizng out the performance from JVM would take dark arts and dozens of parameters to teach JVM about the life cycle of objects. 
 
 To fuel up the performance of the dataframe Project Tungsten uses `sun.misc.Unsafe` the functionality provided by JVM that exposes C-style memory access with explicit allocation, deallocation, and pointer arithmetics.
 
 
+## Off-Heap memory example
+
+Let's create a simple example in spark-shell where we can prove that Dataframe is not using JVM memory (big win).
+
+First let's enable off-heap memory in spark-shell by running this command.
+
+```	
+spark-shell --conf "spark.memory.offHeap.size=1000000000"  --conf "spark.memory.offHeap.enabled=true" 
+```
+
+### Dataframe example
+
+Then we will run this chunk of code.
+
+![dataframe_code](/assets/img/dataframe_code.png)
+
+In this image bellow from the spark web ui, we can see that we are avoiding JVM memory.
+
+![dataframe_ui](/assets/img/dataframe.png)
+
+### Dataset example
+
+Then run this code for dataset.
+
+![dataset_code](/assets/img/dataset_code.png)
+
+As you can see there is a big difference in GC time.
+
+![dataset_ui](/assets/img/dataset.png)
+
 
 # Final thougts
 
-If you are ok with the fact that you don't have compile-time safety and sometimes column name change can break your code then `Dataframe API` is the most performant solution. If you want compile-time safety and you are willing to pay the trade-off in terms of memory overhead and bigger execution time then `Dataset API` is the way to go. Choose wisely :) Until the next blog post...
+If you are ok with the fact that you don't have compile-time safety then `Dataframe API` is the most performant solution. If you want compile-time safety and you are willing to pay the trade-off in terms of slower serialization of Java object and garbage collection overhead,  `Dataset API` is the way to go. There is no perfect tool which doesn't have it's own flaws. Chose your weapon wisely :) 
+
+
+Until the next blog post... :wave:
+
