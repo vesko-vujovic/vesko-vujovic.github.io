@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Scala: Understading Call By Value vs Call By Name "
+title:  "Scala: Understanding Call By Value vs Call By Name "
 tags: [scala, functional programming]
 ---
 
