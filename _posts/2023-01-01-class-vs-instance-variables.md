@@ -37,6 +37,8 @@ If you want to access __no_of_strings__ you will do it like this:
 
 ``` python
 Guitar.no_of_strings
+
+# 1
 ```
 
 This proves our statement that the data is stored in the class itself and not in the instantiated object. This is really important to remember.
@@ -72,7 +74,7 @@ second_guitar.no_of_strings, first_guitar.no_of_strings
 # (1, 1)
 
 ```
-If we modify now `no_of_strings` in the class we would expect that it will not be reflected in other classes right that we already instantiated? Well wrong :bomb: See what happens below.
+If we modify now `no_of_strings` in the class we would expect that it will not be reflected in other classes that we already instantiated? Well wrong :bomb: See what happens below.
 
 ```python
 Guitar.no_of_strings = 10
@@ -88,6 +90,8 @@ But what about changing the class variable on the specific object instance itsel
 ```python
 first_guitar.no_of_strings = 2
 second_guitar.no_of_strings, first_guitar.no_of_strings
+
+# (2, 10)
 ```
 
 Superficially looking we could say "OK that solved our problem" if we scratch beneath the surface we will find that we jumped inside another pit. What happened in the background is that we created the __no_of_strings__ instance variable that will shadow the class variable. Let's checkout.
