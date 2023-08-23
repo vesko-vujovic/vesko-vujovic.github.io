@@ -16,6 +16,20 @@ https://www.maa.org/external_archive/devlin/devlin_12_99.html#:~:text=The%20meas
 
 # How do we measure now our time?
 
+~~~
+val test = "test"
+~~~ 
+
+{% highlight javascript %}
+function sayHello(name) {
+  if (!name) {
+    console.log('Hello World');
+  } else {
+    console.log(`Hello ${name}`);
+  }  
+}  
+{% endhighlight %}
+
 
 
 # Impact of natural events on our time? 

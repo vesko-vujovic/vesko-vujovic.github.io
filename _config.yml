@@ -124,11 +124,20 @@ paginate: 10
 
 plugins:
   - jemoji
+  - jekyll-include-cache
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+
+
+markdown:    kramdown
+highlighter: rouge
 
 kramdown:
   syntax_highlighter: rouge
+  input: GFM
   syntax_highlighter_opts:   # Rouge Options › https://github.com/jneen/rouge#full-options
-    css_class: highlight
+    css_class: 'highlight'
     # default_lang: console
     span:
       line_numbers: false
