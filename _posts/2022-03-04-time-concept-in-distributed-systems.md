@@ -20,15 +20,6 @@ https://www.maa.org/external_archive/devlin/devlin_12_99.html#:~:text=The%20meas
 val test = "test"
 ~~~ 
 
-{% highlight javascript %}
-function sayHello(name) {
-  if (!name) {
-    console.log('Hello World');
-  } else {
-    console.log(`Hello ${name}`);
-  }  
-}  
-{% endhighlight %}
 
 
 

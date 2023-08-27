@@ -18,7 +18,7 @@ timezone: Europe/Podgorica
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Chronicles of data engineering   # the main title
+title: Chronicles of data engineering # the main title
 
 tagline: Read about distributed systems, big data, data engineering, and much more related to these topics.  # it will display as the sub-title
 
@@ -74,7 +74,7 @@ theme_mode: # [light|dark]
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn: "https://chirpy-img.netlify.app"
+img_cdn: "/assets/le_moi.jpeg"
 
 # the avatar on sidebar, support local or CORS resources
 avatar: "/commons/avatar.jpg"
@@ -115,19 +115,19 @@ pwa:
 
 paginate: 10
 
+
+plugins:
+  - jemoji
+
+
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
   syntax_highlighter: rouge
-  syntax_highlighter_opts: # Rouge Options › https://github.com/jneen/rouge#full-options
-    css_class: highlight
-    # default_lang: console
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
-
+  kramdown:
+    input: GFM
+    syntax_highlighter_opts:
+      css_class: 'highlight'
 collections:
   tabs:
     output: true
