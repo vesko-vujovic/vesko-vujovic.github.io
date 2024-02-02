@@ -4,10 +4,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-## Hi there I'm Vesko. :wave: Welcome to the realm of Data engineering.
+## Hi there I'm Vesko. :wave: Welcome to my blog for Data engineering.
 
-I'm a `Data Engineer` from [Montenegro](https://www.youtube.com/watch?v=ksRoiNKNMFM&ab_channel=HANGOVERCOMMUNITY) :montenegro:, a small Mediterranean country. I live in a town called [Cetinje](https://sh.wikipedia.org/wiki/Cetinje). When I'm not behind my keyboard I'm probably walking my dog :dog: American Akita somewhere in the mountains or trying to master some new dish. I'm a huge fan of this breed :blush:. Besides these things, I also enjoy playing the guitar and collecting new vinyls.
+I am a data enthusiast who loves to design and build data-intensive applications. I enjoy the challenges and rewards of creating value from data. In this blog, I write about my adventures and explorations in data, covering topics such as distributed systems, deep learning, leadership and many more random stuff that i'm curious about. This blog is also my outlet for satisfying my curiosity and learning new things, as well as engaging with other data lovers. I hope you find something that sparks your interest and curiosity here.
 
-![Dog and the Mountain](../assets/img/dog.jpeg)
-
-```My passion is data and everything related to data. In this blog, you can read about distributed systems, data-intensive applications, deep learning, and many other topics that are related to these above mentioned domains.```
