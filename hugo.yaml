@@ -1,0 +1,169 @@
+baseURL: https://vesko-vujovic.github.io
+languageCode: en-us
+title: Chronicles of Data Enginenering
+theme: ["PaperMod"]
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: UA-123-45
+enableEmoji: true
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Chronicles of Data Engineering
+  description: "Read about modern data engineering, distributed systems
+  , big data, deep learning and many other stuff related to data."
+  keywords: [data engineering, apache spark, big data, data intesnive applications, deep learning]
+  author: Me
+  author: ["Vesko Vujovic"] # multiple authors
+  images: ["https://twitter.com/veskovujovic/photo"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "/favicons/favicon.ico"
+    favicon16x16: "/favicons/favicon-16x16.png"
+    favicon32x32: "/favicons/favicon-32x32.png>"
+    apple_touch_icon: "/favicons/apple-touch-icon.png>"
+    safari_pinned_tab: "/favicons/safari-pinned-tab.svg"
+
+  label:
+    text: "Home"
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: true # needs to be explicitly set
+    title: "Cronicles of Data engineering"
+    subtitle: "Hi there 👋 Welcome to my blog on Data engineering. I am Vesko Vujović and I'm a **data enthusiast** who loves to design 
+    and build **data-intensive applications.**
+    I enjoy the challenges and rewards of creating value from data.
+     In this blog, I write about my adventures and explorations in data, 
+     covering topics such as distributed systems, deep learning, 
+     leadership and many more random stuff that i’m curious about.
+      This blog is also my outlet for satisfying my curiosity and 
+      learning new things, as well as engaging with other data lovers. 
+      I hope you find something that will attract your interest and curiosity here.
+       My passion is data and everything related to data."
+    imageUrl: "/le_moi.jpg"
+    imageWidth: 200
+    imageHeight: 200
+    imageTitle: my image
+    buttons:
+      - name: Posts
+        url: /posts/
+      - name: Tags
+        url: /tags/
+      - name: Archive
+        url: /archives/
+  # home-info mode
+  homeInfoParams:
+    Title: "Hi there \U0001F44B Welcome to my blog for Data engineering 💾"
+    Content: " I am Vesko Vujović and I'm a **data enthusiast** who loves to design 
+    and build data-intensive applications. 
+    I enjoy the challenges and rewards of creating value from data.
+     In this blog, I write about my adventures and explorations in data, 
+     covering topics such as distributed systems, deep learning, 
+     leadership and many more random stuff that i’m curious about.
+      This blog is also my outlet for satisfying my curiosity and 
+      learning new things, as well as engaging with other data lovers. 
+      I hope you find something that will attract your interest and curiosity here.
+       My passion is data and everything related to data."
+
+  socialIcons:
+    - name: x
+      url: "https://x.com/veskovujovic"
+    - name: stackoverflow
+      url: "https://stackoverflow.com/users/4256337/vesko-vujovic"
+    - name: github
+      url: "https://github.com/vesko-vujovic"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/vesko-vujovic-3787005b/"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  editPost:
+    URL: "https://github.com/<path_to_repo>/content"
+    Text: "Suggest Changes" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: Search
+      name: search
+      url: /search/
+    - identifier: categories
+      name: posts
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: tags
+      url: /tags/
+      weight: 20
+    - identifier: archive
+      name: archives
+      url: /archives/
+      weight: 30
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    style: monokai
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON

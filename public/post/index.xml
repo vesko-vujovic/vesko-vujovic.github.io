@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Chronicles of Data Enginenering</title>
+    <link>http://localhost:1313/post/</link>
+    <description>Recent content in Posts on Chronicles of Data Enginenering</description>
+    <image>
+      <title>Chronicles of Data Enginenering</title>
+      <url>https://twitter.com/veskovujovic/photo</url>
+      <link>https://twitter.com/veskovujovic/photo</link>
+    </image>
+    <generator>Hugo -- 0.128.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Jun 2024 15:42:06 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Archives</title>
+      <link>http://localhost:1313/post/archives/</link>
+      <pubDate>Fri, 28 Jun 2024 15:42:06 +0200</pubDate>
+      <guid>http://localhost:1313/post/archives/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

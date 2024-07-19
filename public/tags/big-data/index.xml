@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Big-Data on Chronicles of Data Enginenering</title>
+    <link>http://localhost:1313/tags/big-data/</link>
+    <description>Recent content in Big-Data on Chronicles of Data Enginenering</description>
+    <image>
+      <title>Chronicles of Data Enginenering</title>
+      <url>https://twitter.com/veskovujovic/photo</url>
+      <link>https://twitter.com/veskovujovic/photo</link>
+    </image>
+    <generator>Hugo -- 0.128.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Jun 2024 15:06:41 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/big-data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apache Spark: Dataset vs Dataframe - The Tortoise and Hare</title>
+      <link>http://localhost:1313/posts/apache-spark-dataframe-vs-datasets/</link>
+      <pubDate>Fri, 28 Jun 2024 15:06:41 +0200</pubDate>
+      <guid>http://localhost:1313/posts/apache-spark-dataframe-vs-datasets/</guid>
+      <description>Introduction Hi, welcome to my first blog post. This post is the first one in a series of many that will follow.
+Who is Tortoise and who is Hare?
+Well, In many books about Apache Spark that I was reading, I didn&amp;rsquo;t found a clear idea of the performance of dataframes compared to the datasets. In this blog post, we will debunk that mystery and show some concrete results and insights regarding this matter.</description>
+    </item>
+  </channel>
+</rss>
