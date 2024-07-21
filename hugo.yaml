@@ -82,7 +82,7 @@ params:
         url: /posts/
       - name: Tags
         url: /tags/
-      - name: Archive
+      - name: Archives
         url: /archives/
   # home-info mode
   homeInfoParams:

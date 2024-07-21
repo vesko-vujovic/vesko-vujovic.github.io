@@ -1,8 +1,7 @@
 ---
-title: "search"
+title: "Seach all articles"
 layout: "search" # necessary for search
-# url: "/archive"
 description: "Search all articles"
 summary: "search"
-placeholder: "Search"
+placeholder: "Search the articles"
 ---
