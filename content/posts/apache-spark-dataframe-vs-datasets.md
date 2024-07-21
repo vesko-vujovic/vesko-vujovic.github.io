@@ -1,7 +1,7 @@
 ---
 title: "Apache Spark: Dataset vs Dataframe - The Tortoise and Hare"
 date: 2024-06-28T15:06:41+02:00
-draft: true
+draft: false
 tags:
   - big-data
   - data-engineering
@@ -41,7 +41,7 @@ These two APIs are fundamentally the same except in the fact of how they manage 
 I tested everything locally with a local spark cluster in standalone mode. I took this [dataset](https://www.kaggle.com/datasets/yuanyuwendymu/airline-delay-and-cancellation-data-2009-2018?fbclid=IwAR1RTFYmc5MqzTaGJO9tOyKJ177_xbZpQbsYBRnOPuI4-4zx4PuZ9eCC7_c) from Kaggle for benchmarking. 2018 year from this dataset. I made chunks from it from `500K` records to `2M` in incremental chunks of 250K.
 
 In the figure below, you can see the results of the test.
-![results](/posts/dataframe_vs_dataset.png)
+![results](/posts/dataframe_vs_dataset.png){.zoomable}
 
 On this [link](https://github.com/vesko-vujovic/SparkExamples/blob/master/src/main/scala/com/examples/spark/DatasetVsDataFrames.scala) you can find the code for this example.
 
