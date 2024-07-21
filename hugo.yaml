@@ -61,7 +61,7 @@ params:
   profileMode:
     enabled: true # needs to be explicitly set
     title: "Cronicles of Data engineering"
-    subtitle: "Hi there 👋 Welcome to my blog on Data engineering. I am Vesko Vujović and I'm a **data enthusiast** who loves to design 
+    subtitle: "Hi there 👋 Welcome to my blog on Data engineering. I am **Vesko Vujović** and I'm a **data enthusiast** who loves to design 
     and build **data-intensive applications.**
     I enjoy the challenges and rewards of creating value from data.
      In this blog, I write about my adventures and explorations in data, 
