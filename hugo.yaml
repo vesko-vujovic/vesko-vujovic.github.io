@@ -14,7 +14,9 @@ minify:
   minifyOutput: true
 
 params:
-
+  analytics: "G-TVRCPDW96K"
+    google:
+      SiteVerificationTag: 
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Chronicles of Data Engineering
   description: "Read about modern data engineering, distributed systems
@@ -162,6 +164,9 @@ markup:
     # guessSyntax: true
     # lineNos: true
     style: monokai
+services:
+  googleAnalytics:
+    ID: G-TVRCPDW96K
 outputs:
   home:
     - HTML
