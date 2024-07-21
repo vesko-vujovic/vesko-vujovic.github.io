@@ -24,7 +24,7 @@ params:
   keywords: [data engineering, apache spark, big data, data intesnive applications, deep learning]
   author: Me
   author: ["Vesko Vujovic"] # multiple authors
-  images: ["https://twitter.com/veskovujovic/photo"]
+  images: ["general/floppy.jpg"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
