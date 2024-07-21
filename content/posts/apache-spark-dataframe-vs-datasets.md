@@ -6,6 +6,12 @@ tags:
   - big-data
   - data-engineering
   - apache-spark
+cover:
+  image: "/posts/tortoise.jpeg"
+  # can also paste direct link from external site
+  # ex. https://i.ibb.co/K0HVPBd/paper-mod-profilemode.png
+  alt: "tortoise"
+  caption: "tortoise"
 ---
 
 ![spark](/posts/tortoise.jpeg)
