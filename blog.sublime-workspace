@@ -1,0 +1,334 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"for",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"prett",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"jq",
+				"Pretty JSON: JSON query with ./jq"
+			],
+			[
+				"pretty",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"pre",
+				"Pretty JSON: Format JSON Lines"
+			],
+			[
+				"retty",
+				"Pretty JSON: JSON query with ./jq"
+			],
+			[
+				"valida",
+				"Pretty JSON: Validate"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog"
+	],
+	"file_history":
+	[
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/content/search.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/themes/PaperMod/layouts/partials/head.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/syntax.css",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/content/posts/apache-spark-dataframe-vs-datasets.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/themes/PaperMod/layouts/partials/footer.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/hugo.yaml",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/themes/PaperMod/layouts/_default/index.json",
+		"/Users/veskovujovic/Downloads/DNC_FINAL_TEST/france/france_2024-07-10_part_1_test.txt",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/content/archives.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/content/posts/my-first-post.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/content/post/archives.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/vesko-vujovic-personal-blog/layouts/archives.html",
+		"/Users/veskovujovic/Documents/Personal/DE Lab/env_experimenting/docker-compose.yaml",
+		"/Users/veskovujovic/Documents/Personal/DE Lab/env_experimenting/run.sh",
+		"/Users/veskovujovic/Documents/Cognism/Experimentation/test.txt",
+		"/Users/veskovujovic/Documents/Personal/DE Lab/env_experimenting/DockerFile",
+		"/Users/veskovujovic/Downloads/france_testing/768878_2024_05_15_10_53_12_france/768878_2024_05_15_10_53_12_france.txt",
+		"/Users/veskovujovic/Downloads/france_testing/768878_2024_05_15_10_53_12_france/retour_768878_2024_05_15_10_53_12_france.txt",
+		"/Users/veskovujovic/Downloads/france/framce_03-06-2024.txt",
+		"/Users/veskovujovic/Downloads/spain/spain_06_03_2024.txt",
+		"/Users/veskovujovic/Downloads/france_privatekey.pem",
+		"/Users/veskovujovic/Downloads/france/france_3_test.txt",
+		"/Users/veskovujovic/Documents/Cognism/Shell/split_file.sh",
+		"/Users/veskovujovic/Downloads/france/france_2_test.txt",
+		"/Users/veskovujovic/Downloads/france/france_1_test.txt",
+		"/Users/veskovujovic/Downloads/dnc_ingestion_05_14/australia/australia_14_05_2024.txt",
+		"/Users/veskovujovic/Downloads/france_converted.pem",
+		"/Users/veskovujovic/Downloads/france_private_key.pub",
+		"/Users/veskovujovic/Downloads/france_private_key",
+		"/Users/veskovujovic/Downloads/france_private_key.txt",
+		"/Users/veskovujovic/Downloads/dnc_testing/spain/raw/test_chunkc_2024_may.txt",
+		"/Users/veskovujovic/Downloads/test.txt",
+		"/Users/veskovujovic/Downloads/DNC_APRIL_2024/australia/australia_04_2024.txt",
+		"/Users/veskovujovic/Downloads/DNC_APRIL_2024/australia/test_april_2024.txt",
+		"/Users/veskovujovic/Downloads/phone-api-swagger.json",
+		"/Users/veskovujovic/Downloads/francekey.pub",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_tabs/about.md",
+		"/Users/veskovujovic/Documents/Cognism/Shell/list_github_packages.sh",
+		"/Users/veskovujovic/Downloads/test_sd.json",
+		"/Users/veskovujovic/Downloads/x5_test_sample_prod.jsonl",
+		"/Users/veskovujovic/Downloads/xverum_test_10_lines.jsonl",
+		"/Users/veskovujovic/Downloads/xverum_test_10_lines.json",
+		"/Users/veskovujovic/Downloads/part-00091-d6828f42-cdf0-463a-b981-7fb4de697daf-c000.json",
+		"/Users/veskovujovic/Documents/Personal/Blog/Topics/Data Engineering/Spark/SparkExamples/data/sample.json",
+		"/Users/veskovujovic/Documents/Personal/Blog/Topics/Data Engineering/Spark/SparkExamples/data/nested_data.json",
+		"/Users/veskovujovic/Downloads/marged_p_v2.avsc",
+		"/Users/veskovujovic/Downloads/PersonParsed.avsc",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/src/main/scala/gaia/sbt/avrogen/AvroGeneratorPlugin.scala",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/build.sbt",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/src/sbt-test/sbt-avrogen/generate/build.sbt",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/src/sbt-test/sbt-avrogen/generate/project/plugins.sbt",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/src/sbt-test/sbt-avrogen/generate/project/build.properties",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/project/build.properties",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/src/sbt-test/sbt-avrogen/generate/test",
+		"/Users/veskovujovic/Documents/Personal/Projects/salesforceintegration/sbt-avrogen/README.md",
+		"/Users/veskovujovic/Documents/avro-schema-manager/project/plugins.sbt",
+		"/Users/veskovujovic/Documents/avro-schema-manager/build.sbt",
+		"/Users/veskovujovic/Downloads/op4/New Workflow for Project 2 - Cloudlead - October 26.jsonl",
+		"/Users/veskovujovic/Downloads/op4/part-00022-9108f2a3-7fbc-424f-9910-96138f19f1bd-c000.json",
+		"/Users/veskovujovic/Downloads/op4/part-00001-dca2cd12-d50e-4ad2-ad44-5a331e3e9ec4-c000.json",
+		"/Users/veskovujovic/Downloads/op4/27762333814f1ba1cc665b38a8db3766.jsonl",
+		"/Users/veskovujovic/Downloads/op4/48c3087f26ca230dda182fb738d78e1b.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+1+0002917179.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+1+0002917251.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+1+0002917350.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+1+0002917461.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002916494.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002916543.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002916555.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002919357.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002919597.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002919654.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002919947.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002917954.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002920487.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002920242.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002920047.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002920733.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002922862.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002922575.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002929633.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002926048.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002920464.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002920579.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+2+0002919386.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002876659.jsonl",
+		"/Users/veskovujovic/Downloads/op4/ingress-person-operia-json+0+0002929821.jsonl",
+		"/Users/veskovujovic/Downloads/ingress-person-operia-json+0+0002953109.jsonl",
+		"/Users/veskovujovic/Downloads/part-00004-e33535fc-3386-4503-8f3d-dec3751c3bb5-c000.json",
+		"/Users/veskovujovic/Downloads/part-00003-fc82d688-de98-47d8-9d7b-03f86e52018f-c000.json",
+		"/Users/veskovujovic/Downloads/kasper-ingress+2+0008110529.jsonl",
+		"/Users/veskovujovic/Downloads/kasper-ingress+0+0008396532.jsonl",
+		"/Users/veskovujovic/Downloads/kasper-ingress+2+0008103542.jsonl",
+		"/Users/veskovujovic/Downloads/kasper-ingress+1+0008118109.jsonl",
+		"/Users/veskovujovic/Downloads/kasper-ingress+5+0008170807.jsonl",
+		"/Users/veskovujovic/Downloads/part-00003-9693655c-af32-4786-bc7f-9508fc0956b2-c000.json",
+		"/Volumes/Elements/SmartCat-Lenovo backup/Documents/Projects/SmartCat/salesforceintegration/batch/jobs/kpi/src/test/scala/gaia/batch/kpi/player/storage/KpiParquetStorageTest.scala",
+		"/Volumes/Elements/SmartCat-Lenovo backup/Documents/Projects/SmartCat/salesforceintegration/batch/jobs/kpi/src/test/scala/gaia/batch/kpi/player/lifetime/LifetimeCasinoKpiJobTest.scala",
+		"/Volumes/Elements/SmartCat-Lenovo backup/Documents/Projects/SmartCat/salesforceintegration/batch/jobs/kpi/src/test/scala/gaia/batch/kpi/player/common/KpiTransactionExpressionsTest.scala",
+		"/Volumes/Elements/SmartCat-Lenovo backup/Documents/Projects/SmartCat/salesforceintegration/batch/jobs/kpi/src/test/scala/gaia/batch/kpi/player/joiner/JoinKpisJobTest.scala",
+		"/Volumes/Elements/SmartCat-Lenovo backup/Documents/Projects/SmartCat/salesforceintegration/batch/jobs/kpi/src/test/scala/gaia/batch/kpi/player/KpiSparkJobTest.scala",
+		"/Users/veskovujovic/Documents/Cognism/Projects/avro-schema-manager/kibana.yml",
+		"/Users/veskovujovic/Downloads/part-00002-c00b5bd9-6506-472e-95c2-b160012f1a05-c000.jsonl",
+		"/Users/veskovujovic/Downloads/part-00000-e98cee8a-a995-42f9-92a3-b5a4232f0cee-c000 (1).jsonl",
+		"/Users/veskovujovic/Desktop/Screenshot 2023-10-10 at 11.10.14.png",
+		"/Users/veskovujovic/Downloads/corsig_april_2023_sample_100.jsonl",
+		"/Users/veskovujovic/.config/joplin-desktop/edit-4fac24c2a98f4d88a86147afc2977f76.md",
+		"/Users/veskovujovic/Downloads/hc_eng_sample_1 (1).jsonl",
+		"/Users/veskovujovic/Documents/Cognism/Projects/dq-lambdas_v2/source.bat",
+		"/Users/veskovujovic/Documents/Cognism/Projects/dq-lambdas_v2/dq_lambdas_v2/dq_lambdas_v2_stack.py",
+		"/Users/veskovujovic/Documents/Cognism/Projects/dq-lambdas_v2/app.py",
+		"/Users/veskovujovic/Downloads/deputy.com_1688633080.577174.json",
+		"/Users/veskovujovic/Downloads/arconnet.com_1688547185.078022.json",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/Gemfile",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_config.yml",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/.gitignore",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_posts/2022-03-04-time-concept-in-distributed-systems.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_posts/2019-08-11-customize-the-favicon.md",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/assets/css/syntax.css",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_includes/head.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/jekyll-theme-chirpy/_includes/head.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/jekyll-theme-chirpy/_layouts/compress.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/jekyll-theme-chirpy/_layouts/default.html",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/jekyll-theme-chirpy/_layouts/page.html",
+		"/Users/veskovujovic/Downloads/hc_eng_sample_1.jsonl",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/assets/css/main.css",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_data/contact.yml",
+		"/Users/veskovujovic/Documents/Personal/Blog/Jekyll/vesko-vujovic.github.io/_includes/manokai.css"
+	],
+	"find":
+	{
+		"height": 46.0
+	},
+	"find_in_files":
+	{
+		"height": 148.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 52.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "blog.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 279.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
