@@ -14,9 +14,9 @@ minify:
   minifyOutput: true
 
 params:
-  analytics: "G-TVRCPDW96K"
+  analytics: 
     google:
-      SiteVerificationTag: 
+      SiteVerificationTag: "G-TVRCPDW96K"
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Chronicles of Data Engineering
   description: "Read about modern data engineering, distributed systems
