@@ -114,6 +114,6 @@ If you are ok with the fact that you don't have compile-time safety then `Datafr
 Until the next blog post...  :wave:
 
 
-{{< chat >}}
+{{< chat dataset-vs-dataframe>}}
 
 
