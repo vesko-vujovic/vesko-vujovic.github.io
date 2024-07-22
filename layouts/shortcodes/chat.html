@@ -1,0 +1,16 @@
+
+  <br><br>
+  <br><br>
+
+  <div id="comment-section"></div>
+
+  <script src="https://latest.cactus.chat/cactus.js"></script>
+  <script>
+  initComments({
+    node: document.getElementById("comment-section"),
+    defaultHomeserverUrl: "https://matrix.cactus.chat:8448",
+    serverName: "cactus.chat",
+    siteName: "vesko-vujovic-personal-blog",
+    commentSectionId:   "{{ index .Params 0 }}"
+  })
+  </script>
