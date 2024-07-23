@@ -31,14 +31,13 @@ To prepare ourselves for a deep dive into this matter we need to get familiar wi
 
 ## Dataframe API
 
-Dataframe API is nothing more than data organized in named columns. One good example is the table in a relational database. It's an untyped version of Datasets i.e. `Dataset[Row]`. We could say that Dataframe is one step ahead of RDD (resilient distributed dataset) because it provides memory management and an optimized execution plan. This is a famous project called [Tungsten](https://jaceklaskowski.gitbooks.io/mastering-spark-sql/content/spark-sql-tungsten.html) which introduced **off-heap memory** which bypassed the overhead of the JVM object model and garbage collection. The off-heap memory is the memory that doesn't belong to JVM, the memory that you can allocate and deallocate at your own will. The bigest strength of this API is also the fact that during deserialization, the byte file is converted directly to java byte code and then executed directly on Java intepreter. 
+Dataframe API is nothing more than data organized in named columns. One good example is the table in a relational database. It's an untyped version of Datasets i.e. `Dataset[Row]`. We could say that Dataframe is one step ahead of RDD (resilient distributed dataset) because it provides memory management and an optimized execution plan. This is a famous project called [Tungsten](https://jaceklaskowski.gitbooks.io/mastering-spark-sql/content/spark-sql-tungsten.html) which introduced **off-heap memory** and bypassed the overhead of the JVM object model and garbage collection. The off-heap memory is the memory that doesn’t belong to JVM, the memory that you can allocate and deallocate at your own will. The biggest strength of this API is also the fact that during deserialization, the byte file is converted directly to Java byte code and then executed directly on the Java interpreter.
 
 ## Dataset API
 
 While the dataframe is untyped the Dataset API provides a type-safe object-oriented programming interface. Dataset doesn't use. They offer compile-time type safety, which means that you can avoid some runtime errors in comparison to Dataframe API. Their memory is bound to the JVM. This API also enjoys the benefits of Spark SQL’s optimized execution engine.
 
-
-These two APIs are fundamentally the same except in the fact of how they manage their memory. In the sections below, we will expose some useful insights which one is more performant and when to use one or another API. 
+These two APIs are fundamentally the same except in the fact of how they manage their memory. In the sections below, we will expose some useful insights on which one is more performant and when to use one or another API. 
 
 
 
