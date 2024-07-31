@@ -18,7 +18,8 @@ cover:
 
 # Introduction
 
-Welcome, readers! :book: In this post, we'll explore the idea of event source mapping in AWS, with a focus on its implementation and functionality. We'll zoom-in 🔍 how automatic scaling works  and examine the process of consuming messages from Kafka event sources. 
+Welcome, readers! :book: In this post, we'll explore the idea of event source mapping in AWS, with a focus on its implementation and functionality. We'll zoom-in 🔍 how automatic scaling works  and examine the process of consuming messages from Kafka event sources.
+
 
 # Using Lambda to consume records from Kafka
 
