@@ -1,7 +1,7 @@
 ---
 title: "AWS: Lambda Event Source Mapping with Confluent Kafka"
 date: 2024-07-26T15:06:41+02:00
-draft: true
+draft: false
 tags:
   - AWS
   - lambda
