@@ -154,13 +154,20 @@ menu:
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
+  goldmark:
+    parser:
+      attribute:
+        block: true
+        title: true
+      unsafe: true
   highlight:
     noClasses: false
-    # anchorLineNos: true
-    # codeFences: true
+    anchorLineNos: true
+    codeFences: true
     # guessSyntax: true
-    # lineNos: true
+    lineNos: true
     style: monokai
+   
 enableRobotsTXT: true
 canonifyURLs: true
 services:
