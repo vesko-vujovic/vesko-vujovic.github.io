@@ -31,12 +31,12 @@ One of the standout advantages of using AWS Lambda for Kafka data consumption is
 
 # What exactly the Event Source Mapping in Lambda is? 
 
-To be able to consume the data from Kafka, you set up something called an Event Source Mapping (ESM) for your Lambda function. This ESM is like a helper that Lambda uses to keep checking Kafka for new messages. It can pick out specific messages and group them together before sending them to your Lambda function to process. A
+To be able to consume the data from Kafka, you set up something called an Event Source Mapping (ESM) for your Lambda function. This ESM is like a helper that Lambda uses to keep checking Kafka for new messages. It can pick out specific messages and group them together before sending them to your Lambda function to process.
 
 
 **Think of ESM as a message delivery mediator.**
 
-It pools and picks up messages from Kafka, bundles them together, and then hands them off to your Lambda function for processing. See the image below.
+*It pools and picks up messages from Kafka, bundles them together, and then hands them off to your Lambda function for processing. See the image below.*
 
 
 ![kafka-event-source](/posts/lambda-event-source/AWS-Lambda-event-source-mapping.png)
@@ -55,7 +55,7 @@ When you create lambda event source mapping AWS will create a poller that will p
 
 ## Scaling logic
 
-How internal scaling work of this mechanism? Well like this.
+How does the internal scaling mechanism work? Well like this.
 
 Here's a simpler explanation:
 
@@ -86,7 +86,7 @@ See image bellow to see how scaling works:
 
 > ***So to sum up total number of processors for all pollers is equal to the number of partitions in the topic***
 
-## Comitting ofsets
+## Committing offsets
 
 Whenever lambda finishes with status code 200, the offset will be committed automatically for the kafka topic.
 
@@ -98,27 +98,32 @@ Whenever lambda finishes with status code 200, the offset will be committed auto
 
 Here's my own way of explaining how to improve processing throughput:
 
-1. Smart Filtering
-   Use filters to only process the data you actually need. It's like sorting your mail and throwing out the junk before you even open it. This saves time and money.
+Here's my way of explaining how to improve processing throughput:
 
-2. More Workers
-   Imagine you're running a kitchen. If you have more cooks (partitions), you can prepare more meals (process more data) at once. Add more partitions to handle more data simultaneously. More partitions means more concurent lambda created to consume those messages.
+1. **Smart Filtering**
 
-3. Beefier Machines
-   Sometimes, you need stronger computers, not just more of them. It's like upgrading from a bicycle to a motorcycle - you'll get there faster. Give your functions more memory and CPU power for tough jobs.
+Use filters to only process the data you actually need. It's like sorting your mail and throwing out the junk before you even open it. This saves time and money.
 
-4. Bigger Batches
-   Instead of washing one dish at a time, fill up the sink and do a whole batch. Processing data in larger chunks can be more efficient, but be careful - waiting to fill a very large batch might slow down the start of your process.
+2. **More Workers**
 
-5. Spread the Load
-   Don't put all your eggs in one basket. Make sure your data is evenly spread across all your workers. If one worker gets overloaded (a "hot partition"), it can slow down the whole system.
+ Imagine you're running a kitchen. If you have more cooks (partitions), you can prepare more meals (process more data) at once. Add more partitions to handle more data simultaneously. More partitions mean more concurrent lambda created to consume those messages.
+
+3. **Beefier Machines**
+
+  Sometimes, you need stronger computers, not just more of them. It's like upgrading from a bicycle to a motorcycle - you'll get there faster. Give your functions more memory and CPU power for tough jobs.
+
+4. **Bigger Batches**
+
+ Instead of washing one dish at a time, fill up the sink and do a whole batch. Processing data in larger chunks can be more efficient, but be careful - waiting to fill a very large batch might slow down the start of your process.
+
+5. **Spread the Load**
 
 The key is finding the right balance for your specific needs. Each method has its pros and cons, so mix and match to find what works best for you.
 
 
 # Final Thoughts
 
-When I can choose which type of kafka event source consumer should I write I would definitely go with a lambda function. No deployment no servers needed for consuming and processing messages. For custom logic, sink lambdas are really powerful. The only thing I don't like is this scaling logic over which I don't have control their algorithm is a black box
+When I can choose which type of kafka event source consumer should I write I would go with a lambda function. No deployment no servers needed for consuming and processing messages. For custom logic, **sink lambdas** are powerful. **The only thing I don't like is this scaling logic over which I don't have control their algorithm is a black box.**
 
 
 
