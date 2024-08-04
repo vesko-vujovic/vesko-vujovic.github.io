@@ -171,3 +171,8 @@ outputs:
     - HTML
     - RSS
     - JSON
+sitemap:
+  changeFreq: "weekly"
+  disable: false
+  filename: sitemap.xml
+  priority: -1
