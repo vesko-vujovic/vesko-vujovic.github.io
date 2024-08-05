@@ -128,5 +128,6 @@ When I can choose which type of kafka event source consumer should I write I wou
 
 
 
+{{< chat dataset-vs-dataframe>}}
 
 
