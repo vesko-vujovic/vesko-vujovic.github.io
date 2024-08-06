@@ -96,8 +96,6 @@ Whenever lambda finishes with status code 200, the offset will be committed auto
 ## How to increase data processing throughput?
 
 
-Here's my own way of explaining how to improve processing throughput:
-
 Here's my way of explaining how to improve processing throughput:
 
 1. **Smart Filtering**
