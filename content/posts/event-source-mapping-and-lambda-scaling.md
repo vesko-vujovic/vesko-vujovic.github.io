@@ -84,7 +84,7 @@ See image bellow to see how scaling works:
 
 ![esm-arch](/posts/lambda-event-source/offset_lag.png)  
 
-> ***So to sum up total number of processors for all pollers is equal to the number of partitions in the topic***
+> ***So to sum up total number of processors for all pollers is equal to the number of partitions in the topic. This is the case when consumer lag is big and lambda function cannot keep up. In that case  topic partitions == poolers == processors == lambda functions invoked. So if you have 10 partitions on maximum scale out you will have 10 pollers, 10 processors and 10 lambdas invoked.***
 
 ## Committing offsets
 
