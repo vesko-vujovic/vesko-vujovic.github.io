@@ -19,7 +19,7 @@ cover:
 
 # Introduction
 
-Hi there 👋! In this blog post, we will explore why **JSON** is not suitable as a big data file format. We'll compare it to the widely used **Parquet** format and dig deep to demonstrate, through examples, how the JSON format can significantly degrade the performance of your data processing jobs.
+Hi there 👋! In this blog post, we will explore why **JSON** is not suitable as a big data file format. We'll compare it to the widely used **Parquet** format and dig deep to demonstrate, through examples, how the JSON format can significantly ***degrade the performance*** of your data processing jobs.
 JSON (JavaScript Object Notation) is a popular and versatile data format, but it has limitations when dealing with large-scale data operations. On the other hand, Parquet, an open-source columnar storage format, has become the go-to choice for big data applications.
 
 # Short comparison of JSON vs Parquet
@@ -141,6 +141,17 @@ When running the code to read a JSON dataset of approximately ***60GB of transac
 
 
 ![json-execution](/posts/json-vs-parquet/json_execution_time.png)  
+
+_When the same job with the same transactions is run using parquet files, it takes ***48 seconds***._
+
+See it for yourself  :eyes:  
+
+![parquet-execution](/posts/json-vs-parquet/parquet_execution_time.png)
+
+> So if you have a job that loads JSON and execution time is ***10h*** the one with Parquet will finish ruffly ***~4.8x faster*** i.e. it would finish in ***~2h***.
+
+
+
 
 show inout for stage in json job and parquet job
 show images for number of tasks 
