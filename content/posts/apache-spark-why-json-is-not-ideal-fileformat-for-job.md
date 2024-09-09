@@ -9,12 +9,12 @@ tags:
   - data-processing
   - file-formats
 cover:
-  image: "/posts/json-vs-parquet/cover-json-parquet.jpg"
+  image: "/posts/json-vs-parquet/floor-parquet.png"
   alt: "json-vs-parquet"
   caption: "json-vs-parquet"
 ---
 
-![json-vs-parquet](/posts/json-vs-parquet/cover-json-parquet.jpg)
+![json-vs-parquet](/posts/json-vs-parquet/floor-parquet.png)
 
 
 # Introduction
