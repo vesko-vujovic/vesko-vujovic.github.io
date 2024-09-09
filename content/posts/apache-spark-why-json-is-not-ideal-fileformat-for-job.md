@@ -1,6 +1,6 @@
 ---
 title: "Apache Spark: Why JSON isn't ideal format for your spark job"
-date: 2024-08-11T15:06:41+02:00
+date: 2024-09-09T15:06:41+02:00
 draft: true
 tags:
   - apache-spark
@@ -152,19 +152,37 @@ See it for yourself  :eyes:
 
 
 
+## Input data for stage
 
-show inout for stage in json job and parquet job
-show images for number of tasks 
-show shufle write data shufle
-mention partition pruning and the fact that with json we cannot skip data
+Ok next stop input data for the stage. Quick recap Spark job is divided into **stages**, each has many **tasks**. So stage will be the first receiver of input data, and we want to see the volume for both file types.
 
-## Input data for stage 
+### Parquet stage input data 
 
-## Number of tasks
+
+![parquet-input-data](/posts/json-vs-parquet/input_data_parquet.png)
+
+
+### JSON stage input data
+
+![parquet-input-data](/posts/json-vs-parquet/input_data_json.png)
+
+\
+_As you can see from the images input data per executor per stage  is more than **50% higher**. That means also more tasks, more tasks meaning more work for the driver node._
 
 
 
 # Final thoughts
+
+
+In this blog post, we have explored the differences between JSON and Parquet file formats in the context of big data processing. While JSON is a popular and flexible format, it has limitations when dealing with large-scale datasets.
+
+Our performance comparison using Apache Spark clearly demonstrates the advantages of using Parquet over JSON for big data workloads. With the same **~60GB dataset**, the **Spark job using Parquet completed 4.8x faster than the one using JSON**. This significant difference in execution time can have a huge impact on the efficiency and cost-effectiveness of your data processing pipelines.
+
+Moreover, Parquet's columnar storage format and built-in compression result in much smaller file sizes compared to JSON. This not only reduces storage costs but also minimizes the amount of data that needs to be read and processed, further improving performance.
+
+Parquet's strong typing, schema evolution capabilities, and compatibility with popular big data tools like Hadoop, Spark, and Hive make it an ideal choice for analytics, data warehousing, and machine learning use cases.
+
+In conclusion, while JSON has its place in web APIs and data interchange scenarios, Parquet is the clear winner when it comes to handling large-scale datasets efficiently. By adopting Parquet as your big data file format, you can significantly improve the performance, scalability, and cost-effectiveness of your data processing workflows.
 
 
 
