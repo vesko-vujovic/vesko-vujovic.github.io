@@ -1,7 +1,7 @@
 ---
 title: "Apache Spark: Why JSON isn't ideal format for your spark job"
 date: 2024-09-09T15:06:41+02:00
-draft: true
+draft: false
 tags:
   - apache-spark
   - data-engineering
