@@ -69,7 +69,7 @@ Here's a snippet from the Spark code that shows the implementation of the `union
 }
 ```
 
-As you can see in the comments of apache spark itself, the `union` function doesn't tke care if names of the columns are the same. It just combines two `dataframes` by **order**. 
+As you can see in the comments of Apache Spark  itself, the `union` function doesn't take care if names of the columns are the same. It just combines two `dataframes` by **order**. 
 
 This part here are teaching us an important lesson. :mouse_trap: A trap that sometimes without thinking I have fallen into. :smile:
 
@@ -97,7 +97,7 @@ Apache Spark's union function is a powerful tool for combining multiple DataFram
 
 However, when using union, it's crucial to be aware of potential **pitfalls that can break your Spark job**.
 
-One common issue arises when the DataFrames being unioned have different column orderings or data types. If you attempt to union such DataFrames and then cast the resulting DataFrame to a Dataset, your job may fail with cryptic errors. This can be frustrating and time-consuming to debug, especially if you have a large dataset. Feedback loop can be long.
+One common issue arises when the DataFrames being unioned have different column orderings or data types. If you attempt to union such DataFrames and then cast the resulting DataFrame to a Dataset, your job may fail with cryptic errors. This can be frustrating and time-consuming to debug, especially if you have a large dataset. The Feedback loop can be long.
 
 
 ## Example: 
