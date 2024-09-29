@@ -3,7 +3,7 @@ title: "Apache Spark: Beware of Column Ordering and Data Types When Using Apache
 date: 2024-09-10T20:06:41+02:00
 draft: true
 tags:
-  - apache-sparks
+  - apache-spark
   - data-engineering
   - big-data
   - data-processing
