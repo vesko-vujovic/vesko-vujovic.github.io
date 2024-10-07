@@ -1,6 +1,6 @@
 ---
 title: "Apache Spark: Beware of Column Ordering and Data Types When Using Apache Spark's Union Function"
-date: 2024-09-10T20:06:41+02:00
+date: 2024-10-07T08:06:41+02:00
 draft: true
 tags:
   - apache-spark
@@ -169,3 +169,5 @@ For example:
 When using Apache Spark's `union` function, it's crucial to ensure that the DataFrames being combined **have the same column ordering and data types**. Failing to do so can lead to silent errors and unexpected behavior in your Spark jobs. 
 
 To mitigate this issue, you can either reorder the columns before performing the union or use the `unionByName` function, which matches columns by their names. By understanding how the `union` function works and applying these solutions, you can ensure the reliability and correctness of your Spark jobs.
+
+{{< chat apache-spark-union-function>}}
