@@ -8,7 +8,7 @@ tags:
   - big-data
   - data-processing
 cover:
-  image: "/posts/spark-union-function/cover_1.png"
+  image: "/posts/spark-union-function/spark_cover.svg"
   alt: "spark-union-function"
   caption: "spark-union-function"
 ---
