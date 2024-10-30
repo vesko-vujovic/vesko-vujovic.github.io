@@ -50,7 +50,7 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
 2. **Generate a test dataset.** I used a custom Rust tool that I made to generate a **100 million record CSV 16GB in size**, but you can use your preferred method. Ensure your CSV matches this schema:
 
    ```json
-   {
+      {
       "columns": [
         {
           "name": "id",
@@ -78,32 +78,44 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
           "description": "The timestamp indicating when the transaction occurred."
         }
       ]
-  }
+     }
    ```
 
 3. **Load the data into Postgres:**
    
    - Copy the CSV into the Docker container:
      ```bash
-     docker cp your_data.csv pgduckdb:/tmp/
+     docker cp your_data.csv yourDockerId:/tmp/
+
+     // Successfully copied 16.2GB to 4222c43adc85:/tmp/
      ```
    - Connect to Postgres:
      ```bash
-     docker exec -it pgduckdb psql
+     docker exec -it 4222c43adc85 psql
      ```
    - Create a table matching your schema:
      ```sql
-     CREATE TABLE data (
-       id INTEGER,
-       first_name VARCHAR(50),
-       last_name VARCHAR(50),
-       email VARCHAR(100),
-       phone_number VARCHAR(50), 
-       age INTEGER,
-       bio TEXT,
-       is_active BOOLEAN
-     );
-     CREATE INDEX idx_data_age_is_active ON data (age, is_active);
+     CREATE TABLE transactions (
+          id BIGINT PRIMARY KEY,
+          user_id BIGINT NOT NULL,
+          provider_id BIGINT NOT NULL,
+          amount DOUBLE PRECISION NOT NULL,
+          timestamp VARCHAR(255) NOT NULL
+          );
+
+     // To check if table is created run \dt and you should see something like this
+
+     postgres=# \dt
+
+
+      List of relations
+
+       Schema |     Name     | Type  |  Owner
+      --------+--------------+-------+----------
+       public | transactions | table | postgres
+        (1 row)
+
+
      ```
    - Import the CSV data:
      ```sql
