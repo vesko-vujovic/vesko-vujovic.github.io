@@ -125,30 +125,163 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
 4. **Run a test query using plain Postgres:**
    
    ```sql
-   EXPLAIN ANALYZE 
-   SELECT
-     age,
-     is_active,
-     COUNT(*) AS user_count
-   FROM data
-   GROUP BY age, is_active;
+    EXPLAIN ANALYZE 
+      SELECT
+        user_id,
+        COUNT(*) AS user_count,
+        SUM(amount) as total_sum
+      FROM transactions
+      GROUP BY user_id, provider_id;
    ```
-   Note the execution time.
+
+   ```
+
+       Finalize GroupAggregate  (cost=2374452.53..2379719.52 rows=20000 width=48) (actual time=12746.024..12760.932 rows=20
+    000 loops=1)
+       Group Key: user_id, provider_id
+       ->  Gather Merge  (cost=2374452.53..2379119.52 rows=40000 width=48) (actual time=12745.973..12757.082 rows=60000 l
+    oops=1)
+             Workers Planned: 2
+             Workers Launched: 2
+             ->  Sort  (cost=2373452.51..2373502.51 rows=20000 width=48) (actual time=12693.440..12694.115 rows=20000 loo
+    ps=3)
+                   Sort Key: user_id, provider_id
+                   Sort Method: quicksort  Memory: 2175kB
+                   Worker 0:  Sort Method: quicksort  Memory: 2175kB
+                   Worker 1:  Sort Method: quicksort  Memory: 2175kB
+                   ->  Partial HashAggregate  (cost=2371823.74..2372023.74 rows=20000 width=48) (actual time=12687.513..12689.023 rows=20000 loops=3)
+                         Group Key: user_id, provider_id
+                         Batches: 1  Memory Usage: 3089kB
+                         Worker 0:  Batches: 1  Memory Usage: 3089kB
+                         Worker 1:  Batches: 1  Memory Usage: 3089kB
+                         ->  Parallel Seq Scan on transactionsv2  (cost=0.00..1955151.87 rows=41667187 width=40) (actual time=0.687..7396.973 rows=33333333 loops=3)
+     Planning Time: 3.365 ms
+     JIT:
+       Functions: 24
+       Options: Inlining true, Optimization true, Expressions true, Deforming true
+       Timing: Generation 6.757 ms, Inlining 139.663 ms, Optimization 76.226 ms, Emission 67.729 ms, Total 290.374 ms
+     Execution Time: 12769.469 ms
+    (22 rows)
+
+
+   ```
+
+   Here is the summary of the key execution metrics from this PostgreSQL query plan:
+
+   {{< linebreaks >}}
+
+    Total Records Scanned:
+    - Approximately 100 million records **(33,333,333 rows × 3 loops in Parallel Seq Scan)**
+
+    Timing Breakdown:
+    - Planning Time: 3.365 ms
+    - JIT Compilation Time: 290.374 ms
+    - Total Execution Time: **12,769.469 ms (≈12.77 seconds)**
+
+    The query involved parallel processing with 2 workers and performed aggregation operations, ultimately returning 20,000 rows as the final result. 
+
+    {{< linebreaks >}}
 
 5. **Run the same query using DuckDB inside Postgres:**
    
    ```sql
    SET duckdb.force_execution = true;
    
-   EXPLAIN ANALYZE
-   SELECT
-     age, 
-     is_active,
-     COUNT(*) AS user_count  
-   FROM data
-   GROUP BY age, is_active;
+    EXPLAIN ANALYZE 
+      SELECT
+        user_id,
+        COUNT(*) AS user_count,
+        SUM(amount) as total_sum
+      FROM transactions
+      GROUP BY user_id, provider_id;
    ```
    Compare DuckDB's execution time to Postgres'.
+
+
+   ```
+
+    Custom Scan (DuckDBScan)  (cost=0.00..0.00 rows=0 width=0) (actual time=16092.034..16092.280 rows=1 loops=1)
+   DuckDB Execution Plan:
+
+     ┌─────────────────────────────────────┐
+     │┌───────────────────────────────────┐│
+     ││    Query Profiling Information    ││
+     │└───────────────────────────────────┘│
+     └─────────────────────────────────────┘
+     EXPLAIN ANALYZE SELECT user_id, count(*) AS user_count, sum(amount) AS total_sum FROM pgduckdb.public.transactionsv2 GROUP BY user_id, provider_id
+     ┌────────────────────────────────────────────────┐
+     │┌──────────────────────────────────────────────┐│
+     ││              Total Time: 15.12s              ││
+     │└──────────────────────────────────────────────┘│
+     └────────────────────────────────────────────────┘
+     ┌───────────────────────────┐
+     │           QUERY           │
+     └─────────────┬─────────────┘
+     ┌─────────────┴─────────────┐
+     │      EXPLAIN_ANALYZE      │
+     │    ────────────────────   │
+     │           0 Rows          │
+     │          (0.00s)          │
+     └─────────────┬─────────────┘
+     ┌─────────────┴─────────────┐
+     │         PROJECTION        │
+     │    ────────────────────   │
+     │          user_id          │
+     │         user_count        │
+     │         total_sum         │
+     │                           │
+     │         20000 Rows        │
+     │          (0.00s)          │
+     └─────────────┬─────────────┘
+     ┌─────────────┴─────────────┐
+     │       HASH_GROUP_BY       │
+     │    ────────────────────   │
+     │          Groups:          │
+     │             #0            │
+     │             #1            │
+     │                           │
+     │        Aggregates:        │
+     │        count_star()       │
+     │          sum(#2)          │
+     │                           │
+     │         20000 Rows        │
+     │          (2.09s)          │
+     └─────────────┬─────────────┘
+     ┌─────────────┴─────────────┐
+     │         PROJECTION        │
+     │    ────────────────────   │
+     │          user_id          │
+     │        provider_id        │
+     │           amount          │
+     │                           │
+     │       100000000 Rows      │
+     │          (0.03s)          │
+     └─────────────┬─────────────┘
+     ┌─────────────┴─────────────┐
+     │         TABLE_SCAN        │
+     │    ────────────────────   │
+     │         Function:         │
+     │     POSTGRES_SEQ_SCAN     │
+     │                           │
+     │        Projections:       │
+     │          user_id          │
+     │        provider_id        │
+     │           amount          │
+     │                           │
+     │       100000000 Rows      │
+     │          (12.95s)         │
+     └───────────────────────────┘
+
+
+     Planning Time: 3.612 ms
+     JIT:
+       Functions: 1
+       Options: Inlining true, Optimization true, Expressions true, Deforming true
+       Timing: Generation 2.988 ms, Inlining 0.000 ms, Optimization 0.000 ms, Emission 0.000 ms, Total 2.988 ms
+     Execution Time: 16098.163 ms
+
+
+   ```
 
 That's it! You're now equipped to pit Postgres against DuckDB and see how they perform on your own data and queries.
 
