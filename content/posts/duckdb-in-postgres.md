@@ -96,12 +96,12 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
    - Create a table matching your schema:
      ```sql
      CREATE TABLE transactions (
-          id BIGINT PRIMARY KEY,
-          user_id BIGINT NOT NULL,
-          provider_id BIGINT NOT NULL,
-          amount DOUBLE PRECISION NOT NULL,
-          timestamp VARCHAR(255) NOT NULL
-          );
+        id UUID PRIMARY KEY,
+        user_id UUID NOT NULL,
+        provider_id UUID NOT NULL,
+        amount DOUBLE PRECISION NOT NULL,
+        timestamp VARCHAR(255) NOT NULL
+      );
 
      // To check if table is created run \dt and you should see something like this
 
