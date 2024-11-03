@@ -282,8 +282,37 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
 
 
    ```
+## Wait wait wait something is wrong? 
 
-That's it! You're now equipped to pit Postgres against DuckDB and see how they perform on your own data and queries.
+![duckdb-postgresql](/posts/duckdb-postgres/bar-chart.png)
+
+
+It seems like that DuckDB is slower **4 seconds**. This is really weird. 😱
+
+Ok so let's see what's the problem.
+
+In their latest post here on this [link](https://motherduck.com/blog/pgduckdb-beta-release-duckdb-postgres/?utm_source=substack&utm_medium=email) we can read one thing in particular.
+
+![motherduckdb](/posts/duckdb-postgres/motherduck.png)
+
+
+*So, from the picture one thing is clear, **DuckDB does not support indexes**, which is why we have situations where query with DuckDB is slower*.
+
+
+## Should we give it a fair shake one more time?
+
+Ok, so this time we will disable indexes and try again to see the results.
+
+First things first let's do this.
+
+```bash
+SET enable_indexscan = on;
+SET enable_bitmapscan = on;
+```
+
+
+
+ 
 
 ## The Future of DuckDB and Postgres
 
