@@ -335,15 +335,44 @@ If you take this test to another level they say this:
 So the difference is huge **2h VS 400ms** imagine that 🤯 🤯 🤯
 
 
-# Other cool features of this integration
+# Other cool features of this magic duo
 
-[...remaining content stays the same...]
+Here's a blog-friendly paragraph with a clear feature list:
+
+DuckDB isn't just about blazing-fast query performance – it's a Swiss Army knife for modern data workflows. When working with DuckDB inside PostgreSQL, you get access to a powerful suite of features that can transform your data operations. Imagine seamlessly reading and writing Parquet and CSV files directly from cloud storage like AWS S3, Cloudflare R2, or Google GCS with simple SQL commands. You can query massive datasets using file globs, join cloud data with local PostgreSQL tables, and even write your results back to object storage in a single query.
+
+Here are some game-changing features you can start using today:
+
+📊 **Cloud Storage Integration**
+- Direct read/write to S3, GCS, and R2
+- Support for Parquet and CSV files
+- File glob pattern matching for bulk operations
+
+🔄 **Data Operations**
+- Join cloud data with PostgreSQL tables
+- Create columnar temporary tables for speed
+- Cache remote objects locally for faster queries
+- Write query results directly to cloud storage
+
+🛠️ **Extensions & Integration**
+- Apache Iceberg support
+- MotherDuck integration
+- Easy extension installation with `duckdb.install_extension()`
+
+⚡ **Performance Controls**
+- Toggle DuckDB execution on/off with `SET duckdb.force_execution`
+- Create high-performance temp tables using `CREATE TEMP TABLE ... USING duckdb`
+- Smart local caching for remote data
+
+Whether you're analyzing cloud data, performing complex joins, or building efficient ETL pipelines, DuckDB's rich feature set makes it a compelling choice for modern data engineering. The best part? All these powerful features can be toggled on and off with simple commands, giving you complete control over your data workflow.
 
 
 ## The Verdict on DuckDB Inside Postgres
 
-So, is the DuckDB-Postgres tag team worth the hype? It's a solid "maybe" for now. While DuckDB didn't outpace Postgres in this test, I suspect there's more to the story. The performance boost likely depends heavily on the specifics of your data and queries.
+DuckDB inside Postgres is a powerful combination that brings together the best of both worlds: Postgres' reliability and DuckDB's lightning-fast analytics. While our initial tests showed some performance challenges, the potential of this dynamic duo is undeniable.
+
+So, is the DuckDB-Postgres combination worth the hype? It's a solid "maybe" for now. While DuckDB didn't outpace Postgres in this test, I suspect there's more to the story. The performance boost likely depends heavily on the specifics of your data and queries i.e. if you don't use indexes it's 1500 times faster. 
 
 Don't write off this dynamic duo just yet. As the DuckDB team continues to refine their Postgres integration, we may see some truly impressive speed-ups for certain analytics workloads.
 
-In the meantime, it's exciting to see two data stalwarts joining forces in new and unexpected ways. Who knows what other surprising pairings the future of data engineering holds?
+In the meantime, it's exciting to see two data leaders are joining forces in new and unexpected ways. Who knows what other surprising pairings the future of data engineering holds?
