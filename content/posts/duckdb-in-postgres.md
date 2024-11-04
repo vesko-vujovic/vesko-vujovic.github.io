@@ -299,22 +299,43 @@ In their latest post here on this [link](https://motherduck.com/blog/pgduckdb-be
 *So, from the picture one thing is clear, **DuckDB does not support indexes**, which is why we have situations where query with DuckDB is slower*.
 
 
-## Should we give it a fair shake one more time?
+## Motherduck performance statment for this duo. 
 
-Ok, so this time we will disable indexes and try again to see the results.
 
-First things first let's do this.
+``` bash
+//PostgreSQL
 
-```bash
-SET enable_indexscan = on;
-SET enable_bitmapscan = on;
+postgres=# \timing on
+Timing is on.
+postgres=# \i 01.sql -- I ran this twice to warm the cache
+Time: 81783.057 ms (01:21.783)
+
+```
+{{<linebreaks>}}
+
+
+``` bash
+// DuckDB
+
+postgres=# SET duckdb.force_execution = true; -- causes execution to use DuckDB
+Time: 0.287 ms
+postgres=# \i 01.sql
+Time: 52.190 ms
+
+
 ```
 
+Running our analytical query in standard PostgreSQL was painfully slow, taking **81.8 seconds** to complete. The same query with DuckDB's executed in **52.190 milisecdons**. That is 1500x faster. 
 
 
- 
+If you take this test to another level they say this:
 
-## The Future of DuckDB and Postgres
+>If we run this on EC2 in AWS1, using 10x the data (TPC-DS scale factor 10 instead of 1), this query takes more than 2 hours with the native PostgreSQL execution engine, while it only takes ~400ms when using pg_duckdb.
+
+So the difference is huge **2h VS 400ms** imagine that 🤯 🤯 🤯
+
+
+# Other cool features of this integration
 
 [...remaining content stays the same...]
 
