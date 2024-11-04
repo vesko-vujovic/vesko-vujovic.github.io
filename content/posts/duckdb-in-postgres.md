@@ -325,7 +325,7 @@ Time: 52.190 ms
 
 ```
 
-Running our analytical query in standard PostgreSQL was painfully slow, taking **81.8 seconds** to complete. The same query with DuckDB's executed in **52.190 milisecdons**. That is 1500x faster. 
+Running our analytical query in standard PostgreSQL was painfully slow, taking **81.8 seconds** to complete. The same query with DuckDB's executed in **52.190 miliseconds**. That is 1500x faster. 
 
 
 If you take this test to another level they say this:
