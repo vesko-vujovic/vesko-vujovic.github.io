@@ -299,7 +299,7 @@ In their latest post here on this [link](https://motherduck.com/blog/pgduckdb-be
 *So, from the picture one thing is clear, **DuckDB does not support indexes**, which is why we have situations where query with DuckDB is slower*.
 
 
-## Motherduck performance statment for this duo. 
+## Motherduck performance statment for this duo 
 
 
 ``` bash
@@ -337,11 +337,10 @@ So the difference is huge **2h VS 400ms** imagine that 🤯 🤯 🤯
 
 # Other cool features of this magic duo
 
-Here's a blog-friendly paragraph with a clear feature list:
 
 DuckDB isn't just about blazing-fast query performance – it's a Swiss Army knife for modern data workflows. When working with DuckDB inside PostgreSQL, you get access to a powerful suite of features that can transform your data operations. Imagine seamlessly reading and writing Parquet and CSV files directly from cloud storage like AWS S3, Cloudflare R2, or Google GCS with simple SQL commands. You can query massive datasets using file globs, join cloud data with local PostgreSQL tables, and even write your results back to object storage in a single query.
 
-Here are some game-changing features you can start using today:
+Here are some features you can start using today:
 
 📊 **Cloud Storage Integration**
 - Direct read/write to S3, GCS, and R2
@@ -364,7 +363,7 @@ Here are some game-changing features you can start using today:
 - Create high-performance temp tables using `CREATE TEMP TABLE ... USING duckdb`
 - Smart local caching for remote data
 
-Whether you're analyzing cloud data, performing complex joins, or building efficient ETL pipelines, DuckDB's rich feature set makes it a compelling choice for modern data engineering. The best part? All these powerful features can be toggled on and off with simple commands, giving you complete control over your data workflow.
+All these powerful features can be toggled on and off with simple commands, giving you complete control over your data workflow.
 
 
 ## The Verdict on DuckDB Inside Postgres
