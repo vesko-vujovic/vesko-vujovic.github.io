@@ -1,14 +1,17 @@
 ---
 title: "DuckDB Inside Postgres: The Unlikely Duo Supercharging Analytics"
 date: 2024-10-30T15:06:41+02:00
-draft: true
+draft: false
 tags:
   - postgresql
   - data-engineering
   - big-data
+  - OLAP
+  - OLTP
   - data-processing
   - duckdb
   - database
+  - data-modeling
 cover:
   image: "/posts/duckdb-postgres/duckdb-postgres-cover.png"
   alt: "duckdb"
@@ -20,9 +23,9 @@ cover:
 
 # DuckDB Inside Postgres: The Unlikely Duo Supercharging Analytics 
 
-If you work in data engineering, you know that the field moves at a dizzying pace. New tools and technologies seem to pop up daily, each promising to revolutionize how we store, process and analyze data. Amidst this constant change, two names have remained stalwarts: Postgres, the tried-and-true relational database, and DuckDB, the talented new kid on the block for analytics workloads.
+If you work in data engineering, you know that the field moves at a dizzying pace. New tools and technologies seem to pop up daily, each promising to revolutionize how we store, process, and analyze data. Amidst this constant change, two names have remained stalwarts: Postgres, the tried-and-true relational database, and DuckDB, the talented new kid on the block for analytics workloads.
 
-But what if I told you that these two data powerhouses could work together - not just side by side, but DuckDB *inside* Postgres? Sounds wild, right? Let's explore what this dynamic duo can do.
+But what if I told you that these two data powerhouses could work together - not just side by side, but **DuckDB *inside* Postgres?** Sounds wild, right? Let's explore what this dynamic duo can do.
 
 ## Why DuckDB and Postgres Are a Match Made in Data Heaven
 
@@ -34,7 +37,7 @@ Marrying Postgres' robust data management with DuckDB's analytics prowess is a s
 
 ## Putting DuckDB Inside Postgres to the Test
 
-Of course, the proof is in the pudding (or the query execution time, as it were). Using a handy Docker image provided by the DuckDB team, I spun up a Postgres instance with the DuckDB extension installed. I then generated a **hefty dataset - 100 million records** - and loaded it into a Postgres table. Complete guide on how to do it you can find below.
+Of course, the proof is in the pudding (or the query execution time, as it were). Using a handy Docker image provided by the DuckDB team, I spun up a Postgres instance with the DuckDB extension installed. I then generated a **hefty dataset - 100 million records** - and loaded it into a Postgres table. A complete guide on how to do it can be found below.
 
 
 ## Testing DuckDB Inside Postgres: A Step-by-Step Guide
@@ -195,7 +198,7 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
       FROM transactions
       GROUP BY user_id, provider_id;
    ```
-   Compare DuckDB's execution time to Postgres'.
+   Compare DuckDB's execution time to Postgres.
 
 
    ```
@@ -287,7 +290,7 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
 ![duckdb-postgresql](/posts/duckdb-postgres/bar-chart.png)
 
 
-It seems like that DuckDB is slower **4 seconds**. This is really weird. 😱
+It seems like DuckDB is slower **4 seconds**. This is really weird. 😱
 
 Ok so let's see what's the problem.
 
@@ -299,7 +302,7 @@ In their latest post here on this [link](https://motherduck.com/blog/pgduckdb-be
 *So, from the picture one thing is clear, **DuckDB does not support indexes**, which is why we have situations where query with DuckDB is slower*.
 
 
-## Motherduck performance statment for this duo 
+## Motherduck performance statement for this duo 
 
 
 ``` bash
@@ -325,7 +328,7 @@ Time: 52.190 ms
 
 ```
 
-Running our analytical query in standard PostgreSQL was painfully slow, taking **81.8 seconds** to complete. The same query with DuckDB's executed in **52.190 miliseconds**. That is 1500x faster. 
+Running our analytical query in standard PostgreSQL was painfully slow, taking **81.8 seconds** to complete. The same query with DuckDB was executed in **52.190 milliseconds**. **That is 1500x faster**. 
 
 
 If you take this test to another level they say this:
@@ -366,7 +369,7 @@ Here are some features you can start using today:
 All these powerful features can be toggled on and off with simple commands, giving you complete control over your data workflow.
 
 
-## The Verdict on DuckDB Inside Postgres
+# The Verdict on DuckDB Inside Postgres
 
 DuckDB inside Postgres is a powerful combination that brings together the best of both worlds: Postgres' reliability and DuckDB's lightning-fast analytics. While our initial tests showed some performance challenges, the potential of this dynamic duo is undeniable.
 
@@ -374,4 +377,4 @@ So, is the DuckDB-Postgres combination worth the hype? It's a solid "maybe" for 
 
 Don't write off this dynamic duo just yet. As the DuckDB team continues to refine their Postgres integration, we may see some truly impressive speed-ups for certain analytics workloads.
 
-In the meantime, it's exciting to see two data leaders are joining forces in new and unexpected ways. Who knows what other surprising pairings the future of data engineering holds?
+In the meantime, it's exciting to see two data leaders joining forces in new and unexpected ways. Who knows what other surprising pairings the future of data engineering holds?
