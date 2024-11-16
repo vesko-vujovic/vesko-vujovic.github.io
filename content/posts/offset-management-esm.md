@@ -78,3 +78,23 @@ So let's refresh our memory how lambda is commiting offsets :brain: From my prev
 
 
 After refreshing our memory we can create a summary of the things that ESM does for us. 
+
+
+### 2. What Happens Behind the Scenes?
+
+Lambda's Event Source Mapping acts as a sophisticated Kafka consumer that handles several complex operations automatically:
+
+1. **Consumer Group Management**
+   - Creates and manages consumer groups
+   - Handles partition assignments
+   - Manages group coordination
+
+2. **Offset Tracking**
+   - Maintains internal checkpoints
+   - Handles offset commits automatically
+   - Manages recovery scenarios
+
+3. **Error Handling**
+   - Implements retry logic
+   - Routes failed messages to DLQ
+   - Manages partial batch failures
