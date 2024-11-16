@@ -98,3 +98,65 @@ Lambda's Event Source Mapping acts as a sophisticated Kafka consumer that handle
    - Implements retry logic
    - Routes failed messages to DLQ
    - Manages partial batch failures
+
+
+## Key Features You Get Out of the Box
+
+### 1. Automatic Checkpoint Storage
+
+Lambda maintains its own checkpoint system for reliability. Think of it as an internal conversation that goes something like this (this is just a pseudocode):
+
+```python
+# This happens automatically inside Lambda
+def internal_offset_management():
+    try:
+        messages = poll_kafka()
+        process_batch(messages)
+        commit_offset()  # Automatic
+    except Exception:
+        handle_retry()  # Automatic retry logic
+```
+
+
+### 2. Smart Recovery Mechanisms
+
+When offsets expire or become invalid, Lambda implements smart recovery:
+
+```python
+# Internal Lambda Logic (simplified)
+def handle_offset_expiry():
+    if consumer_grpup_exists and offset_exists:
+        resume_from_last_checkpoint()
+    elif starting_position == "TRIM_HORIZON":
+        start_from_earliest()
+    else:  # LATEST
+        start_from_newest()
+```
+
+
+
+## What You Need to Do vs. What's Handled Automatically
+
+### Handled Automatically by Lambda:
+- ✅ Offset commits
+- ✅ Checkpoint storage
+- ✅ Consumer group management
+- ✅ Partition rebalancing
+- ✅ Basic error retries
+- ✅ DLQ routing
+
+
+### Your Responsibilities:
+1. **Proper Configuration**:
+   ```yaml
+   Properties:
+     # Critical data? Start from beginning
+     StartingPosition: TRIM_HORIZON
+     
+     # Tune based on your needs
+     BatchSize: 100
+     MaximumBatchingWindowInSeconds: 30
+     
+     # Configure appropriate retry behavior
+     MaximumRetryAttempts: 2
+   ```
