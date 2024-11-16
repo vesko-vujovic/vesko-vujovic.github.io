@@ -160,3 +160,103 @@ def handle_offset_expiry():
      # Configure appropriate retry behavior
      MaximumRetryAttempts: 2
    ```
+
+
+2. **Monitoring Implementation**:
+   ```python
+   def lambda_handler(event, context):
+       metrics = {
+           'BatchSize': len(event['records']),
+           'ProcessingTime': process_time,
+           'FailedRecords': failed_count
+       }
+       publish_metrics(metrics)
+   ```
+
+3. **Business Logic Error Handling**:
+   ```python
+   def lambda_handler(event, context):
+       failed_records = []
+       for record in event['records']:
+           try:
+               process_record(record)
+           except Exception as e:
+               failed_records.append({
+                   'recordIdentifier': record['recordIdentifier'],
+                   'error': str(e)
+               })
+       return {'batchItemFailures': failed_records}
+   ```
+
+
+## Best Practices and Recommendations
+
+### 1. Configuration Best Practices
+- Set appropriate batch sizes based on message processing time
+- Configure retry attempts based on business requirements
+- Always implement a DLQ for failed messages
+- Use TRIM_HORIZON for critical data processing
+
+### 2. Monitoring Essentials
+- Track consumer lag
+- Monitor processing errors
+- Watch DLQ messages
+- Measure processing latency
+
+### 3. Error Handling Strategy
+- Implement proper error categorization
+- Log sufficient context for debugging
+- Handle partial batch failures appropriately
+- Monitor retry patterns
+
+## Limitations to Keep in Mind
+
+1. **Fixed Behaviors**:
+   - Can't manually control offset commits
+   - Fixed retry behavior patterns
+   - Limited consumer group customization
+   - No custom partition assignment strategies
+
+2. **Configuration Constraints**:
+   - Maximum batch size limits
+   - Fixed scaling patterns
+   - Predetermined retry policies
+
+
+## One detail worth **milions of dollars** 💵💵💵
+
+When you have a consumer group on kafka (our lambda function) that wasn't active for more then a *week* what happens with commited offsets on kafka? 
+
+
+**Kafka will delete commited offsets depending on offsets.retention.minutes setting on kafka broker if you consumer is inactive for more than 7 days.** More info [here](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html)
+
+### So how does AWS Lamnda knows from where to start then? 
+
+Is it starting from **latest records** or because it's has it's own consumer group commited offsets erased starting from begining of the topic (if your pipeline isn't **idempotent** this would be a major blow to your data? 
+
+From my hands on experience with this case and reading the AWS documentation we can say this
+
+> **If offsets are expired AWS Lambda will start from StartingPosition that you defined when deploying your lambda, if they are not expired it will resume from last commited offset.**
+
+Excerpt from the documentation:
+
+> Additionally, if you specify a consumer group ID, and Kafka finds a valid existing consumer group with the same ID, Lambda ignores the StartingPosition parameter for your event source mapping. Instead, Lambda begins processing records according to the committed offset of the consumer group. If you specify a consumer group ID, and Kafka cannot find an existing consumer group, then Lambda configures your event source with the specified StartingPosition.
+
+Especially focus on this part of the text:
+
+>**If you specify a consumer group ID, and Kafka cannot find an existing consumer group, then Lambda configures your event source with the specified StartingPosition.**
+
+
+## Conclusion
+
+Understanding how AWS Lambda's Event Source Mapping handles Kafka offsets is crucial for building reliable event-driven architectures. While Lambda abstracts away much of the complexity of offset management, being aware of its behavior—especially regarding offset retention and recovery—can save you from potential data processing issues. 
+
+The automatic offset management, combined with the **StartingPosition** configuration, provides a robust foundation for handling both active and inactive consumer groups. However, the real power lies in knowing what's handled automatically versus what requires your attention.
+
+By following the best practices outlined in this post, properly configuring your Event Source Mapping, and implementing comprehensive monitoring and error handling, you can build resilient Kafka-Lambda integrations that handle message processing reliably, even after extended periods of inactivity. Remember, when it comes to offset management in Lambda, the magic happens automatically, but understanding the mechanics behind it is worth its weight in gold—or 💰💰💰 in this case, millions of dollars in prevented data processing issues. :smile:
+
+
+
+
+
+
