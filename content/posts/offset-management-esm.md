@@ -42,3 +42,39 @@ flowchart TD
     D -->|Recovery| B
     F -->|Next Batch| B
 ```
+
+
+## The Magic of Automatic Offset Management
+
+
+### 1. Initial Setup & Configuration
+
+Let's start with a basic Event Source Mapping configuration:
+
+```yaml
+Resources:
+  KafkaEventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      FunctionName: !Ref MyLambdaFunction
+      StartingPosition: TRIM_HORIZON  # or LATEST
+      BatchSize: 100
+      MaximumBatchingWindowInSeconds: 30
+      ParallelizationFactor: 1
+      MaximumRecordAgeInSeconds: 604800  # 7 days
+      MaximumRetryAttempts: 2
+      DestinationConfig:
+        OnFailure:
+          Destination: !Ref DLQArn
+      KafkaConfiguration:
+        AutoOffsetReset: "earliest"
+```
+{{<linebreaks>}}
+
+
+So let's refresh our memory how lambda is commiting offsets :brain: From my previous blog on [event-source-mapping](https://blog.veskovujovic.me/posts/event-source-mapping-and-lambda-scaling/) we said 🗣️:
+
+> Whenever lambda finishes with status code 200, the offset will be committed automatically for the kafka topic.
+
+
+After refreshing our memory we can create a summary of the things that ESM does for us. 
