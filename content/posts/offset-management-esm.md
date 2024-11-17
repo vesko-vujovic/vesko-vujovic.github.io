@@ -189,39 +189,6 @@ def handle_offset_expiry():
    ```
 
 
-## Best Practices and Recommendations
-
-### 1. Configuration Best Practices
-- Set appropriate batch sizes based on message processing time
-- Configure retry attempts based on business requirements
-- Always implement a DLQ for failed messages
-- Use TRIM_HORIZON for critical data processing
-
-### 2. Monitoring Essentials
-- Track consumer lag
-- Monitor processing errors
-- Watch DLQ messages
-- Measure processing latency
-
-### 3. Error Handling Strategy
-- Implement proper error categorization
-- Log sufficient context for debugging
-- Handle partial batch failures appropriately
-- Monitor retry patterns
-
-## Limitations to Keep in Mind
-
-1. **Fixed Behaviors**:
-   - Can't manually control offset commits
-   - Fixed retry behavior patterns
-   - Limited consumer group customization
-   - No custom partition assignment strategies
-
-2. **Configuration Constraints**:
-   - Maximum batch size limits
-   - Fixed scaling patterns
-   - Predetermined retry policies
-
 
 ## One detail worth **milions of dollars** 💵💵💵
 
