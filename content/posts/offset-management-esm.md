@@ -72,9 +72,9 @@ Resources:
 {{<linebreaks>}}
 
 
-So let's refresh our memory how lambda is commiting offsets :brain: From my previous blog on [event-source-mapping](https://blog.veskovujovic.me/posts/event-source-mapping-and-lambda-scaling/) we said 🗣️:
+So let's refresh our memory on how lambda is committing offsets :brain: In my previous blog on [event-source-mapping](https://blog.veskovujovic.me/posts/event-source-mapping-and-lambda-scaling/) we said 🗣️:
 
-> Whenever lambda finishes with status code 200, the offset will be committed automatically for the kafka topic.
+> Whenever lambda finishes with status code **200**, the offset will be committed automatically for the kafka topic.
 
 
 After refreshing our memory we can create a summary of the things that ESM does for us. 
@@ -104,7 +104,7 @@ Lambda's Event Source Mapping acts as a sophisticated Kafka consumer that handle
 
 ### 1. Automatic Checkpoint Storage
 
-Lambda maintains its own checkpoint system for reliability. Think of it as an internal conversation that goes something like this (this is just a pseudocode):
+Lambda maintains its checkpoint system for reliability. Think of it as an internal conversation that goes something like this (this is just a pseudocode):
 
 ```python
 # This happens automatically inside Lambda
