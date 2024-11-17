@@ -197,7 +197,7 @@ When you have a consumer group on kafka (our lambda function) that wasn't active
 
 **Kafka will delete commited offsets depending on offsets.retention.minutes setting on kafka broker if you consumer is inactive for more than 7 days.** More info [here](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html)
 
-### So how does AWS Lamnda knows from where to start then? 
+### So how does AWS Lambda know where to start then?
 
 Is it starting from **latest records** or because it's has it's own consumer group commited offsets erased starting from begining of the topic (if your pipeline isn't **idempotent** this would be a major blow to your data? 
 
