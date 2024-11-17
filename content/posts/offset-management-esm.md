@@ -25,7 +25,7 @@ Many developers wonder: **Do I need to manage Kafka offsets manually?** or **Wha
 
 In this blog post, we'll demystify how AWS Lambda's Event Source Mapping handles Kafka offsets automatically and what you actually need to know as a developer.
 
-## Understanding the Architecture
+## Understanding the Architecture behind AWS Lambda offset management
 
 
 Before diving into the details, let's visualize how Lambda Event Source Mapping works with Kafka:
