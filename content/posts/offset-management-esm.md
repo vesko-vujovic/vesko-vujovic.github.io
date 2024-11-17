@@ -190,9 +190,9 @@ def handle_offset_expiry():
 
 
 
-## One detail worth **milions of dollars** 💵💵💵
+## One detail worth **millions of dollars** 💵💵💵
 
-When you have a consumer group on kafka (our lambda function) that wasn't active for more then a *week* what happens with commited offsets on kafka? 
+When you have a consumer group on kafka (our lambda function) that wasn't active for more than a *week* what happens with committed offsets on kafka?  
 
 
 **Kafka will delete commited offsets depending on offsets.retention.minutes setting on kafka broker if you consumer is inactive for more than 7 days.** More info [here](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html)
