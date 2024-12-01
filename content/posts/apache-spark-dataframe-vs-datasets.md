@@ -7,11 +7,9 @@ tags:
   - data-engineering
   - apache-spark
 cover:
-  image: "/posts/tortoise_smaller.jpeg"
-  # can also paste direct link from external site
-  # ex. https://i.ibb.co/K0HVPBd/paper-mod-profilemode.png
-  alt: "tortoise"
-  caption: "tortoise"
+  image: /posts/tortoise_smaller.jpeg
+  alt: tortoise
+  caption: tortoise
 ---
 
 ![spark](/posts/tortoise.jpeg)
