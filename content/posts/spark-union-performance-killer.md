@@ -8,9 +8,18 @@ tags:
   - apache-spark
   - data-processing
 cover:
-  image: "/posts/tortoise_smaller.jpeg"
-  alt: "tortoise"
-  caption: "tortoise"
+  image: /posts/tortoise_smaller.jpeg
+  alt: tortoise
+  caption: tortoise
+description:
 ---
 
-![spark](/posts/tortoise.jpeg)
+
+# The Problem: Union Isn't as Simple as it Seems
+
+Picture this: You have a large dataset that you need to process in different ways, so you:
+
+- Split it into smaller pieces
+- Transform each piece differently
+- Put them back together using union
+
