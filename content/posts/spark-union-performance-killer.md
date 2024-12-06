@@ -15,7 +15,7 @@ description:
 ---
 
 
-# The Problem: Union Isn't as Simple as it Seems
+# The Problem: Union function isn't as Simple as it Seems
 
 Picture this: You have a large dataset that you need to process in different ways, so you:
 
@@ -23,3 +23,6 @@ Picture this: You have a large dataset that you need to process in different way
 - Transform each piece differently
 - Put them back together using union
 
+Sounds straightforward, right? Well, there's a catch that most developers don't know about.
+
+# The Hidden Performance Killer 🐌
