@@ -52,12 +52,16 @@ Here's what's actually happening behind the scenes when you use `union`:
     println(s"Total count: $result")
 
     // Optional: Show the execution plan
-    dfOddWithMagic.union(dfEvenWithMagic).explain(true)
-
+    dfOddWithMagic.union(dfEvenWithMagic).explain("formatted")
 
 ```
 
 When Spark sees this code, it doesn't realize it can reuse data. Instead, it goes back to the beginning and processes your entire pipeline again for each part of the union!
+
 Think of it like running an entire production line twice to make identical toys, just to paint half of them red and half blue. Instead, you could run the production line once and split the toys for different paint jobs at the end!
 
-Look at this execution plan 
+Look at this execution plan, we see twice the same part of the plan:
+
+![recompute-image](/posts/spark-union-performance/union-recompute.png)
+
+
