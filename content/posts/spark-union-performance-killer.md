@@ -78,7 +78,7 @@ Here's how to make your unions lightning fast:
 
 By adding `cache()`, you're telling Spark: "Hey, keep this data in memory - we'll need it again soon!"
 
-Now imagine these scenarios:
+### Now imagine these scenarios:
 - You have **billions** of records to process 😧
 - Your job is running on AWS Glue where you pay per DPU hour 💰
 - Without caching, you're essentially:
@@ -91,5 +91,68 @@ The cost impact is real:
 - 2x DPU hours = 2x your bill
 
 This is why understanding caching isn't just about performance—it's about your bottom line! 💡
+
+### Let's see the optimzied execution plan:
+
+![optimized-union-image](/posts/spark-union-performance/optimized-union.png)
+
+Let me explain how we can see caching in action in this execution plan:
+
+1. The key indicator is `InMemoryRelation` at the top. This shows that Spark is using a cached version of the data with these specifications:
+   - `StorageLevel(disk, memory, deserialized, 1 replicas)`: Data is stored both in memory and disk
+   - `CachedRDDBuilder`: Shows it's using the cached RDD version
+
+2. The execution plan shows:
+   - Instead of recomputing the Range and Project operations multiple times
+   - It's reusing the cached data for subsequent operations
+   - `BroadcastHashJoin` is working with the cached data, not recomputing from scratch
+
+3. Without caching, you would see:
+   - Duplicate Range operations (0 to 1000000)
+   - Multiple Project operations
+   - More complex execution plan with repeated computations
+
+
+### Caveat
+
+Here's a good caveat about caching and disk spillage:
+
+When using `cache()`, be careful! If you don't have enough memory, Spark will "spill" the cached data to disk, which could actually make your job **slower** than not caching at all. Why? Because now you're adding:
+- Disk I/O operations (writing to and reading from disk)
+- Data serialization/deserialization overhead
+- Network traffic if using distributed storage
+- Additional storage space management
+
+It's like ordering takeout but your fridge is full, so you have to store the food in the basement. Now every time you want to eat (access the data), you have to walk down to the basement, bring the food up, heat it up (deserialize), and then do this all over again. Sometimes it's faster to just order fresh food (recompute the data) than deal with all that overhead! 🏃‍♂️🔄
+
+The key is to be strategic about what you cache and always monitor your memory usage. Remember: not all data needs to be cached! 💡
+
+
+Here's a compelling conclusion for your blog post about Spark caching and performance:
+
+# Final Thoughts
+
+Understanding Spark's union operation and caching mechanism isn't just about technical optimization—it's about being a thoughtful data engineer. Let's recap the key takeaways:
+
+1. **Know Your Data Pipeline**: 
+   - Before adding `cache()`, understand if and where your data is being reused
+   - Monitor your execution plans to identify redundant computations
+   - Be strategic about what you cache—not everything needs to be cached
+
+2. **Consider the Trade-offs**:
+   - Caching can significantly improve performance when used correctly
+   - But remember: insufficient memory leads to disk spillage, which can make things worse
+
+Remember, the goal isn't to cache everything—it's to cache smartly. Whether you're processing millions of records or working with complex transformations, understanding these concepts will help you build more efficient and cost-effective data pipelines.
+
+
+If you missed my previous deep dive into Spark's union operation, you can catch up [here](https://blog.veskovujovic.me/posts/spark-union-function/). It complements this caching discussion nicely!
+
+Happy Spark-ing! 🚀
+
+---
+*Found this helpful? Follow me for more data engineering tips and tricks*
+
+
 
 
