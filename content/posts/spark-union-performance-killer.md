@@ -14,6 +14,7 @@ cover:
 description:
 ---
 
+![optimized-union-cover](/posts/spark-union-performance/cover-union-performance.png)
 
 # The Problem: Union function isn't as Simple as it Seems
 
