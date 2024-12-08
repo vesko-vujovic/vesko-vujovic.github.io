@@ -60,7 +60,7 @@ When Spark sees this code, it doesn't realize it can reuse data. Instead, it goe
 
 Think of it like running an entire production line twice to make identical toys, just to paint half of them red and half blue. Instead, you could run the production line once and split the toys for different paint jobs at the end!
 
-Look at this execution plan, we see twice the same part of the plan:
+Look at this execution plan, we see **twice the same part of the plan** i.e. **union operation will trigger the recomputation**:
 
 ![recompute-image](/posts/spark-union-performance/union-recompute.png)
 
@@ -74,5 +74,22 @@ Here's how to make your unions lightning fast:
     df.cache()
 
 ```
+
+
+By adding `cache()`, you're telling Spark: "Hey, keep this data in memory - we'll need it again soon!"
+
+Now imagine these scenarios:
+- You have **billions** of records to process 😧
+- Your job is running on AWS Glue where you pay per DPU hour 💰
+- Without caching, you're essentially:
+  - Processing those billions of records twice
+  - Doubling your computation time
+  - Doubling your AWS costs 🔥
+
+The cost impact is real:
+- 2x processing time = 2x DPU hours
+- 2x DPU hours = 2x your bill
+
+This is why understanding caching isn't just about performance—it's about your bottom line! 💡
 
 
