@@ -42,17 +42,17 @@ Here's what's actually happening behind the scenes when you use `union`:
     val dfOdd = df.filter(col("value") % 2 === 1)
     val dfEven = df.filter(col("value") % 2 === 0)
 
-    val dfOddWithMagic = dfOdd.withColumn("add_value", col("value") + 1)
-    val dfEvenWithMagic = dfEven.withColumn("divide_value", col("value") / 2)
+    val dfOddAdded = dfOdd.withColumn("add_value", col("value") + 1)
+    val dfEvenDivided = dfEven.withColumn("divide_value", col("value") / 2)
 
     // Union and count
-    val result = dfOddWithMagic.union(dfEvenWithMagic).count()
+    val result = dfOddAdded.union(dfEvenDivided).count()
 
     // Print the result
     println(s"Total count: $result")
 
     // Optional: Show the execution plan
-    dfOddWithMagic.union(dfEvenWithMagic).explain("formatted")
+    dfOddWithMagic.union(dfEvenDivided).explain("formatted")
 
 ```
 
@@ -63,5 +63,16 @@ Think of it like running an entire production line twice to make identical toys,
 Look at this execution plan, we see twice the same part of the plan:
 
 ![recompute-image](/posts/spark-union-performance/union-recompute.png)
+
+# The Simple Fix: Cache is Your Friend!⚡
+
+Here's how to make your unions lightning fast:
+
+```scala 
+
+    val df = df1.join(df2, Seq("value"), "inner")
+    df.cache()
+
+```
 
 
