@@ -1,7 +1,7 @@
 ---
 title: "Speed Up Your Spark Jobs: The Hidden Trap in Union Operations"
-date: 2024-11-29T15:06:41+02:00
-draft: true
+date: 2024-12-08T15:06:41+02:00
+draft: false
 tags:
   - big-data
   - data-engineering
@@ -93,7 +93,7 @@ The cost impact is real:
 
 This is why understanding caching isn't just about performance—it's about your bottom line! 💡
 
-### Let's see the optimzied execution plan:
+### Let's see the optimized execution plan:
 
 ![optimized-union-image](/posts/spark-union-performance/optimized-union.png)
 
