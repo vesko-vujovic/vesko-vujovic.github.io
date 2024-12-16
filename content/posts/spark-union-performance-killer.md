@@ -8,9 +8,9 @@ tags:
   - apache-spark
   - data-processing
 cover:
-  image: /posts/tortoise_smaller.jpeg
-  alt: tortoise
-  caption: tortoise
+  image: posts/spark-union-performance/cover-union-performance.png
+  alt: union-killer
+  caption: union-killer
 description:
 ---
 
