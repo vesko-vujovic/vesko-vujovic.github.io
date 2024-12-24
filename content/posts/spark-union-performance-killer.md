@@ -53,7 +53,7 @@ Here's what's actually happening behind the scenes when you use `union`:
     println(s"Total count: $result")
 
     // Optional: Show the execution plan
-    dfOddWithMagic.union(dfEvenDivided).explain("formatted")
+    dfOddAdded.union(dfEvenDivided).explain("formatted")
 
 ```
 
