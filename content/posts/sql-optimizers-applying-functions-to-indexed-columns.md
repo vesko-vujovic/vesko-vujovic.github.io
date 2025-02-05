@@ -117,6 +117,15 @@ _This approach requires additional storage space and maintenance, but it can ena
 3. **Use Optimizer Hints**
 
 Some databases provide optimizer hints that allow you to force the use of a specific index or join order. While hints should be used sparingly and with caution, they can be helpful in cases where the optimizer struggles to choose the best execution plan.
-For example, in Oracle, you can use the INDEX hint to force the use of a specific index:
+
+
+In **PostgreSQL**, you can use the `pg_hint_plan` extension to provide optimizer hints. First, you need to install the extension:
+
+```sql
+CREATE EXTENSION pg_hint_plan;
+```
+
+Then, you can use hints like `SeqScan`, `IndexScan`, or `IndexOnlyScan` to suggest the optimizer to use a specific scan method. For example:
+
 
 
