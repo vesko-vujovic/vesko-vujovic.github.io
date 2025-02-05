@@ -1,6 +1,5 @@
 ---
-title: "Apache Spark: Dataset vs Dataframe - The Tortoise and Hare"
-date: 2025-02-05T15:06:41+02:00
+title: "The Hidden Pitfall That Sabotages SQL Performance: Functions on Indexed Columns"
 draft: true
 tags:
   - database
