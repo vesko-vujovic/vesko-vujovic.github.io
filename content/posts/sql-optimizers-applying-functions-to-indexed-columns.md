@@ -49,4 +49,31 @@ In this case, the SQL optimizer may not be able to use the index on the email co
 When you apply a function to an indexed column, the optimizer often has to scan the **entire table or index** to evaluate the function for each row. This can be much slower than directly looking up the raw column values in the index.
 
 
+## Real-World Examples
+Let's look at a couple more examples where applying functions to indexed columns can ditch performance:
+
+1. Case-Insensitive Search
+
+Suppose you want to find all users with a specific first name, regardless of case:
+
+```sql
+SELECT * FROM users WHERE LOWER(first_name) = 'john';
+```
+
+Even if you have an index on the first_name column, the optimizer may not be able to use it efficiently because the index is built on the original case-sensitive values, not the lowercase versions.
+
+
+
+2. Date Manipulation
+
+Consider a query that finds all orders placed on a specific day:
+```sql
+SELECT * FROM orders WHERE DATE_TRUNC('day', order_date) = '2023-06-01';
+```
+
+If you have an index on the order_date column, the optimizer may struggle to use it because the index is built on the raw timestamp values, not the truncated date values.
+
+
+
+## Workarounds and Solutions
 
