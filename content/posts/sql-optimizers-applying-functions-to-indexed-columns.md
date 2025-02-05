@@ -135,6 +135,50 @@ WHERE SUBSTRING(email, -11) = '@example.com';
 However, optimizer hints are not a silver bullet. They can make your queries less portable and more brittle to schema changes. It's generally better to let the optimizer make its own decisions based on statistics and cost estimates.
 
 
+## 🐘  Demonstrating the Performance Impact with PostgreSQL and Docker
+
+Let's see the performance impact in action using a PostgreSQL Docker container. Follow these steps:
+
+1. 🐳  Pull the PostgreSQL Docker image and start a container:
+
+```bash
+docker pull postgres
+docker run --name my-postgres -e POSTGRES_PASSWORD=password -d postgres
+```
+
+2. 🔌 Connect to the PostgreSQL container:
+
+```bash
+docker exec -it my-postgres psql -U postgres
+```
+
+3. 🔧 Execute the SQL statements to create a table, insert sample data, and create an index:
+
+```sql
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255)
+);
+
+INSERT INTO users (email)
+SELECT 'user' || num || '@example.com'
+FROM generate_series(1, 1000000) AS num;
+
+CREATE INDEX idx_users_email ON users (email);
+
+```
+
+4. 🚀 Query using the indexed column directly:
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM users
+WHERE email = 'user500000@example.com';
+```
+
+
+
 
 
 
