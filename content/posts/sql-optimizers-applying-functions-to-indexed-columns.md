@@ -52,7 +52,7 @@ When you apply a function to an indexed column, the optimizer often has to scan 
 ## Real-World Examples
 Let's look at a couple more examples where applying functions to indexed columns can ditch performance:
 
-1. Case-Insensitive Search
+1. **Case-Insensitive Search**
 
 Suppose you want to find all users with a specific first name, regardless of case:
 
@@ -64,7 +64,7 @@ Even if you have an index on the first_name column, the optimizer may not be abl
 
 
 
-2. Date Manipulation
+2. **Date Manipulation**
 
 Consider a query that finds all orders placed on a specific day:
 ```sql
@@ -76,4 +76,11 @@ If you have an index on the order_date column, the optimizer may struggle to use
 
 
 ## Workarounds and Solutions
+
+
+So, what can you do when you need to apply functions to indexed columns in your queries? Here are a few strategies:
+
+**Create Function-Based Indexes**
+
+Some databases, like Oracle and PostgreSQL, support function-based indexes. These indexes are built on the result of applying a function to a column, rather than the raw column values. For example:
 
