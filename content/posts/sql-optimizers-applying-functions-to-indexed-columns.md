@@ -106,3 +106,17 @@ CREATE INDEX idx_users_first_name_lower ON users (first_name_lower);
 ```
 
 Then, you can rewrite the query to use the first_name_lower column directly:
+
+```sql
+SELECT * FROM users WHERE first_name_lower = 'john';
+```
+
+_This approach requires additional storage space and maintenance, but it can enable the optimizer to use the index efficiently._
+
+
+3. **Use Optimizer Hints**
+
+Some databases provide optimizer hints that allow you to force the use of a specific index or join order. While hints should be used sparingly and with caution, they can be helpful in cases where the optimizer struggles to choose the best execution plan.
+For example, in Oracle, you can use the INDEX hint to force the use of a specific index:
+
+
