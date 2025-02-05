@@ -177,8 +177,26 @@ SELECT * FROM users
 WHERE email = 'user500000@example.com';
 ```
 
+We get this:
+
+```sql
+ Index Scan using idx_users_email on users  (cost=0.42..8.44 rows=1 width=26) (actual time=0.192..0.193 rows=1 loops=1)
+   Index Cond: ((email)::text = 'user500000@example.com'::text)
+ Planning Time: 1.118 ms
+ Execution Time: 0.273 ms
+(4 rows)
+
+```
+Let's conclude that the optimizer **efficiently uses the index** to find the matching row.
 
 
+5. 🐌 Query using a function on the indexed column:
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM users
+WHERE SUBSTRING(email, 5, 6) = '500000';
+```
 
 
 
