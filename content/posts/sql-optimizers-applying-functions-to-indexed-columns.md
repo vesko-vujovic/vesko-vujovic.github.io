@@ -80,7 +80,29 @@ If you have an index on the order_date column, the optimizer may struggle to use
 
 So, what can you do when you need to apply functions to indexed columns in your queries? Here are a few strategies:
 
-**Create Function-Based Indexes**
+**1. Create Function-Based Indexes**
 
-Some databases, like Oracle and PostgreSQL, support function-based indexes. These indexes are built on the result of applying a function to a column, rather than the raw column values. For example:
+Some databases, like **Oracle and PostgreSQL**, support function-based indexes. These indexes are built on the result of applying a function to a column, rather than the raw column values. For example:
 
+
+```sql
+CREATE INDEX idx_users_lower_first_name ON users (LOWER(first_name));
+
+ ```
+
+
+With this index, the optimizer can efficiently handle queries that use LOWER(first_name) in the WHERE clause.
+
+_However, function-based indexes have limitations. They are not supported by all databases, and they can be less flexible than regular indexes because they are tailored to specific function use cases._
+
+2. **Rewrite Queries**
+
+In some cases, you can rewrite your queries to avoid applying functions to indexed columns. For example, instead of using **LOWER(first_name)**, you could store a separate lowercase version of the first_name column and create a regular index on it:
+
+```sql
+ALTER TABLE users ADD COLUMN first_name_lower VARCHAR(255);
+UPDATE users SET first_name_lower = LOWER(first_name);
+CREATE INDEX idx_users_first_name_lower ON users (first_name_lower);
+```
+
+Then, you can rewrite the query to use the first_name_lower column directly:
