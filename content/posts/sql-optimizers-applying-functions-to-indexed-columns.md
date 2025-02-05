@@ -211,7 +211,7 @@ WHERE SUBSTRING(email, 5, 6) = '500000';
 
 ```
 
-From the query plan we can all see that last query is **290 times** slower. ❗❗❗
+From the query plan we can all see that last query is **~290 times** slower. ❗❗❗
 
 Notice that applying the SUBSTRING function prevents the optimizer from using the index effectively, resulting in a sequential scan of the entire table.
 
