@@ -1,5 +1,5 @@
 ---
-title: "The Hidden Pitfall That Sabotages SQL Performance: Functions on Indexed Columns"
+title: "🚨 The Hidden Pitfall That Sabotages SQL Performance: Functions on Indexed Columns 📉"
 draft: true
 date: 2025-02-05T15:06:41+02:00
 tags:
@@ -18,9 +18,9 @@ cover:
 
 As data engineers and analysts, we rely heavily on SQL databases to store and query our data efficiently. To speed up our queries, we often create indexes on frequently filtered columns. However, there's a common gotcha that can cause our queries to run slower than expected, even with appropriate indexes in place. 
 
-In this post, we'll explore how applying functions to indexed columns in the WHERE clause can ditch SQL optimizers from utilizing those indexes effectively.
+_In this post, we'll explore how applying functions to indexed columns in the WHERE clause can ditch SQL optimizers from utilizing those indexes effectively._
 
-## The Power of Indexes
+## 💪 The Power of Indexes
 Let's start with a quick refresher on indexes. An index is a data structure that allows the database to quickly locate and retrieve specific rows based on the indexed column(s). When you create an index on a column, the database builds a separate, sorted data structure that maps the column values to their corresponding row locations. This enables the database to find matching rows much faster than scanning the entire table.
 For example, consider a users table with an index on the email column:
 
@@ -35,7 +35,7 @@ SELECT * FROM users WHERE email = 'john@example.com';
 ```
 
 
-## The Hidden Pitfall: Functions on Indexed Columns
+## 🕵️‍♀️ The Hidden Pitfall: Functions on Indexed Columns
 
 However, things can go awry when you apply functions to indexed columns in the WHERE clause. Let's say you want to find all users whose email address is in a specific domain:
 
@@ -49,10 +49,10 @@ In this case, the SQL optimizer may not be able to use the index on the email co
 When you apply a function to an indexed column, the optimizer often has to scan the **entire table or index** to evaluate the function for each row. This can be much slower than directly looking up the raw column values in the index.
 
 
-## Real-World Examples
+## 🌍 Real-World Examples
 Let's look at a couple more examples where applying functions to indexed columns can ditch performance:
 
-1. **Case-Insensitive Search**
+1. **🔍 Case-Insensitive Search**
 
 Suppose you want to find all users with a specific first name, regardless of case:
 
@@ -64,7 +64,7 @@ Even if you have an index on the first_name column, the optimizer may not be abl
 
 
 
-2. **Date Manipulation**
+2. **📅 Date Manipulation**
 
 Consider a query that finds all orders placed on a specific day:
 ```sql
@@ -126,6 +126,16 @@ CREATE EXTENSION pg_hint_plan;
 ```
 
 Then, you can use hints like `SeqScan`, `IndexScan`, or `IndexOnlyScan` to suggest the optimizer to use a specific scan method. For example:
+
+```sql
+SELECT /*+ INDEX(users idx_users_email) */ * 
+FROM users 
+WHERE SUBSTRING(email, -11) = '@example.com';
+```
+However, optimizer hints are not a silver bullet. They can make your queries less portable and more brittle to schema changes. It's generally better to let the optimizer make its own decisions based on statistics and cost estimates.
+
+
+
 
 
 
