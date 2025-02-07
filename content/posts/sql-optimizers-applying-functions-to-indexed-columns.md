@@ -22,7 +22,8 @@ _In this post, we'll explore how applying functions to indexed columns in the WH
 
 ## 💪 The Power of Indexes
 Let's start with a quick refresher on indexes. An index is a data structure that allows the database to quickly locate and retrieve specific rows based on the indexed column(s). When you create an index on a column, the database builds a separate, sorted data structure that maps the column values to their corresponding row locations. This enables the database to find matching rows much faster than scanning the entire table.
-For example, consider a users table with an index on the email column:
+
+For example, consider a user table with an index on the email column:
 
 ``` sql
 CREATE INDEX idx_users_email ON users (email);
