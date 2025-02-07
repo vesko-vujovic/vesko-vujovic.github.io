@@ -212,13 +212,13 @@ WHERE SUBSTRING(email, 5, 6) = '500000';
 
 ```
 
-From the query plan we can all see that last query is **~290 times** slower. ❗❗❗
+From the query plan, we can all see that the  last query is **~290 times** slower.  ❗❗❗
 
 Notice that applying the SUBSTRING function prevents the optimizer from using the index effectively, resulting in a sequential scan of the entire table.
 
 The performance difference becomes significant as the table size grows. Applying functions to indexed columns can lead to much slower query execution compared to leveraging indexes directly. ⏰
 
-**The query that uses `hints` will perform the same like the query from the forth step.** 
+**The query that uses hints will perform the same as the query from the fourth step.** 
 
 ## Conclusion
 As data engineers and analysts, it's crucial to understand how SQL optimizers work and to be aware of potential performance gotchas. 
