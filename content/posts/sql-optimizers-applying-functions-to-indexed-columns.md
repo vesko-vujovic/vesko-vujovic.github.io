@@ -221,8 +221,9 @@ The performance difference becomes significant as the table size grows. Applying
 **The query that uses hints will perform the same as the query from the fourth step.** 
 
 ## Conclusion
-As data engineers and analysts, it's crucial to understand how SQL optimizers work and to be aware of potential performance gotchas. 
-By keeping an eye out for function application on indexed columns and choosing appropriate strategies to address it, we can ensure that our queries run efficiently and our databases perform at their best. 💪🚀 
 
+As data engineers and analysts, it's crucial to understand how SQL optimizers work and to be aware of potential performance gotchas. 
+
+By keeping an eye out for function application on indexed columns and choosing appropriate strategies to address them, we can ensure that our queries run efficiently and our databases perform at their best. 💪🚀 
 
 
