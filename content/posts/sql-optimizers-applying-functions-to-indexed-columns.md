@@ -45,7 +45,7 @@ SELECT * FROM users WHERE SUBSTRING(email, -11) = '@example.com';
 ```
 
 
-In this case, the SQL optimizer may not be able to use the index on the email column effectively. Why? Because the index is built on the raw email values, not the result of applying the SUBSTRING function to those values.
+In this case, the SQL optimizer **may not be able to use the index on the email column** effectively. Why? Because the index is built on the raw email values, not the result of applying the SUBSTRING function to those values.
 
 When you apply a function to an indexed column, the optimizer often has to scan the **entire table or index** to evaluate the function for each row. This can be much slower than directly looking up the raw column values in the index.
 
