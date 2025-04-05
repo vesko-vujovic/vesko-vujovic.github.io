@@ -19,5 +19,5 @@ The data warehouse landscape is experiencing a tectonic shift. After decades of 
 
 Open table formats like **Apache Iceberg, Delta Lake, and Apache Hudi** are transforming what's possible in data warehousing. By decoupling storage from compute and leveraging cloud-native technologies, these formats enable data architectures that are more flexible, cost-effective, and powerful than their traditional counterparts.
 
-In my years working at companies like Netflix, Airbnb, and Facebook, I've witnessed firsthand how legacy data warehouse architectures strain under modern data volumes and velocity. The limitations become increasingly apparent: rigid schemas, costly scaling, vendor lock-in, and separation between analytical and operational workloads.
+In my years working at various companies I've witnessed firsthand how legacy data warehouse architectures strain under modern data volumes and velocity especially under the new wave of AI. The limitations become increasingly apparent: rigid schemas, costly scaling, vendor lock-in, and separation between analytical and operational workloads.
 
