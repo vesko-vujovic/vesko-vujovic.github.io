@@ -38,3 +38,22 @@ While revolutionary at the time, these traditional data warehouses came with sig
 - **Schema complexity:** Changes to data models required careful planning and often resulted in downtime.
 - **Limited concurrency:** Supporting many simultaneous users required significant hardware investments.
 - **Vendor lock-in:** Proprietary formats and tools created dependency on specific vendors.
+
+## The Cloud Data Warehouse Revolution
+
+Around 2010, cloud data warehouses like Amazon **Redshift, Google BigQuery**, and later ❄️ **Snowflake** revolutionized the market. These solutions addressed many of the limitations of on-premises systems:
+
+- **Elasticity:** Resources could scale up or down based on demand.
+- **Pay-for-use:** Organizations only paid for the storage and computation they consumed.
+- **Managed infrastructure:** Cloud providers handled maintenance, upgrades, and availability.
+- **Improved concurrency:** Better support for multiple simultaneous workloads.
+
+This cloud shift represented a massive improvement, but fundamental challenges remained. Most importantly, these systems still maintained a separation between data lakes (where raw data lived) and data warehouses (where structured, transformed data resided for analysis), creating data silos and increasing complexity.
+
+# The Big Data Influence
+
+Meanwhile, the big data movement introduced transformative technologies like **Hadoop and Spark.** Hadoop pioneered the distributed processing of massive datasets across clusters of commodity hardware, dramatically reducing infrastructure costs for large-scale data processing. While early Hadoop implementations faced performance challenges for interactive queries, **Apache Spark** emerged as a breakthrough technology offering both massive scalability and impressive performance through its in-memory processing capabilities.
+
+These big data technologies excelled at handling vast, diverse datasets but initially presented challenges for business users accustomed to the SQL-based (in contrast to Apache Spark declarative way of thinking) interfaces and optimized analytical capabilities of traditional data warehouses. Organizations often found themselves maintaining separate systems: Hadoop/Spark clusters for raw data processing and data engineering workloads, alongside traditional data warehouses for business intelligence and reporting use cases.
+
+This bifurcated approach created friction in data pipelines and prevented organizations from fully capitalizing on their data assets, setting the steping stone for solutions that could bridge these worlds.
