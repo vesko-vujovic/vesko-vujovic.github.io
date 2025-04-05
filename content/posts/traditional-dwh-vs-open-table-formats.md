@@ -57,3 +57,30 @@ Meanwhile, the big data movement introduced transformative technologies like **H
 These big data technologies excelled at handling vast, diverse datasets but initially presented challenges for business users accustomed to the SQL-based (in contrast to Apache Spark declarative way of thinking) interfaces and optimized analytical capabilities of traditional data warehouses. Organizations often found themselves maintaining separate systems: Hadoop/Spark clusters for raw data processing and data engineering workloads, alongside traditional data warehouses for business intelligence and reporting use cases.
 
 This bifurcated approach created friction in data pipelines and prevented organizations from fully capitalizing on their data assets, setting the steping stone for solutions that could bridge these worlds.
+
+# Today's Data Warehouse Challenges
+
+Despite significant advances, today's data warehouse landscape still faces critical challenges:
+
+- **Data duplication:** Organizations maintain copies of data in multiple systems (operational databases, data lakes, and warehouses).
+- **ETL complexity:** Moving data between systems requires complex extract, transform, load processes.
+- **Cost management:** Cloud warehouses can become surprisingly expensive at scale.
+- **Limited flexibility:** Supporting diverse workloads (SQL, machine learning, streaming) often requires different specialized systems.
+- **Data freshness:** Traditional batch ETL processes create latency between when events occur and when they're available for analysis.
+
+These problems and challenges have set the bedrock for the next evolution: **data warehouses built on open table formats**. By addressing the fundamental architectural limitations of previous approaches, these new systems promise to unify data lakes and warehouses while delivering the performance, flexibility, and cost-effectiveness that modern data teams demand.
+In the next section, we'll explore what open table formats are and why they're so transformative for data warehousing.
+
+# Understanding Open Table Formats
+Open table formats represent a fundamental shift in how analytical data is stored and managed. Rather than being locked into proprietary database engines, these formats provide standardized ways to organize data files in cloud storage while maintaining database-like capabilities. Let's explore what makes them special and how they're changing the data landscape.
+
+## What Are Open Table Formats?
+
+At their core, open table formats are specifications for storing tabular data in files (typically Parquet, ORC, or Avro) with additional metadata that enables database-like functionality. Unlike traditional database storage engines, these formats:
+
+- Store data in open, standardized file formats in cloud object storage (like S3, GCS, or ADLS)
+- Maintain metadata about table schema, partitioning, and file locations
+- Support ACID transactions (Atomicity, Consistency, Isolation, Durability)
+- Enable schema evolution without data migration
+- Provide time travel capabilities (accessing previous versions of data)
+- Allow for concurrent reads and writes
