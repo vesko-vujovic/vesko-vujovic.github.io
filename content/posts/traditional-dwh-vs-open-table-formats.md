@@ -59,7 +59,7 @@ Meanwhile, the big data movement introduced transformative technologies like **H
 
 These big data technologies picked up the pace at handling vast, diverse datasets but initially presented challenges for business users accustomed to the SQL-based (in contrast to Apache Spark declarative way of thinking) interfaces and optimized analytical capabilities of traditional data warehouses. Organizations often found themselves maintaining separate systems: Hadoop/Spark clusters for raw data processing and data engineering workloads, alongside traditional data warehouses for business intelligence and reporting use cases.
 
-This bifurcated approach created friction in data pipelines and prevented organizations from fully capitalizing on their data assets, setting the steping stone for solutions that could bridge these worlds.
+This bifurcated approach created friction in data pipelines and prevented organizations from fully capitalizing on their data assets, setting the stepping stone for solutions that could bridge these worlds.
 
 # Today's Data Warehouse Challenges
 
@@ -222,7 +222,7 @@ Their successful implementation has become a blueprint for other organizations d
 
 ### Uber: Real-Time Analytics with Apache Hudi
 
-Uber's data needs centered around real-time analytics on continuously updating data. They needed to:
+Uber's data needs are  centered around real-time analytics on continuously updating data. They needed to:
 
 - Ingest millions of events per second
 - Update existing records efficiently (e.g., trip status changes)
