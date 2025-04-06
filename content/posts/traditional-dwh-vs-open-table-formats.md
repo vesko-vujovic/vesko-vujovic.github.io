@@ -54,7 +54,7 @@ This cloud shift represented a massive improvement, but fundamental challenges r
 
 Meanwhile, the big data movement introduced transformative technologies like **Hadoop and Spark.** Hadoop pioneered the distributed processing of massive datasets across clusters of commodity hardware, dramatically reducing infrastructure costs for large-scale data processing. While early Hadoop implementations faced performance challenges for interactive queries, **Apache Spark** emerged as a breakthrough technology offering both massive scalability and impressive performance through its in-memory processing capabilities.
 
-These big data technologies excelled at handling vast, diverse datasets but initially presented challenges for business users accustomed to the SQL-based (in contrast to Apache Spark declarative way of thinking) interfaces and optimized analytical capabilities of traditional data warehouses. Organizations often found themselves maintaining separate systems: Hadoop/Spark clusters for raw data processing and data engineering workloads, alongside traditional data warehouses for business intelligence and reporting use cases.
+These big data technologies picked up the pace at handling vast, diverse datasets but initially presented challenges for business users accustomed to the SQL-based (in contrast to Apache Spark declarative way of thinking) interfaces and optimized analytical capabilities of traditional data warehouses. Organizations often found themselves maintaining separate systems: Hadoop/Spark clusters for raw data processing and data engineering workloads, alongside traditional data warehouses for business intelligence and reporting use cases.
 
 This bifurcated approach created friction in data pipelines and prevented organizations from fully capitalizing on their data assets, setting the steping stone for solutions that could bridge these worlds.
 
@@ -113,3 +113,29 @@ Created by **Databricks**, Delta Lake brings reliability to data lakes with:
 - Strong integration with Apache Spark
 - An active open-source community
 
+#### Apache Hudi
+
+Originating at **Uber**, Hudi (Hadoop Upserts Deletes and Incrementals) focuses on:
+
+- Incremental data processing and change data capture (CDC)
+- Upsert capabilities (combining inserts and updates)
+- Fine-grained record-level versioning
+- Near real-time data ingestion
+- Support for slowly changing dimensions
+- Integration with various query engines
+
+### How Open Table Formats Differ from Traditional Storage
+
+The difference between open table formats and traditional database storage engines is analogous to the difference between open document formats (like .docx or .pdf) and proprietary word processors. Traditional data warehouses tightly couple the storage format with the query engine, creating vendor lock-in. If you want to access your data, you must use that vendor's tools and pay their prices.
+
+Open table formats, in contrast, separate storage from computation. Your data lives in standard files in cloud storage, and metadata about those files is managed by the table format. This allows multiple engines (SQL query engines, Spark jobs, ML training systems) to read and write the same data without conversion or duplication.
+
+
+### This architectural shift has profound implications:
+
+1. **Storage becomes commoditized:** You can leverage inexpensive cloud object storage rather than specialized database storage.
+2. **Engine flexibility:** Different workloads can use different computation engines on the same data.
+3. **No vendor lock-in:** You can switch query engines or use multiple engines without migrating your data.
+4. **Future-proofing:** As new processing technologies emerge, they can be adopted without changing your data storage.
+
+This fundamental decoupling of storage and computation is what enables the "lakehouse" architecture—combining the best aspects of data lakes **(low-cost storage, schema flexibility)** with the best of data warehouses (performance, reliability, ACID guarantees).
