@@ -1,7 +1,7 @@
 ---
 title: "🏗️ Why Data Warehouses Backed by Open Table Formats Could Completely Replace Traditional DWHs 
 🌊"
-draft: true
+draft: false
 date: 2025-04-05T15:06:41+02:00
 tags:
   - database
