@@ -92,7 +92,7 @@ Three open table formats have emerged as leaders in this space:
 
 #### Apache Iceberg
 
-Developed initially at Netflix and now an Apache project, Iceberg was designed to solve the scale problems faced when managing petabyte-sized datasets. Key features include:
+Developed initially at **Netflix** and now an Apache project, Iceberg was designed to solve the scale problems faced when managing petabyte-sized datasets. Key features include:
 
 - Hidden partitioning that decouples physical organization from queries
 - Schema evolution with full type safety
@@ -100,3 +100,16 @@ Developed initially at Netflix and now an Apache project, Iceberg was designed t
 - ACID transaction guarantees
 - Optimized metadata handling for performance at scale
 - Growing adoption in tools like Dremio, Snowflake, Databricks, and AWS Athena, recently AWS announced [S3 tables](https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-s3-tables-apache-iceberg-tables-analytics-workloads/)
+
+#### Delta Lake
+
+Created by **Databricks**, Delta Lake brings reliability to data lakes with:
+
+- ACID transactions on Parquet files
+- Scalable metadata handling
+- Time travel (data versioning)
+- Schema enforcement and evolution
+- Unified batch and streaming data processing
+- Strong integration with Apache Spark
+- An active open-source community
+
