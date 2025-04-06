@@ -84,3 +84,19 @@ At their core, open table formats are specifications for storing tabular data in
 - Enable schema evolution without data migration
 - Provide time travel capabilities (accessing previous versions of data)
 - Allow for concurrent reads and writes
+
+Importantly, these formats are _open-source_, meaning no single vendor controls their development or implementation. This openness creates a vivid ecosystem of tools and systems that can read from and write to these formats.
+
+### Major Open Table Formats
+Three open table formats have emerged as leaders in this space:
+
+#### Apache Iceberg
+
+Developed initially at Netflix and now an Apache project, Iceberg was designed to solve the scale problems faced when managing petabyte-sized datasets. Key features include:
+
+- Hidden partitioning that decouples physical organization from queries
+- Schema evolution with full type safety
+- Time travel with snapshot isolation
+- ACID transaction guarantees
+- Optimized metadata handling for performance at scale
+- Growing adoption in tools like Dremio, Snowflake, Databricks, and AWS Athena, recently AWS announced [S3 tables](https://aws.amazon.com/about-aws/whats-new/2024/12/amazon-s3-tables-apache-iceberg-tables-analytics-workloads/)
