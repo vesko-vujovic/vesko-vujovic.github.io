@@ -70,3 +70,71 @@ The key differentiators that make Unity Catalog particularly effective for enter
 - **Automated metadata extraction**: Reduce manual documentation through intelligent metadata harvesting
 
 For enterprises struggling with data access bottlenecks, Unity Catalog offers a path to transform **_weeks-long data requests into minutes-long self-service experiences—without sacrificing security or governance._**
+
+Let's continue with the next section of our blog post.
+
+
+## Core Features That Enable Self-Service
+
+Modern data catalogs like Unity Catalog come equipped with several key features that make self-service analytics possible while maintaining proper governance and security. Let's explore these capabilities and how they empower business users and data teams alike.
+
+### Unified Security Model and Fine-Grained Access Control
+
+One of the biggest barriers to self-service has always been security concerns. Traditional approaches often led to either overly restrictive policies that blocked legitimate access or overly permissive ones that created compliance risks.
+
+Unity Catalog solves this through:
+
+- **Column-level security**: Grant access to specific columns rather than entire tables, ensuring users see only the data they need
+- **Row-level security**: Apply dynamic filters based on user attributes to show only relevant records
+- **Attribute-based access control**: Define policies using business roles and contexts rather than technical identifiers
+- **Centralized policy management**: Maintain security rules in one place that apply consistently across all data assets
+
+This granular approach means organizations can confidently open up data access without compromising sensitive information.
+
+### Simplified Data Discovery
+
+Finding the right data is often half the battle. Unity Catalog makes data discovery intuitive through:
+
+- **Natural language search**: Find data assets using business terminology rather than technical names
+- **Rich filtering**: Narrow results by data domain, owner, certification status, popularity, and more
+- **Suggested datasets**: Smart recommendations based on your role and past usage patterns
+- **Data previews**: Quickly assess if a dataset contains what you need without requesting access
+
+This dramatically reduces the time spent hunting for the right data and eliminates the need to involve data engineers in the discovery process.
+
+### Business Glossary and Semantic Layer
+
+Bridging the gap between technical data assets and business meaning is crucial for true self-service. Unity Catalog accomplishes this through:
+
+- **Business glossary integration**: Link technical columns to business definitions
+- **Common terminology**: Ensure consistent interpretation of metrics and dimensions
+- **Semantic relationships**: Understand connections between different data elements
+- **Certification badges**: Identify trusted, verified datasets endorsed by data stewards
+
+These features help business users understand not just where data is, but what it means and how to use it appropriately.
+
+### Data Lineage and Impact Analysis
+
+Understanding where data comes from and how it's been transformed is essential for building trust. Unity Catalog provides:
+
+- **End-to-end lineage visualization**: Trace data from source systems through transformations to final consumption
+- **Column-level lineage**: See precisely how specific data elements are derived
+- **Impact analysis**: Before making changes, understand what downstream assets might be affected
+- **Version history**: Track how datasets evolve over time
+
+This transparency builds confidence in data quality and helps users understand the context of the information they're working with.
+
+### Integration with Analytics Tools
+
+Self-service data access is only valuable if users can actually do something with the data. Unity Catalog integrates with:
+
+- **Business intelligence tools**: Direct connections to Tableau, Power BI, Looker, and more
+- **Notebooks and data science platforms**: Seamless workflows for Python, R, and SQL analytics
+- **Spreadsheet applications**: Direct access for Excel users
+- **Data preparation tools**: Connections to data wrangling and ETL platforms
+
+These integrations mean users can stay in their familiar tools while benefiting from improved data discovery and governance.
+
+By combining these capabilities, Unity Catalog creates an environment where business users can confidently find, understand, and use data on their own terms—while data teams maintain appropriate governance and security controls.
+
+In the next section, we'll explore practical implementation approaches and real-world examples of organizations that have successfully transformed their data access models with Unity Catalog.
