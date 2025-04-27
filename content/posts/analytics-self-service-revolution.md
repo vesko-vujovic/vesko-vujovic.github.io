@@ -7,10 +7,12 @@ tags:
   - data-engineering
   - data-governance
 cover:
-  image: 
+  image: /posts/self-service-analytics/self-service-analytics.png
   alt: self-service-analytics
   caption: self-service-analytics
 ---
+
+![evolution-of-dwh](/posts/self-service-analytics/self-service-analytics.png)
 
 # Introduction
 
@@ -24,7 +26,6 @@ Self-service analytics powered by modern data catalogs that put data directly in
 
 In this post, we'll explore how data catalogs are transforming enterprise data access from lengthy, multi-stage approval processes to efficient self-service experiences.
 
-Let's continue with the next section of our blog post.
 
 ## The Enterprise Data Access Crisis
 
@@ -70,8 +71,6 @@ The key differentiators that make Unity Catalog particularly effective for enter
 - **Automated metadata extraction**: Reduce manual documentation through intelligent metadata harvesting
 
 For enterprises struggling with data access bottlenecks, Unity Catalog offers a path to transform **_weeks-long data requests into minutes-long self-service experiences—without sacrificing security or governance._**
-
-Let's continue with the next section of our blog post.
 
 
 ## Core Features That Enable Self-Service
@@ -201,7 +200,6 @@ The transformation isn't just about speed—it's about fundamentally changing ho
 
 In the next section, we'll address common challenges organizations face when implementing self-service data catalogs and strategies to overcome them.
 
-Let's continue with the next section on challenges and solutions, and then wrap up with a conclusion.
 
 ## Challenges and Solutions
 
