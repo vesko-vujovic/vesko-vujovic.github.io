@@ -6,6 +6,7 @@ tags:
   - big-data
   - data-engineering
   - data-governance
+  - data-lineage
 cover:
   image: /posts/self-service-analytics/self-service-analytics.png
   alt: self-service-analytics
@@ -22,7 +23,7 @@ This scenario plays out daily in enterprises worldwide. What should be simple da
 
 The bottleneck isn't technical—it's organizational. With exploding data volumes across enterprises, traditional request-based models simply can't keep pace with business needs. The solution? 
 
-Self-service analytics powered by modern data catalogs that put data directly into the hands of those who need it while maintaining proper governance.
+Self-service analytics is powered by modern data catalogs that put data directly into the hands of those who need it while maintaining proper governance.
 
 In this post, we'll explore how data catalogs are transforming enterprise data access from lengthy, multi-stage approval processes to efficient self-service experiences.
 
@@ -31,11 +32,11 @@ In this post, we'll explore how data catalogs are transforming enterprise data a
 
 The traditional data request workflow in large organizations is a complex, multi-stage process that often looks something like this:
 
-1. Business user identifies data need and submits a request
-2. Request is reviewed by data governance team
-3. Data team evaluates feasibility and required resources
+1. The business user identifies the data needed and submits a request
+2. Request is reviewed by the data governance team
+3. The data team evaluates feasibility and required resources
 4. Security reviews and approves appropriate access levels
-5. Data engineer locates the data across various systems
+5. A data engineer locates the data across various systems
 6. Data is extracted, transformed, and delivered
 7. Business user finally receives the data
 
