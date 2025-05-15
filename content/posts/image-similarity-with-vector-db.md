@@ -119,6 +119,8 @@ print(f"Found {len(image_paths)} images")
 
 ## Step 2: Generating Vector Embeddings
 
+Next, we'll generate vector embeddings for all images using resnet50.
+
 ```python
 
 import numpy as np
@@ -175,3 +177,135 @@ for img_path in tqdm(image_paths, desc="Generating embeddings"):
 print(f"Generated embeddings for {len(embeddings)} images")
 
 ```
+
+## Step 3: Storing Vectors in a Vector Database
+
+Now, let's store these embeddings in Qdrant:
+
+```python
+from qdrant_client import QdrantClient
+from qdrant_client.models import VectorParams, Distance, PointStruct
+
+# Initialize Qdrant client - local one
+collection_name = "fruits_and_vegetables"
+
+if not client:
+    client = QdrantClient(path="./qdrant_data")
+
+# Create a new collection for our image embeddings
+vector_size = next(iter(embeddings.values())).shape[0]  # Get dimension from first embedding
+
+
+client.recreate_collection(
+    collection_name=collection_name,
+    vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE)
+)
+
+# Prepare points for upload
+cnt = 1
+embedded_images = []
+for img_id, embedding in embeddings.items():
+    cnt+=1
+    embedded_images.append(PointStruct(
+        id=cnt,
+        vector=embedding.tolist(),
+        payload={"image_path": str(image_dir / f"{img_id}.jpg"), "name": img_id}
+    ))
+
+# Upload in batches
+batch_size = 10
+
+for i in range(0, len(points), batch_size):
+    client.upsert(
+        collection_name=collection_name,
+        points=embedded_images[i:i + batch_size]
+    )
+
+print(f"Uploaded {len(points)} embeddings to Qdrant")
+
+```
+
+## Step 4: Creating the Search API
+Let's create a simple API for searching similar images:
+
+```python
+
+import nest_asyncio
+import uvicorn
+import threading
+from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
+import os
+import tempfile
+
+# Apply nest_asyncio to allow running asyncio event loops within Jupyter
+nest_asyncio.apply()
+
+# Create the FastAPI app
+app = FastAPI()
+
+# Add CORS middleware to allow requests from the Jupyter environment
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/search")
+async def search_similar(
+    file: UploadFile = File(...),
+    limit: int = 5
+):
+    # Save uploaded file temporarily
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp:
+        temp.write(await file.read())
+        temp_path = temp.name
+    
+    try:
+        # Generate embedding for uploaded image
+        query_embedding = get_image_embedding(temp_path)
+        
+        # Search for similar images
+        search_results = client.search(
+            collection_name="product_images",
+            query_vector=query_embedding.tolist(),
+            limit=limit
+        )
+        
+        # Format results
+        results = []
+        for res in search_results:
+            results.append({
+                "image_id": res.id,
+                "image_path": res.payload["image_path"],
+                "similarity": res.score
+            })
+        
+        return {"results": results}
+    finally:
+        # Clean up
+        os.unlink(temp_path)
+
+# Function to start the FastAPI server in a separate thread
+def run_fastapi(host="127.0.0.1", port=8000):
+    server = uvicorn.Server(config=uvicorn.Config(app=app, host=host, port=port))
+    thread = threading.Thread(target=server.run)
+    thread.daemon = True
+    thread.start()
+    print(f"FastAPI running on http://{host}:{port}")
+    return thread
+
+# Start the server
+fastapi_thread = run_fastapi()
+
+# Display URL for testing
+from IPython.display import display, HTML
+display(HTML('<a href="http://127.0.0.1:8000/docs" target="_blank">Open FastAPI Swagger UI</a>'))
+
+
+```
+
+## Step 5: Building a Simple UI for Image Search
+Finally, let's create a basic web interface using Streamlit:
