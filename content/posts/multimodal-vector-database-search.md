@@ -1,7 +1,7 @@
 ---
 title: "🔍👁️ Show & Tell Search: The Ultimate End-to-End Tutorial for Building Vector Database Powered Product Discovery  🛍️"
 date: 2025-05-09T13:06:41+02:00
-draft: false
+draft: true
 tags:
   - vector-database
   - AI
