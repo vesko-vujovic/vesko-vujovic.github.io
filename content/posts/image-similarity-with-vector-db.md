@@ -118,3 +118,60 @@ print(f"Found {len(image_paths)} images")
 ```
 
 ## Step 2: Generating Vector Embeddings
+
+```python
+
+import numpy as np
+from tqdm import tqdm
+import torch
+from torchvision import models, transforms
+from PIL import Image
+
+model = models.resnet50(pretrained=True)
+
+# Remove the classification layer to get embeddings
+model = torch.nn.Sequential(*(list(model.children())[:-1]))
+model.eval()
+
+# Prepare image transformation
+# We are scaling all images and normalizng them
+transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                         std=[0.229, 0.224, 0.225])
+])
+
+def get_image_embedding(image_path):
+    # Load and transform image
+    img = Image.open(image_path).convert('RGB')
+    img_t = transform(img)
+    batch_t = torch.unsqueeze(img_t, 0)
+    
+    # Get embedding
+    # Using already trained model resnet50
+    with torch.no_grad():
+        embedding = model(batch_t)
+    
+    # Flatten to 1D vector and return as numpy array
+    return embedding.squeeze().cpu().numpy()
+
+
+
+
+# Generate embeddings for all images
+embeddings = {}
+for img_path in tqdm(image_paths, desc="Generating embeddings"):
+    try:
+        # Get the image ID from the filename
+        img_id = os.path.basename(img_path).split('.')[0]
+        # Generate embedding
+        embedding = get_image_embedding(img_path)
+        embeddings[img_id] = embedding
+    except Exception as e:
+        print(f"Error processing {img_path}: {e}")
+
+print(f"Generated embeddings for {len(embeddings)} images")
+
+```
