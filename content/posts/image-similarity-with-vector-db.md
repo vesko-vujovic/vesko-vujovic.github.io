@@ -23,6 +23,7 @@ Have you ever wondered how Pinterest finds visually **similar images** or how Go
 In this post, I'll guide you through the process of building your own **image similarity search engine**. We'll cover everything from understanding vector embeddings to implementing a working solution that can find visually similar images in milliseconds.
 
 # Understanding Vector Embeddings for Images
+
 Before we dive into the implementation details, let's understand what vector embeddings are and why they're crucial for image similarity search.
 
 ## What is vector?
@@ -42,18 +43,78 @@ This instruction can be shown as an arrow from where you start to where you end 
 
 ## What is dimension of vector?
 
-When
+Vector dimension is a way to describe how much information is needed to specify a vector, or how many "directions" you can move in that space.
+
+If you look at this image this vector wil have **3 dimensions** (1, 4, 3). It can contain as many dimesions as you want. Everything more than 3 dimesions is hard to imagine and plot. 
+
+![3-dimensions-vector](/posts/image-similarity-vector-db/3-dimesions-vector.jpg)
+
 
 ## What is vector space?
 
+Vector space is container of all vectors, imagine this as a bucket for all vectors. 
+
+// create image here for this
 
 ## What Are Vector Embeddings?
 
-Vector embeddings are numerical representations of data in multi-dimensional space. For images, these embeddings capture visual features like shapes, textures, colors, and objects within a fixed-length vector (typically hundreds or thousands of dimensions).
+Vector embeddings are numerical representations of data in multi-dimensional (vector) space. For images, these embeddings capture visual features like shapes, textures, colors, and objects within a fixed-length vector (typically hundreds or thousands of dimensions).
+
+
+**In simple words, machines aren't naturally good at understanding data like images, audio, and text. To help them process this information, we convert it into a mathematical form a domain where machines know how to operate effectively and can detect patterns in data.**
+
 
 The beauty of vector embeddings is that similar images will have vectors that are closer to each other in this high-dimensional space. This geometric property allows us to find similar images by measuring the distance between vectors.
 
+// create in excalidraw vector embeding images
+
+# Vector Databases: The Engine Behind Similarity Search
+
+Traditional databases are great for exact matches and range queries, but they fall short when it comes to finding "similar" items in high-dimensional space. This is where vector databases shine.
+
+## What Makes Vector Databases Special?
+
+Vector databases are purpose-built for storing and querying vector embeddings. They implement specialized algorithms like Approximate Nearest Neighbor (ANN) search that can efficiently find the closest vectors to a query vector, even in datasets with millions of entries.
+
+Key features that set vector databases apart:
+
+- **Similarity metrics:** Support for cosine similarity, Euclidean distance, and other vector comparison methods
+- **Indexing structures:** Advanced indexing like HNSW or IVF that enable sub-linear search times
+- **Filtering capabilities:** Combining vector similarity with metadata filtering
+- **Scalability:** Distributed architecture for handling large collections
+
+### Popular Vector Database Options
+
+Several powerful vector databases have emerged in recent years:
+
+| Database  |  Key Features   ⭐                        | 🚀 Best For                           |
+|-----------|------------------------------------------|---------------------------------------|
+| **Pinecone**  |  Fully managed, serverless  🛠️          |  Production deployments  🏭           |
+| **Milvus**    |  Open-source, highly scalable   🌱       | Self-hosted large-scale applications 🏢 |
+| **Weaviate**  |  Schema-based, multimodal    🧩          |  Complex data relationships 🔗         |
+| **Qdrant**    | Simple API, filtering, self-hosted ⚡   | Quick prototyping, startups 🚀        |
+
+# Building Your Image Similarity Search Pipeline
+
+Let's dive into the practical steps for building an image similarity search system:
+
+## Step 1: Image Collection and Preprocessing
+
+First, you'll need a collection of images. For this tutorial, let's assume we have a directory of some images. For this tutorial I will chose different type of fruits and vegetables.
+
+```python
+
+import os
+from pathlib import Path
+
+# Define image directory
+image_dir = Path("./data/images/")
+
+# Get all image paths
+image_paths = [str(f) for f in image_dir.glob("*.jpg")]
+print(f"Found {len(image_paths)} images")
 
 
+```
 
-
+## Step 2: Generating Vector Embeddings
