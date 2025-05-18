@@ -377,7 +377,6 @@ To run streamlit ui run this command in you cli:
 
 
 
-
 # Final Thoughts: Endless Possibilities with Image Similarity Search
 
 We've just scratched the surface of what's possible with image similarity search. 
@@ -403,3 +402,5 @@ The combination of modern embedding models and vector databases opens up excitin
 - Categorizing untagged images based on visual content
 
 _Remember that the quality of your search results depends heavily on the quality of your embeddings. For specialized use cases, you might want to fine-tune your embedding model on your specific image domain rather than using a general-purpose pre-trained model like ResNet50_
+
+**Full example of the code can be found [here](https://github.com/vesko-vujovic/image-similarity-vector-db)**
