@@ -306,6 +306,7 @@ display(HTML('<a href="http://127.0.0.1:8000/docs" target="_blank">Open FastAPI 
 ```
 
 ## Step 5: Building a Simple UI for Image Search
+
 Finally, let's create a basic web interface using Streamlit:
 
 ```python
@@ -356,3 +357,47 @@ if uploaded_file is not None:
                 st.error("Error searching for similar images")
 
 ```
+
+To run streamlit ui run this command in you cli:
+
+```bash
+    streamlit run vector-search-ui.py
+ ```
+
+
+# Image similarity in action
+
+
+
+![streamlit-ui](/posts/image-similarity-vector-db/image-similarity-ui.gif)
+
+
+
+
+
+
+# Final Thoughts: Endless Possibilities with Image Similarity Search
+
+We've just scratched the surface of what's possible with image similarity search. 
+The combination of modern embedding models and vector databases opens up exciting applications across numerous domains:
+
+### E-commerce and Retail
+
+- Visual product search ("find products that look like this")
+- Style-based recommendations
+- Outfit completion suggestions
+- Counterfeit detection
+
+### Content Moderation
+
+- Finding similar inappropriate content
+- Identifying duplicates or variations of banned material
+- Protecting brand assets from unauthorized use
+
+### Digital Asset Management
+
+- Organizing large image libraries by visual similarity
+- Eliminating duplicate or near-duplicate images
+- Categorizing untagged images based on visual content
+
+_Remember that the quality of your search results depends heavily on the quality of your embeddings. For specialized use cases, you might want to fine-tune your embedding model on your specific image domain rather than using a general-purpose pre-trained model like ResNet50_
