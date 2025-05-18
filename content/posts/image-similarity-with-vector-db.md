@@ -10,10 +10,12 @@ tags:
   - deep-learning
   - computer-vision
 cover:
-  image: ""
+  image: "/posts/image-similarity-vector-db/cover-similarity.png"
   alt: "vector-database"
   caption: "vector-database"
 ---
+
+![cover-vector-similarity](/posts/image-similarity-vector-db/cover-similarity.png)
 
 # Introduction
 
@@ -64,7 +66,7 @@ Vector embeddings are numerical representations of data in multi-dimensional (ve
 
 The beauty of vector embeddings is that similar images will have vectors that are closer to each other in this high-dimensional space. This geometric property allows us to find similar images by measuring the distance between vectors.
 
-// create in excalidraw vector embeding images
+![vector-embedding](/posts/image-similarity-vector-db/vector-embedding.png)
 
 # Vector Databases: The Engine Behind Similarity Search
 
