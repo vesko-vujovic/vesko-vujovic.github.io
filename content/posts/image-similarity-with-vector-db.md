@@ -1,7 +1,7 @@
 ---
 title: "🦾 Picture Perfect Match: Building an Image Similarity Search Engine with Vector Databases🤖"
 date: 2025-05-15T13:06:41+02:00
-draft: true
+draft: false
 tags:
   - vector-database
   - AI
