@@ -100,7 +100,7 @@ Let's dive into the practical steps for building an image similarity search syst
 
 ## Step 1: Image Collection and Preprocessing
 
-First, you'll need a collection of images. For this tutorial, let's assume we have a directory of some images. For this tutorial I will chose different type of fruits and vegetables.
+First, you'll need a collection of images. For this tutorial, let's assume we have a directory of some images. For this tutorial,  I will choose some random wild animals.
 
 ```python
 
@@ -187,7 +187,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
 
 # Initialize Qdrant client - local one
-collection_name = "fruits_and_vegetables"
+collection_name = "animals"
 
 if not client:
     client = QdrantClient(path="./qdrant_data")
