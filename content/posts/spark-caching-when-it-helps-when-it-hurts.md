@@ -10,10 +10,12 @@ tags:
   - big-data
   - spark-optimization
 cover:
-  image: "/posts/spark-caching-performance/spark_caching_cover.png"
+  image: "/posts/spark-cache/spark-cache.png"
   alt: "spark-caching-performance"
   caption: "spark-caching-performance"
 ---
+
+![spark-cache](/posts/spark-caching/spark-caching.png)
 
 Ever had a Spark job that keeps re-reading the same data over and over? You might need caching. But cache at the wrong time, and you'll actually slow things down.
 Here's when caching helps, when it doesn't, and how to use it right. This blog will be short but sweet!
