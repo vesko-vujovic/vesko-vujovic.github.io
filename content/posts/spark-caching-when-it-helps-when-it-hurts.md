@@ -118,3 +118,98 @@ monthly_trends = enriched_data.groupBy("month").sum("profit")
 
 ## Interactive Data Exploration
 Working in a Jupyter notebook? Cache your base dataset so you can explore it quickly.
+
+```python
+# Cache for interactive analysis
+user_data = spark.read.json("users.json").cache()
+
+# Now you can run multiple exploratory queries fast
+user_data.describe().show()
+user_data.filter(col("age") > 25).count()
+user_data.groupBy("country").count().show()
+```
+
+
+# 🚫 When NOT to Cache (Avoid These)
+
+### One-Time Use Data
+Don't cache data you'll only use once. It's wasteful.
+
+```python
+# BAD: Only using this once
+df = spark.read.csv("temp_file.csv").cache()  # Pointless!
+result = df.groupBy("category").count().write.parquet("output")
+```
+
+
+### Linear ETL Pipelines
+If your data flows in a straight line from source to destination, caching usually doesn't help.
+
+
+```python
+# BAD: Each step only used once
+raw_data = spark.read.json("input.json")
+cleaned = raw_data.dropna().cache()      # Unnecessary
+transformed = cleaned.withColumn(...).cache()  # Unnecessary  
+transformed.write.parquet("output")      # Just write it
+```
+
+### When You're Running Low on Memory
+If your cluster is already struggling with memory, adding more cached data will make things worse.
+
+```python
+# BAD: Your 4GB cluster can't handle caching 10GB of data
+huge_df = spark.read.parquet("10gb_file.parquet").cache()  # Will cause problems
+```
+
+
+# 🛠️ How to Cache Right
+
+### Use cache() for Most Cases
+
+```python
+# Simple and works for most situations
+df = spark.read.parquet("file.parquet").cache()
+```
+
+### Use persist() When You Need Control
+
+```python
+from pyspark import StorageLevel
+
+# Different storage options
+df.persist(StorageLevel.MEMORY_ONLY)     # Fast, but limited by RAM
+df.persist(StorageLevel.MEMORY_AND_DISK) # Spills to disk when memory full  
+df.persist(StorageLevel.DISK_ONLY)       # Slower, but handles large data
+```
+
+### Don't Forget to Clean Up
+
+```python
+# Always unpersist when done
+df.cache()
+# ... do your work ...
+df.unpersist()  # Free up memory
+```
+
+
+## 🎯 Quick Decision Guide
+### Cache when:
+
+- You'll use the same DataFrame 2+ times
+- You have expensive joins or transformations
+- You're doing interactive analysis
+- You have enough cluster memory
+
+### Don't cache when:
+
+- You'll only use the data once
+- You're running a simple linear pipeline
+- Your cluster is low on memory
+- The data is too big to fit in memory
+
+# 💡 Conclusion
+Caching is simple: if you're going to use the same data multiple times, and you have the memory for it, cache it. If not, don't.
+The biggest mistake I see? People either cache everything or cache nothing. The sweet spot is caching strategically - only the data you'll actually reuse.
+Try this in your next Spark job: identify one DataFrame you use multiple times and add `.cache()` to it. You might be surprised by the performance boost.
+
