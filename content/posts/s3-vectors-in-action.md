@@ -162,6 +162,8 @@ Your DevOps team can focus on building features instead of babysitting vector da
 
 **The OpenSearch integration** enables smart tiering strategies. Keep your hot data (frequently queried vectors) in OpenSearch for millisecond latency, while cold data sits cost-effectively in S3 Vectors. When query patterns change, you can export from S3 to OpenSearch with a few clicks – no complex ETL pipelines or re-embedding required.
 
+![s3-kb](/posts/s3-vector-bucket/2025-s3-vector-2-create-bedrock-kb.png)
+
 **SageMaker Unified Studio** users get S3 Vectors as a native option when building generative AI applications. Create knowledge bases, manage vector indexes, and deploy chat agents all from one interface. The integration handles embedding generation, vector storage, and retrieval automatically – you just focus on the application logic.
 
 
