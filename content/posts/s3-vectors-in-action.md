@@ -136,3 +136,24 @@ results = s3vectors.query_vectors(
 results = query["vectors"]
 print(results)
 ```
+
+## The Cost Revolution: 90% Savings Isn't a Typo 💰
+
+Let's talk real numbers. For 10 million vectors (1536 dimensions each), OpenSearch Serverless costs approximately **$1,400/month** – that's **$700 for compute units (2 OCUs minimum)** plus storage costs. Traditional OpenSearch clusters aren't much better, starting at **$500-700/month** for production-ready instances before you even factor in storage and data transfer.
+
+With S3 Vectors, those same 10 million vectors cost roughly **$140/month** – just storage pricing at S3 rates, no compute charges. You only pay extra when you query, and even then it's pennies compared to running a cluster 24/7. No more paying for idle compute during off-hours or over-provisioning for peak loads.
+
+For examaple (taken from AWS documentation):
+
+`Tier 2 query processing cost = 9.9 million vectors * 5.17 KB/average vector * $0.002/TB * 10 million queries = $953.36`
+
+
+_**For ~10M vectors and 10M queries per month you will pay roughly $953.36**_
+
+
+The hidden savings are equally important: **zero infrastructure management, no cluster upgrades, no rebalancing shards, no capacity planning meetings**. 
+
+Your DevOps team can focus on building features instead of babysitting vector databases. For infrequently queried vectors (think historical data or cold archives), the savings approach 95% compared to keeping everything in a hot OpenSearch cluster.
+
+
+## Integration Superpowers? 🔗
