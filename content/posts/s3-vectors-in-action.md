@@ -42,3 +42,97 @@ Vector buckets are a completely new S3 bucket type with dedicated APIs for vecto
 The real magic happens during queries. S3 Vectors uses **approximate nearest neighbor (ANN) algorithms** to find similar vectors without scanning the entire dataset. You send a query vector, specify how many results you want (topK), and optionally add metadata filters. S3 handles all the indexing, optimization, and query execution internally – no FAISS libraries, no managing HNSW parameters, just simple API calls.
 
 As you add, update, or delete vectors, S3 automatically rebalances and optimizes the index structure. This means consistent performance whether you have **1,000 or 10 million vectors**, without any manual tuning or re-indexing operations.
+
+
+## Practical Implementation: From Zero to Vector Search 💻
+
+First let's create a bucket.
+
+![s3-buckets](/posts/s3-vector-bucket/s3-create-bucket.png)
+
+Once created we can then create a vector index and query our data.
+
+Let's build a simple vector search system. First, create a vector bucket and index:
+
+```python
+import boto3
+
+# Create S3 Vectors client
+s3vectors = boto3.client('s3vectors', region_name='us-west-2')
+
+
+```
+
+Generate embeddings using Bedrock and insert them into your index:
+
+```python
+
+# Generate embeddings with Bedrock
+bedrock = boto3.client("bedrock-runtime", region_name="us-west-2")
+
+text = "Star Wars: A farm boy joins rebels to fight an evil empire"
+response = bedrock.invoke_model(
+    modelId='amazon.titan-embed-text-v2:0',
+    body=json.dumps({"inputText": text})
+)
+embedding = json.loads(response['body'].read())['embedding']
+
+# Insert into S3 Vectors with metadata
+s3vectors.put_vectors(
+    vectorBucketName="star-wars-vector-bucket",
+    indexName="come-to-the-dark-side-index",
+    vectors=[{
+        "key": "doc1",
+        "data": {"float32": embedding},
+        "metadata": {"title": "Star Wars", "genre": "scifi"}
+    }]
+)
+
+```
+
+Generate embeddings using Bedrock and insert them into your index:
+
+
+```python
+# Generate embeddings with Bedrock
+bedrock = boto3.client("bedrock-runtime", region_name="us-west-2")
+
+text = "Star Wars: A farm boy joins rebels to fight an evil empire"
+response = bedrock.invoke_model(
+    modelId='amazon.titan-embed-text-v2:0',
+    body=json.dumps({"inputText": text})
+)
+embedding = json.loads(response['body'].read())['embedding']
+
+# Insert into S3 Vectors with metadata
+s3vectors.put_vectors(
+    vectorBucketName="star-wars-vector-bucket",
+    indexName="come-to-the-dark-side-index",
+    vectors=[{
+        "key": "doc1",
+        "data": {"float32": embedding},
+        "metadata": {"title": "Star Wars", "genre": "scifi"}
+    }]
+)
+
+```
+
+Query your vectors with similarity search:
+
+```python
+# Search for similar content
+query_text = "Movies about space adventures"
+query_embedding = generate_embedding(query_text)  # Same Bedrock process
+
+results = s3vectors.query_vectors(
+    vectorBucketName="star-wars-vector-bucket",
+    indexName="come-to-the-dark-side-index",
+    queryVector={"float32": query_embedding},
+    topK=5,
+    filter={"genre": "scifi"},  # Optional metadata filter
+    returnDistance=True
+)
+
+results = query["vectors"]
+print(results)
+```
