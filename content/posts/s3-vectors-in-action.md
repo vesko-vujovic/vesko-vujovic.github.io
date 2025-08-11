@@ -26,7 +26,7 @@ Amazon just changed the game with S3 Vectors – it's S3 that can do vector math
 
 Picture the traditional vector search architecture: Your data sits in S3, then you need an embedding application to chunk and vectorize it, followed by a vector database like OpenSearch or Pinecone, and finally your application queries that database.
 
-// some nice picture with flow for embeding and so on...
+![s3-vector-overview](/posts/s3-vector-bucket/2025-s3-vector-1-overview-1.png)
 
 Each step is a potential failure point – managing chunking strategies, handling batch processing, dealing with failed embeddings, and orchestrating everything with Lambda or ECS.
 
