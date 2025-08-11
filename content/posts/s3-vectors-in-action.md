@@ -9,10 +9,12 @@ tags:
   - database
   - AI
 cover:
-  image: ""
-  alt: 
-  caption: 
+  image: "/posts/s3-vector-bucket/s3-vectors-cover.png"
+  alt: "s3-vectors"
+  caption: "S3 vector table search"
 ---
+
+![s3-vector-cover](/posts/s3-vector-bucket/s3-vectors-cover.png)
 
 
 What if I told you that you could run vector searches directly on S3 without spinning up a single database or compute cluster? For years, we've been stuck with a painful pipeline: extract data from S3, chunk it, generate embeddings, load everything into **OpenSearch or Pinecone**, and manage all that infrastructure. 
