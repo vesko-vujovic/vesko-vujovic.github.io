@@ -26,7 +26,7 @@ params:
   author: ["Vesko Vujovic"] # multiple authors
   images: ["general/floppy.jpg"]
   DateFormat: "January 2, 2006"
-  defaultTheme: auto # dark, light
+  defaultTheme: "auto" # dark, light
   disableThemeToggle: false
 
   ShowReadingTime: true
@@ -47,7 +47,7 @@ params:
 
   assets:
     # disableHLJS: true # to disable highlight.js
-    # disableFingerprinting: true
+    disableFingerprinting: false
     favicon: "/favicons/favicon.ico"
     favicon16x16: "/favicons/favicon-16x16.png"
     favicon32x32: "/favicons/favicon-32x32.png"
@@ -56,8 +56,8 @@ params:
 
   label:
     text: "Home"
-    icon: /apple-touch-icon.png
-    iconHeight: 35
+    # icon: /favicons/apple-touch-icon.png
+    # iconHeight: 35
 
   # profile-mode
   profileMode:

@@ -1,0 +1,43 @@
+<style>
+@media screen and (min-width: 769px) {
+    /* .post-content is a class which will be present only on single pages 
+        and not lists and section pages in Hugo */
+    .post-content input[type="checkbox"]:checked ~ label > img {
+        transform: scale(1.6);
+        cursor: zoom-out;
+        position: relative;
+        z-index: 999;
+    }
+
+    .post-content img.zoomCheck {
+        transition: transform 0.15s ease;
+        z-index: 999;
+        cursor: zoom-in;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+    
+    const theme = localStorage.getItem('pref-theme') || 'auto';
+    
+    // Set initial theme
+    if (theme !== 'auto') {
+        document.body.classList.remove('light', 'dark');
+        document.body.classList.add(theme);
+    }
+    
+    // Add click handler
+    toggle.addEventListener('click', () => {
+        const isDark = document.body.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        
+        document.body.classList.remove('light', 'dark');
+        document.body.classList.add(newTheme);
+        localStorage.setItem('pref-theme', newTheme);
+    });
+});
+</script>
