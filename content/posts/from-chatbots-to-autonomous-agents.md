@@ -8,10 +8,12 @@ tags:
   - Business
   - ML
 cover:
-  image: "/posts/"
+  image: "/posts/agentic-ai-for-business-leaders/agentic_ai_for_business_leaders.png"
   alt: "Agentic-Ai-for-business-leaders"
   caption: "Agentic ai for business leaders"
 ---
+
+![agentic-ai-for-business-leaders](/posts/agentic-ai-for-business-leaders/agentic_ai_for_business_leaders.png)
 
 Remember when chatbots were the future of customer service? Fast-forward five years, and we're already talking about AI agents that can handle your entire sales pipeline, analyze market data, and even make procurement decisions without human intervention.
 
