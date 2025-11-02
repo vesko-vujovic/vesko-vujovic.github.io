@@ -105,3 +105,37 @@ But your business logic is wrong. You're treating returns as negative revenue in
 ```
 
 The data passes all quality checks. But your logic is broken. That's what unit tests catch.
+
+### ⚠️ Real Example #2: Where Data Quality Checks Miss the Bug
+
+**The Scenario: Conversion Rate Calculation**
+
+You're building a marketing dashboard that tracks conversion rates. The metric is simple: what percentage of users who view a product page actually make a purchase?
+
+Here's your code:
+
+```python
+    def calculate_conversion_rate(events_df):
+    """Calculate conversion rate from page views to purchases"""
+    # Count page views
+    page_views = events_df[events_df['event_type'] == 'page_view'].shape[0]
+    
+    # Count purchases
+    purchases = events_df[events_df['event_type'] == 'purchase'].shape[0]
+    
+    # Calculate conversion rate
+    conversion_rate = (purchases / page_views) * 100
+    
+    return conversion_rate
+```
+
+
+
+Your data quality checks:
+
+- ✅ Conversion rate is between 0% and 100%
+
+- ✅ No null values
+- ✅ Page view count is positive
+- ✅ Purchase count is positive
+- ✅ Numbers are within expected ranges (2-5% conversion is normal)
