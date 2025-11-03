@@ -386,3 +386,21 @@ def check_for_duplicate_events(events_df):
             )
 ```
 
+This check runs on the actual data and catches anomalies that your unit test can't see because your test uses clean, hand-crafted data.
+
+**🔄 Real Example #6: Where Unit Tests Miss the Problem**
+**The Scenario: Business Logic Drift**
+
+You're building a discount validation pipeline. Company policy says discounts can't exceed 50%.
+Here's your code:
+
+```python
+def validate_discount(discount_percent):
+    """Validate discount is within company policy"""
+    max_discount = 50.0
+    
+    if discount_percent > max_discount:
+        raise ValueError(f"Discount {discount_percent}% exceeds maximum {max_discount}%")
+    
+    return discount_percent
+```
