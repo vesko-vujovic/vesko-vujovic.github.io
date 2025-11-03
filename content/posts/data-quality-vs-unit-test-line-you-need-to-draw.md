@@ -299,3 +299,31 @@ Your faithful servant unit test:
 ```
 
 Unit test passes. ✅ You deploy.
+
+Two weeks later, the upstream team refactors their API. They change user_id to `userId` (camelCase). They don't tell you because "it's a minor change."
+Your pipeline breaks. Every single run fails with `KeyError: 'user_id'`.
+
+Your unit test is perfect. Your code logic is correct. But the data structure changed, and your unit test uses mock data that doesn't reflect reality.
+
+**What would catch this:**
+```python
+# Data quality check on the raw input
+def validate_api_schema(json_response):
+    """Validate API response has expected schema"""
+    required_fields = ['user_id', 'email', 'full_name', 'created_at']
+    
+    if 'data' not in json_response:
+        raise ValueError("Missing 'data' field in API response")
+    
+    if len(json_response['data']) > 0:
+        first_item = json_response['data'][0]
+        missing_fields = [f for f in required_fields if f not in first_item]
+        
+        if missing_fields:
+            raise ValueError(f"API schema changed. Missing fields: {missing_fields}")
+    
+    return True
+```
+
+This data quality check runs on the actual data coming from the API. It catches schema changes immediately.
+Your code logic was fine. Your unit test was fine. But the real-world data didn't match your assumptions.
