@@ -358,3 +358,31 @@ Your unit test:
 ```
 
 Test passes. ✅ Logic is correct.
+
+Then your upstream logging service has a bug. It starts double-logging events. Every user action gets written to the database twice.
+
+Your aggregation logic still works perfectly. It counts unique users. But your counts are now wrong because you're deduplicating events that shouldn't exist in the first place.
+
+Your dashboard shows 50,000 daily active users. In reality, half of those are duplicates from the source system. Your business makes decisions based on inflated numbers.
+
+Your code is doing exactly what it's supposed to do. Your unit test validates that the logic works. But the input data is garbage.
+
+```python
+    # Data quality check on input data
+def check_for_duplicate_events(events_df):
+    """Check if we're receiving duplicate events"""
+    # Count how many events exist per user per timestamp
+    duplicates = events_df.groupby(['user_id', 'event_timestamp', 'event_type']).size()
+    
+    duplicate_count = (duplicates > 1).sum()
+    
+    if duplicate_count > 0:
+        # Alert if more than 1% of events are duplicates
+        duplicate_rate = duplicate_count / len(events_df)
+        if duplicate_rate > 0.01:
+            raise ValueError(
+                f"High duplicate rate detected: {duplicate_rate:.2%}. "
+                f"Possible issue with upstream logging system."
+            )
+```
+
