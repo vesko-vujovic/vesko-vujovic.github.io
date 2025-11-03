@@ -255,3 +255,47 @@ The data quality checks can't catch this. There are no nulls. No invalid IDs. No
     charlie = result.filter(result.customer_name == 'Charlie').first()
     assert charlie.order_count == 0
 ```
+
+### 🔄 Real Example #4: Where Unit Tests Miss the Problem
+**The Scenario: Upstream Schema Change**
+
+Now let's flip the coin. Here's where unit tests fail you.
+You're building a pipeline that ingests user data from an external API. You parse the JSON response and extract key fields.
+```python
+    def parse_user_data(json_response):
+    """Parse user data from API response"""
+    users = []
+    for item in json_response['data']:
+        user = {
+            'user_id': item['user_id'],
+            'email': item['email'],
+            'name': item['full_name'],
+            'signup_date': item['created_at']
+        }
+        users.append(user)
+    return users
+```
+
+Your faithful servant unit test:
+
+```python
+    def test_parse_user_data():
+    mock_response = {
+        'data': [
+            {
+                'user_id': 123,
+                'email': 'alice@example.com',
+                'full_name': 'Alice Smith',
+                'created_at': '2024-01-15'
+            }
+        ]
+    }
+    
+    result = parse_user_data(mock_response)
+    
+    assert len(result) == 1
+    assert result[0]['user_id'] == 123
+    assert result[0]['name'] == 'Alice Smith'
+```
+
+Unit test passes. ✅ You deploy.
