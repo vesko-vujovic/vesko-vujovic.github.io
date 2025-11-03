@@ -327,3 +327,34 @@ def validate_api_schema(json_response):
 
 This data quality check runs on the actual data coming from the API. It catches schema changes immediately.
 Your code logic was fine. Your unit test was fine. But the real-world data didn't match your assumptions.
+
+### 🔄 Real Example #5: Where Unit Tests Miss the Problem
+
+**The Scenario: Duplicate Records from Source System**
+
+You're aggregating daily active users from your application logs.
+Here's your code:
+
+```python
+def count_daily_active_users(events_df):
+    """Count unique active users per day"""
+    return events_df.groupby('date')['user_id'].nunique()
+```
+
+Your unit test:
+
+```python
+    def test_count_daily_active_users():
+        test_data = pd.DataFrame({
+            'date': ['2024-01-01', '2024-01-01', '2024-01-02'],
+            'user_id': [1, 1, 2]  # User 1 appears twice on same day
+        })
+        
+        result = count_daily_active_users(test_data)
+        
+        # Should count unique users
+        assert result['2024-01-01'] == 1  # User 1, counted once
+        assert result['2024-01-02'] == 1  # User 2
+```
+
+Test passes. ✅ Logic is correct.
