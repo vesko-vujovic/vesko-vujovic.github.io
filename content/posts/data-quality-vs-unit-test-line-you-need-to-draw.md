@@ -388,7 +388,7 @@ def check_for_duplicate_events(events_df):
 
 This check runs on the actual data and catches anomalies that your unit test can't see because your test uses clean, hand-crafted data.
 
-**🔄 Real Example #6: Where Unit Tests Miss the Problem**
+### 🔄 Real Example #6: Where Unit Tests Miss the Problem
 **The Scenario: Business Logic Drift**
 
 You're building a discount validation pipeline. Company policy says discounts can't exceed 50%.
@@ -404,3 +404,81 @@ def validate_discount(discount_percent):
     
     return discount_percent
 ```
+
+Test passes. ✅ Your logic matches the business rules.
+You deploy. Everything works great.
+
+Three months later, marketing launches a massive promotional campaign. Black Friday. They need to offer 70% off to compete.
+
+Your pipeline rejects every single transaction. Orders are getting dropped. Marketing is furious. Sales are lost.
+Your code is working perfectly according to the rules you coded. Your unit test validates those rules. But the business rules changed, and nobody updated your code.
+
+**What would catch this:**
+
+```python
+# Data quality check that alerts on unexpected patterns
+def check_discount_rejection_rate(transactions_df):
+    """Alert if we're rejecting an unusual amount of transactions"""
+    total = len(transactions_df)
+    rejected = len(transactions_df[transactions_df['status'] == 'rejected'])
+    
+    rejection_rate = rejected / total
+    
+    # Normal rejection rate is < 5%
+    if rejection_rate > 0.05:
+        raise ValueError(
+            f"High rejection rate detected: {rejection_rate:.2%}. "
+            f"Possible issue with validation rules or new business requirements."
+        )
+```
+
+This data quality check monitors the behavior in production. It catches when your "correct" code is actually rejecting valid business transactions.
+Your logic is correct for the old rules. But rules changed.
+
+
+## 📏 Drawing the Line: What Each Should Test
+
+Now that you've seen both sides fail, let's draw the line clearly.
+
+### Unit Tests Should Verify:
+
+- **Your transformation logic is correct**: Does my calculation work as intended?
+- **Edge cases are handled**: What happens with nulls, negative values, empty lists, returns?
+- **Your joins work as intended**: Am I using the right join type? Are keys matching correctly?
+- **Your calculations produce expected results**: Does this aggregation logic give me the right answer?
+- **Conditional logic handles all branches**: Do all my if/else paths work correctly?
+
+### Data Quality Checks Should Verify:
+
+- **Data conforms to expected schema**: Are the fields I need actually present?
+- **Values are within expected ranges**: Is this revenue number suspiciously high or low?
+- **No unexpected nulls or missing data**: Are required fields populated?
+- **Data freshness and completeness**: Is this data recent? Are we missing records?
+- **Relationships between tables are maintained**: Do foreign keys match? Are there orphaned records?
+- **Volume anomalies**: Did we suddenly get 10x more records than usual?
+
+## Conclusion
+
+**Here's the thing you need to know: Don't pick one over the other. You need both.**
+
+
+`Unit tests don't directly check your data quality, but they're essential for preventing bad code from producing bad data in the first place.`
+
+`Think of it this way:`
+- `Unit tests prevent YOU from creating bad data`
+- `Data quality checks prevent OTHERS from sending you bad data`
+
+Both protect your data quality, just at different stages
+
+
+The question isn't "which one should I use?" The question is "am I testing my logic or validating my data?"
+
+If you're testing logic → write unit tests.
+If you're validating data → add quality checks.
+
+__*Without unit tests, your buggy code will pollute your data warehouse.*__
+__*Without data quality checks, upstream issues will pollute your data warehouse.*__
+
+*You need both layers of defense.*
+
+Both are essential. Both catch different problems. Together, they keep your pipelines reliable.
