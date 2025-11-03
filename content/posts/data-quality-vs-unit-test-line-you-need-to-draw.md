@@ -50,13 +50,10 @@ def calculate_revenue(df):
 
 You set up your data quality checks:
 
-✅ All prices are positive
-
-✅ No null quantities
-
-✅ Revenue values are reasonable (between $0 and $1M per day)
-
-✅ No missing dates
+- ✅ All prices are positive
+- ✅ No null quantities
+- ✅ Revenue values are reasonable (between $0 and $1M per day)
+- ✅ No missing dates
 
 Everything passes. Your dashboard is green. Ship it.
 
@@ -134,8 +131,127 @@ Here's your code:
 Your data quality checks:
 
 - ✅ Conversion rate is between 0% and 100%
-
 - ✅ No null values
 - ✅ Page view count is positive
 - ✅ Purchase count is positive
 - ✅ Numbers are within expected ranges (2-5% conversion is normal)
+
+Everything passes. The metric shows 3.2% conversion rate. Looks reasonable.
+
+But there's a critical flaw in your logic. You're counting ALL page views and ALL purchases, regardless of whether they're from the same user session.
+
+A user might view a product 10 times over a week before finally purchasing. Your calculation counts 10 page views and 1 purchase. But that's not how conversion works. You need to track unique user journeys.
+
+Even worse, if a user purchases without viewing the product page first (maybe they clicked directly from an email), you're counting a purchase with no corresponding page view. This inflates your conversion rate.
+
+The data passes all checks. The percentage is within a reasonable range. But your business logic doesn't match what conversion rate actually means.
+
+
+**What you should have written:**
+
+```python
+def calculate_conversion_rate(events_df):
+    """Calculate conversion rate: users who purchased / users who viewed"""
+    # Get unique users who viewed product pages
+    viewers = events_df[events_df['event_type'] == 'page_view']['user_id'].unique()
+    
+    # Get unique users who made purchases AND also viewed
+    purchasers = events_df[
+        (events_df['event_type'] == 'purchase') & 
+        (events_df['user_id'].isin(viewers))
+    ]['user_id'].unique()
+    
+    # Calculate conversion rate
+    if len(viewers) == 0:
+        return 0.0
+    
+    conversion_rate = (len(purchasers) / len(viewers)) * 100
+    
+    return conversion_rate
+```
+
+**A unit test with realistic user behavior would catch this:**
+
+```python
+def test_conversion_rate_counts_unique_user_journeys():
+    test_data = pd.DataFrame({
+        'user_id': [1, 1, 1, 2, 2, 3, 4],
+        'event_type': ['page_view', 'page_view', 'purchase',  # User 1: viewed 2x, purchased
+                      'page_view', 'page_view',              # User 2: viewed 2x, no purchase
+                      'purchase',                             # User 3: purchased without viewing
+                      'page_view']                            # User 4: viewed only
+    })
+    
+    result = calculate_conversion_rate(test_data)
+    
+    # 3 users viewed (1, 2, 4)
+    # 1 user purchased after viewing (1)
+    # User 3's purchase doesn't count (no view)
+    # Expected: 1/3 = 33.33%
+    assert abs(result - 33.33) < 0.01
+```
+**Your data quality checks can't tell you that your aggregation logic is conceptually wrong. The numbers look fine. But you're measuring the wrong thing.**
+
+
+### ⚠️ Real Example #3: Where Data Quality Checks Miss the Bug
+
+**The Scenario: Join Logic Error**
+
+You're creating a report showing all customers and their order counts. Simple aggregation.
+Here's your Spark code:
+```python
+def create_customer_order_report(customers_df, orders_df):
+    """Create report of customers with order counts"""
+    # Join customers with orders
+    report = customers_df.join(
+        orders_df,
+        customers_df.customer_id == orders_df.customer_id,
+        'inner'  # This is the bug
+    )
+    
+    # Count orders per customer
+    result = report.groupBy('customer_id', 'customer_name') \
+                   .agg(count('order_id').alias('order_count'))
+    
+    return result
+```
+
+Your data quality checks on the output:
+
+- ✅ All customer_ids are valid
+- ✅ No null order counts
+- ✅ Order counts are positive integers
+- ✅ No duplicate customer records
+
+Everything passes. The data looks perfect.
+
+But you used an INNER JOIN. Customers with no orders don't appear in your report at all. They vanished.
+
+Your stakeholder asks, "Where are all the new sign-ups from last week?" You don't have an answer. They're not in the report because they haven't placed an order yet.
+The data quality checks can't catch this. There are no nulls. No invalid IDs. No anomalies in the data that does exist. The problem is the data that doesn't exist.
+
+**A unit test with the right test data would catch this:**
+```python
+    def test_report_includes_customers_with_no_orders():
+    # Test data with customers who have no orders
+    customers = spark.createDataFrame([
+        (1, 'Alice'),
+        (2, 'Bob'),
+        (3, 'Charlie')  # This customer has no orders
+    ], ['customer_id', 'customer_name'])
+    
+    orders = spark.createDataFrame([
+        (1, 1, 'order_1'),
+        (2, 2, 'order_2')
+        # No orders for customer 3
+    ], ['order_id', 'customer_id', 'order_ref'])
+    
+    result = create_customer_order_report(customers, orders)
+    
+    # Should include all 3 customers
+    assert result.count() == 3
+    
+    # Charlie should have 0 orders
+    charlie = result.filter(result.customer_name == 'Charlie').first()
+    assert charlie.order_count == 0
+```
