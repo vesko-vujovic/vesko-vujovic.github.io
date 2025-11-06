@@ -4,7 +4,7 @@ draft: false
 date: 2025-10-28T15:06:41+02:00
 tags:
   - Data Quality
-  - Testing
+  - Unit Test
   - Data Engineering
 cover:
   image: "/posts/agentic-ai-for-business-leaders/agentic_ai_for_business_leaders.png"
@@ -12,10 +12,12 @@ cover:
   caption: "Data Quality Checks vs Unit Tests"
 ---
 
+![dq-vs-unit-test](/posts/dq-vs-unit-tests/dq-vs-unit-tests.png)
+
 Your data quality dashboard shows all green. Your pipeline just merged duplicate records and nobody noticed for a week.
 
 Or maybe it's the opposite. Your unit tests all pass. You deploy with confidence. Then your pipeline breaks in production because the upstream API changed a field name.
-Does this brings vivid memories? 😊
+Does this bring vivid memories? 😊
 
 Here's the fact: **most data engineering teams either over-rely on data quality checks or confuse them with unit tests.** 
 
