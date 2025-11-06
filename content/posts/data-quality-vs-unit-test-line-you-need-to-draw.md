@@ -67,7 +67,7 @@ The data looks totally fine to your quality checks. Prices are positive. Quantit
 
 But your business logic is wrong. You're treating returns as negative revenue instead of handling them properly.
 
-**Here's what you should have written inside of your logic:**
+**Here's what you should have written inside your logic:**
 
 ```python
     def calculate_revenue(df):
