@@ -230,7 +230,7 @@ Everything passes. The data looks perfect.
 But you used an INNER JOIN. Customers with no orders don't appear in your report at all. They vanished.
 
 Your stakeholder asks, "Where are all the new sign-ups from last week?" You don't have an answer. They're not in the report because they haven't placed an order yet.
-The data quality checks can't catch this. There are no nulls. No invalid IDs. No anomalies in the data that does exist. The problem is the data that doesn't exist.
+The data quality checks can't catch this. There are no nulls. No invalid IDs. No anomalies in the data that exist. The problem is the data that doesn't exist.
 
 **A unit test with the right test data would catch this:**
 ```python
