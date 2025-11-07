@@ -7,7 +7,7 @@ tags:
   - Unit Test
   - Data Engineering
 cover:
-  image: "/posts/agentic-ai-for-business-leaders/agentic_ai_for_business_leaders.png"
+  image: "/posts/dq-vs-unit-tests/dq-vs-unit-tests.png"
   alt: "Data Quality Checks vs Unit Tests"
   caption: "Data Quality Checks vs Unit Tests"
 ---
