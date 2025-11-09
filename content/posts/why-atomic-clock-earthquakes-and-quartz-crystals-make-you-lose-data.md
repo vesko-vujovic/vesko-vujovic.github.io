@@ -135,3 +135,10 @@ _The 2011 Tōhoku earthquake in Japan (magnitude 9.0) moved so much mass that it
 These aren't theoretical calculations. Scientists measure these changes using Very Long Baseline Interferometry—radio telescopes positioned across continents that track Earth's rotation by observing distant quasars.
 
 
+**3. Climate Change (The Gradual Redistribution)**
+
+Glaciers are melting. Ice that was concentrated at the poles is now flowing into the oceans, spreading that mass toward Earth's equator.
+
+This is like the figure skater extending their arms: rotation slows down.
+
+The effect is small—microseconds per year—but it's accelerating as ice melt accelerates. The Greenland ice sheet alone contains enough water to slow Earth's rotation by roughly 0.6 milliseconds if it all melted.
