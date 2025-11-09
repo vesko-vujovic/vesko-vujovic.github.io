@@ -142,3 +142,6 @@ Glaciers are melting. Ice that was concentrated at the poles is now flowing into
 This is like the figure skater extending their arms: rotation slows down.
 
 The effect is small—microseconds per year—but it's accelerating as ice melt accelerates. The Greenland ice sheet alone contains enough water to slow Earth's rotation by roughly 0.6 milliseconds if it all melted.
+
+![before-the-fllod](/posts/atomic-clocks-and-quatz/before-the-flood.png)
+The picture is Taken from the movie "Before the flood" where they are showing simulation of the infuence of melting ice caps.
