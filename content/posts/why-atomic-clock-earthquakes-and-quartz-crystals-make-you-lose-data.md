@@ -66,6 +66,26 @@ __The accuracy? Somewhere between 50 and 100 parts per million. That translates 
 
 The cost? __Fifty cents to two dollars.__
 
+**The Gap**
 
+Here's what this looks like in practice:
+
+```
+Atomic clock (NIST, Boulder):    10:00:00.000000000
+Your server (thinks it's right):  10:00:00.087000000
+Actual drift: 87 milliseconds
+```
+
+Your server has no idea it's wrong. The crystal oscillator is counting vibrations and reporting timestamps with complete confidence. It just happens to be counting vibrations that are slightly faster or slower than they should be.
+
+This is why every device needs __Network Time Protocol.__ NTP's entire job is to ask atomic clocks "what time is it?" and then correct your crystal oscillator's drift. Your server does this every 64 to 1024 seconds, depending on how badly your crystal is drifting.
+
+But here's the problem: between NTP syncs, your clock is on its own. If your crystal drifts at 100 parts per million and you sync every 1000 seconds, you can accumulate up to 100 milliseconds of error between syncs.
+
+And in a distributed system with dozens or hundreds of servers, each syncing at different times, each with crystals drifting at different rates?
+
+You don't have one version of "10:00:00." You have dozens.
+
+---
 
 
