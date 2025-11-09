@@ -58,11 +58,13 @@ Your server contains a quartz crystal about the size of a grain of rice. __When 
 
 ![quarz-cristals](/posts/atomic-clocks-and-quatz/quartz-oscilators.gif)
 
-The crystal counts oscillations just like cesium atoms do. But quartz isn't cesium. The vibration frequency changes with temperature. It drifts as the crystal ages. Manufacturing defects mean each crystal vibrates slightly differently.
+If you are interested in electronics and physics of the oscilators this [link](https://www.youtube.com/watch?v=oEC5fIw0bL0&t=368s) explains everything.
 
-The accuracy? Somewhere between 50 and 100 parts per million. That translates to 4-8 seconds of drift per day.
+__The crystal counts oscillations just like cesium atoms do. But quartz isn't cesium. The vibration frequency changes with temperature. It drifts as the crystal ages. Manufacturing defects mean each crystal vibrates slightly differently.__
 
-The cost? Fifty cents to two dollars.
+__The accuracy? Somewhere between 50 and 100 parts per million. That translates to 4-8 seconds of drift per day.__
+
+The cost? __Fifty cents to two dollars.__
 
 
 
