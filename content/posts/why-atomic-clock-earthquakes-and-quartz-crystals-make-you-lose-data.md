@@ -30,7 +30,40 @@ None of them were.
 
 __Today, we're going to follow time from its birth in atomic clocks, through Earth's chaotic rotation, past earthquakes and melting ice caps, into the crystal oscillator in your server, and finally into your database—where it arrives with the wrong value and makes your transactions disappear.__
 
-You'll learn why your server can't actually tell time, how planetary physics corrupts your timestamps, and what to do about it before it costs you real money.
+You'll learn why your server can't actually tell time, how planetary physics corrupts your timestamps, and what to do about it 
+
+---
+
+## ⚛️ Part 1: Two Ways to Measure Time
+
+### The Tale of Two Clocks
+
+Every computer has a fundamental problem: it needs to know what time it is, but it can't afford the equipment that actually measures time accurately.
+
+Let me show you the gap.
+
+**Atomic Clocks: The Truth**
+
+An atomic clock in Boulder, Colorado contains cesium-133 atoms. When you excite these atoms with microwave radiation at exactly the right frequency, they oscillate in a perfectly predictable way. Count exactly 9,192,631,770 oscillations, and exactly one second has passed.
+
+This isn't an approximation. This *is* the definition of a second. __Since 1967, the international standard for time has been based on cesium atoms, not Earth's rotation,__ not pendulums, not anything else.
+
+The accuracy? Within one nanosecond. These clocks are so precise that if you started one at the beginning of the universe __13.8 billion years ago, it would be off by less than a second today.__
+
+The cost? __$50,000 to $100,000 a piece__ .Sometimes much more.
+
+**Crystal Oscillators: Your Reality**
+
+Your server contains a quartz crystal about the size of a grain of rice. __When you apply electricity, the crystal vibrates at 32,768 Hz—exactly 2^15 times per second, which makes it convenient for binary counters.__
+
+![quarz-cristals](/posts/atomic-clocks-and-quatz/quartz-oscilators.gif)
+
+The crystal counts oscillations just like cesium atoms do. But quartz isn't cesium. The vibration frequency changes with temperature. It drifts as the crystal ages. Manufacturing defects mean each crystal vibrates slightly differently.
+
+The accuracy? Somewhere between 50 and 100 parts per million. That translates to 4-8 seconds of drift per day.
+
+The cost? Fifty cents to two dollars.
+
 
 
 
