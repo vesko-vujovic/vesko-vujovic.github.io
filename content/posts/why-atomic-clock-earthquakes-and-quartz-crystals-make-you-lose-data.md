@@ -209,6 +209,24 @@ Stratum 2: Servers that sync from Stratum 1 (probably your infrastructure)
     ↓
 Stratum 3+: Further removed from the source
 ```
+The further you get from Stratum 0, the more uncertainty accumulates. Network latency, processing delays, and multiple hops all add jitter.
+
+Your typical data center server is probably Stratum 2 or 3, syncing from public NTP pool servers or internal time servers. The synchronization happens every 64 to 1024 seconds, depending on how much your clock has been drifting.
+
+**What Actually Happens During Sync**
+
+Your server sends a packet to an NTP server: "What time is it?"
+
+The NTP server responds with four timestamps:
+- When your request left your machine
+- When it arrived at the NTP server
+- When the NTP response left the server
+- When it arrived back at your machine
+
+From these four timestamps, NTP calculates two things:
+1. **Offset:** How wrong your clock is
+2. **Round-trip delay:** How long the network took
+
 
 
 
