@@ -145,3 +145,11 @@ The effect is small—microseconds per year—but it's accelerating as ice melt 
 
 ![before-the-fllod](/posts/atomic-clocks-and-quatz/before-the-flood.png)
 The picture is Taken from the movie "Before the flood" where they are showing simulation of the infuence of melting ice caps on earth streams and rotation.
+
+**4. Atmospheric and Ocean Changes (The Daily Chaos)**
+
+High-altitude winds redistribute air mass. Ocean currents move water around. Even seasonal weather patterns affect rotation.
+
+The variation? Up to 1-2 milliseconds per day.
+
+Earth spins slightly faster in summer than winter because atmospheric circulation patterns change. El Niño and La Niña events measurably affect rotation speed by shifting ocean water masses.
