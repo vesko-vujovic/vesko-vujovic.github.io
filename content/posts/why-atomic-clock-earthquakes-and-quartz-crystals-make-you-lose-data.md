@@ -153,3 +153,29 @@ High-altitude winds redistribute air mass. Ocean currents move water around. Eve
 The variation? Up to 1-2 milliseconds per day.
 
 Earth spins slightly faster in summer than winter because atmospheric circulation patterns change. El Niño and La Niña events measurably affect rotation speed by shifting ocean water masses.
+
+**The Leap Second Problem**
+
+To keep UTC aligned with Earth's messy rotation, the International Earth Rotation and Reference Systems Service (IERS) monitors the planet using GPS satellites, radio telescopes, and laser ranging. When the gap between atomic time and Earth time gets too large, they announce a leap second.
+
+Here's what a leap second looks like:
+
+```
+Normal time progression:
+23:59:58 → 23:59:59 → 00:00:00 ✓
+
+Positive leap second:
+23:59:58 → 23:59:59 → 23:59:60 → 00:00:00
+                      ↑ 
+                Extra second inserted
+
+Negative leap second (never used yet, but possible):
+23:59:58 → 00:00:00 
+           ↑
+           Skip 23:59:59 entirely
+```
+
+Since 1972, we've added 37 leap seconds. We've never removed one, but as Earth's rotation becomes less predictable due to climate change, we might need to.
+
+And every time a leap second happens, systems break. Reddit went down in 2012. Cloudflare had an outage in 2017. Qantas airport check-in systems failed. Linux kernel bugs were triggered.
+
