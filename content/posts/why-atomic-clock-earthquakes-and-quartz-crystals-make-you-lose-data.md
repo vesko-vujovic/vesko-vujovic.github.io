@@ -227,6 +227,51 @@ From these four timestamps, NTP calculates two things:
 1. **Offset:** How wrong your clock is
 2. **Round-trip delay:** How long the network took
 
+If your offset is small (a few milliseconds), NTP gradually adjusts your clock by making it tick slightly faster or slower. This is called "slewing." It prevents time from jumping backwards, which would break applications that assume time is monotonic.
+
+If your offset is large (more than 128 milliseconds), NTP gives up on slewing and just jumps your clock to the correct time. This is called "stepping." It's fast but dangerous—suddenly timestamps can go backwards.
+
+The problem? Network latency adds uncertainty.
+
+On a local network: ±0.1 to 1 millisecond of uncertainty
+Over the internet: ±10 to 50 milliseconds of uncertainty
+On congested networks: ±100+ milliseconds of uncertainty
+
+So even after syncing, your clock isn't perfectly accurate. It's "probably within 10-50 milliseconds of correct, assuming the network behaved normally."
+
+**Between Syncs: You're On Your Own**
+
+Here's the bigger problem: NTP doesn't sync continuously. It syncs every 64 to 1024 seconds (roughly 1 to 17 minutes) depending on your clock's stability.
+
+Between syncs, your crystal oscillator is drifting.
+
+Let's do the math:
+- Your crystal drifts at 100 parts per million (ppm is a ratio: for every 1 million seconds, you're off by 100 seconds—that's about 8.6 seconds per day)
+- Time since last sync: 1000 seconds (about 16 minutes)
+- Accumulated drift: 1000 × 100 / 1,000,000 = 0.1 seconds = 100 milliseconds
+
+You could be 100 milliseconds off and not know it until the next sync.
+
+**The Distributed System Problem**
+
+Now imagine you have three servers processing the same Kafka topic:
+
+**Server A:**
+- Last NTP sync: 30 seconds ago
+- Current drift: +15 milliseconds
+- Clock reads: 10:00:00.015
+
+**Server B:**
+- Last NTP sync: 10 minutes ago
+- Current drift: -60 milliseconds
+- Clock reads: 09:59:59.940
+
+**Server C:**
+- Last NTP sync: 45 minutes ago (missed several syncs due to network issues)
+- Current drift: +200 milliseconds
+- Clock reads: 10:00:00.200
+
+
 
 
 
