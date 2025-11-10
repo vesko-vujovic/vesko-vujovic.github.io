@@ -179,3 +179,37 @@ Since 1972, we've added 37 leap seconds. We've never removed one, but as Earth's
 
 And every time a leap second happens, systems break. Reddit went down in 2012. Cloudflare had an outage in 2017. Qantas airport check-in systems failed. Linux kernel bugs were triggered.
 
+**Why? Because your database suddenly sees the same second twice. Or time goes backwards. Or monotonic ordering assumptions break.**
+
+But here's the thing: even without leap seconds, the problem exists. Between leap second adjustments, Earth's rotation is still variable. Your NTP servers compensate by gradually "slewing" time—speeding up or slowing down your clock slightly to account for Earth's current rotation speed.
+
+You're not just syncing to atomic clocks. You're syncing to a moving target that's affected by earthquakes you didn't know happened and glaciers melting thousands of miles away.
+
+---
+
+## 📡 Part 3: The Synchronization Dance
+
+### How NTP Bridges Two Worlds
+
+So we have atomic clocks measuring time perfectly, and we have Earth rotating unpredictably, and we have your server with a cheap crystal that drifts by seconds per day.
+
+Network Time Protocol is what tries to make sense of this mess.
+![ntp-time](/posts/atomic-clocks-and-quatz/cisco-ntp-stratums.svg)
+
+**The NTP Hierarchy**
+
+NTP organizes time sources into layers called "strata":
+
+```
+Stratum 0: Atomic clocks, GPS satellites
+    ↓ directly connected
+Stratum 1: Servers with direct connections to atomic clocks
+    ↓ synchronized over network
+Stratum 2: Servers that sync from Stratum 1 (probably your infrastructure)
+    ↓
+Stratum 3+: Further removed from the source
+```
+
+
+
+
