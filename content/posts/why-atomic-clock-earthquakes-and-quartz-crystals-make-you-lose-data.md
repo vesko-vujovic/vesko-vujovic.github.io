@@ -272,6 +272,57 @@ Now imagine you have three servers processing the same Kafka topic:
 - Clock reads: 10:00:00.200
 
 
+All three servers think they're reading the correct time. All three would report their timestamps with confidence. But they're spread across 260 milliseconds.
+
+An event occurs at "true time" 10:00:00.000. How does each server timestamp it?
+
+```python
+# Server A records
+event_timestamp = "2025-01-15 10:00:00.015"
+
+# Server B records
+event_timestamp = "2025-01-15 09:59:59.940"
+
+# Server C records  
+event_timestamp = "2025-01-15 10:00:00.200"
+```
+
+Same event. Three different timestamps. 260 milliseconds of spread.
+
+Now you run a five-minute tumbling window aggregation. Windows are defined as:
+- `[09:55:00.000 - 10:00:00.000)`
+- `[10:00:00.000 - 10:05:00.000)`
+- `[10:05:00.000 - 10:10:00.000)`
+
+Which window does the event belong to?
+
+Server A says: second window
+Server B says: first window
+Server C says: second window
+
+If you're doing distributed processing with Spark or Flink, different executors might process this event differently depending on which timestamp they see. You might count it twice. You might not count it at all. You might count it in the wrong window.
+
+And here's the worst part: this isn't a rare edge case. This is happening constantly, to thousands of events, across your entire data pipeline. Most of the time, the drift is small enough that you don't notice. But sometimes—during network issues, after server restarts, during leap second adjustments—the drift gets large enough to corrupt your aggregations.
+
+## 💥 Part 4: The Bermuda Triangle for Transactions
+
+### Where $50,000 Goes to Die
+
+There's a place in your distributed system where transactions disappear. Not because of bugs. Not because of network failures. Not because of corrupted data.
+
+They vanish in the gap between three clocks that can't agree on what "now" means.
+
+**The Disappearing Act:**
+
+A customer clicks "Buy" on a $50,000 enterprise software license. The payment processes successfully. The database writes the record. The event lands in Kafka. Everything works.
+
+Then you run your revenue aggregation. The transaction isn't there.
+
+You check the raw data. It exists. You check your code. No bugs. You check your filters. All correct. You run the aggregation again. Still missing.
+
+Three months later, you run the same job on the same data. The transaction appears. $50,000 that didn't exist suddenly exists.
+
+
 
 
 
