@@ -6,7 +6,7 @@ tags:
   - database
   - data-engineering
 cover:
-  image: ""
+  image: "/posts/sql-optimizers/sql-optimizers-cover.png"
   alt: sql-optimizers
   caption: sql-optimizers
 ---
