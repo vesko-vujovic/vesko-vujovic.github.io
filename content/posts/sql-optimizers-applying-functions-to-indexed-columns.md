@@ -1,10 +1,9 @@
 ---
 title: "🚨 The Hidden Pitfall That Sabotages SQL Performance: Functions on Indexed Columns 📉"
 draft: false
-date: 2025-02-05T15:06:41+02:00
+date: 2025-02-05T21:06:41+02:00
 tags:
   - database
-  - sql
   - data-engineering
 cover:
   image: "/posts/sql-optimizers/sql-optimizers-cover.png"

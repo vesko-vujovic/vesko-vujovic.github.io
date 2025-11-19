@@ -2,7 +2,6 @@ baseURL: https://vesko-vujovic.github.io
 languageCode: en-us
 title: Chronicles of Data Enginenering
 theme: ["PaperMod"]
-enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
@@ -12,7 +11,6 @@ enableEmoji: true
 minify:
   disableXML: true
   minifyOutput: true
-
 params:
   analytics: 
     google:
@@ -23,7 +21,6 @@ params:
   , big data, deep learning and many other stuff related to data."
   keywords: [data engineering, apache spark, big data, data intesnive applications, deep learning]
   author: Me
-  author: ["Vesko Vujovic"] # multiple authors
   images: ["general/floppy.jpg"]
   DateFormat: "January 2, 2006"
   defaultTheme: "auto" # dark, light
@@ -107,15 +104,6 @@ params:
       url: "https://github.com/vesko-vujovic"
     - name: linkedin
       url: "https://www.linkedin.com/in/vesko-vujovic-3787005b/"
-
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
-
   cover:
     hidden: true # hide everywhere but not in structured data
     hiddenInList: true # hide on list pages and home
