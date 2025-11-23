@@ -108,7 +108,7 @@ The gap between them? Thirty-seven seconds.
 
 That gap exists because Earth's rotation isn't constant. And every time Earth speeds up or slows down enough, international timekeepers add or remove a "leap second" from UTC to keep it aligned with the planet.
 
-Your distributed system runs on UTC. Which means your timestamps are tied to Earth's rotation speed. **Which means earthquakes, melting glaciers, tsunamis and ocean tides directly affect your data pipeline.**
+Your distributed system runs on UTC. Which means your timestamps are tied to Earth's rotation speed. **Which means earthquakes, melting glaciers, tsunamis, and ocean tides directly affect your data pipeline.**
 
 **What Changes Earth's Rotation**
 
@@ -322,7 +322,7 @@ You check the raw data. It exists. You check your code. No bugs. You check your 
 
 Three months later, you run the same job on the same data. The transaction appears. $50,000 that didn't exist suddenly exists.
 
-elcome to the Bermuda Triangle of distributed systems: the five-minute window boundary.
+Welcome to the Bermuda Triangle of distributed systems: the five-minute window boundary.
 
 **The Crime Scene:**
 
