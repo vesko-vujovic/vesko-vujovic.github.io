@@ -508,7 +508,7 @@ This means moving away from "subtract amount from balance" logic toward "record 
 
 **What's Actually Happening:**
 
-Your server's $2 quartz crystal drifts 8 seconds per day. NTP syncs it to atomic clocks adjusted for Earth's rotation—which earthquakes and melting glaciers change. Between syncs: 50-200ms drift. Across distributed servers: dozens of conflicting versions of "10:00:00."
+Your server's $2 quartz crystal drifts 8 seconds per day. NTP syncs it to atomic clocks adjusted for Earth's rotation which earthquakes and melting glaciers change. Between syncs: 50-200ms drift. Across distributed servers: dozens of conflicting versions of "10:00:00."
 
 **The Damage:**
 
