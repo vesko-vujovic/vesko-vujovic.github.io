@@ -8,10 +8,12 @@ tags:
   - big-data
   - distribited-systems
 cover:
-  image: ""
+  image: "/posts/atomic-clocks-and-quatz/cover-ntp-clocks.png"
   alt: ntp
   caption: ntp
 ---
+
+![ntp-cover](/posts/atomic-clocks-and-quatz/cover-ntp-clocks.png)
 
 ## The 87-Millisecond Gap
 Your database says it's **10:00:00.000.** The atomic clock in Colorado says it's **10:00:00.087.**
