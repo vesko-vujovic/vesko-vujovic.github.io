@@ -123,6 +123,13 @@ Your system needs to understand:
 - Long-term facts that stay relevant (user preferences, project details)
 - When to override recency (explicit references to older conversations)
 
+Building this temporal logic means tracking metadata, implementing decay functions, and handling special cases where old information stays important.
+
+
+
+
+
+
 
 
 
