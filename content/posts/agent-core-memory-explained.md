@@ -150,6 +150,36 @@ A dummy implementation might generate embeddings for every query and search your
 
 Compare that to full table scans in DynamoDB - also expensive, but at least you're only paying one service. Either way, you're optimizing costs while maintaining quality.
 
+## 🚀 How Agent Core Memory Solves These Problems?
+
+Agent core memory systems are built specifically to handle everything we just talked about. 
+
+Here's how they work:
+
+### Built-in semantic search and vector operations
+
+The system handles embeddings and vector search out of the box. You don't need to integrate Pinecone or manage pgvector separately. 
+
+```python
+# With agent core memory
+memory.store("User prefers Python for data pipelines", metadata={"type": "preference"})
+relevant_context = memory.retrieve("What languages does the user like?")
+# Returns: "User prefers Python for data pipelines"
+
+# Without it - you're managing this yourself
+embedding = openai.embed("User prefers Python for data pipelines")
+pinecone.upsert(id="mem_123", vector=embedding, metadata={...})
+query_embedding = openai.embed("What languages does the user like?")
+results = pinecone.query(query_embedding, top_k=5)
+# Then parse, rank, and format results
+```
+The system already understands how to balance similarity scores with other relevance signals.
+
+
+
+
+
+
 
 
 
