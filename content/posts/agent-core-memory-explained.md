@@ -99,6 +99,29 @@ Say a user asks "What did we discuss about the API?" Your system needs to:
 Building this ranking logic takes trial and error. You'll spend time tuning similarity thresholds, time decay functions, and context window sizes. Every agent has different needs.
 
 
+### Memory consolidation
+
+You can't keep every message forever. Storage costs add up, and dumping 10,000 messages into your agent's context doesn't work.
+
+`So you need consolidation. But how do you decide what to keep? A simple approach might summarize conversations older than 30 days. But what if an important detail gets lost in that summary? What if the user references something from two months ago?`
+
+You need logic that:
+- Identifies key information worth preserving
+- Summarizes less important details
+- Maintains connections between related memories
+- Runs periodically without breaking ongoing conversations
+
+This isn't a weekend project. It's an ongoing challenge of information compression.
+
+
+### Temporal reasoning
+
+`Time matters differently in conversations. Something from yesterday is usually more relevant than something from last year. But not always. If a user set a project deadline six months ago, that's still critical context.`
+
+Your system needs to understand:
+- Recency bias for general context
+- Long-term facts that stay relevant (user preferences, project details)
+- When to override recency (explicit references to older conversations)
 
 
 
