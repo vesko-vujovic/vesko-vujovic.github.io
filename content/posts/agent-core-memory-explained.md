@@ -156,41 +156,51 @@ Agent core memory systems are built specifically to handle everything we just ta
 
 Here's how they work:
 
-### Built-in semantic search and vector operations
+Agent memory systems handle the complexity of semantic search so you don't have to build it yourself.
 
-The system handles embeddings and vector search out of the box. You don't need to integrate Pinecone or manage pgvector separately. 
+What you'd build manually:
 
 ```python
-# With agent core memory
-memory.store("User prefers Python for data pipelines", metadata={"type": "preference"})
-relevant_context = memory.retrieve("What languages does the user like?")
-# Returns: "User prefers Python for data pipelines"
 
-# Without it - you're managing this yourself
-embedding = openai.embed("User prefers Python for data pipelines")
-pinecone.upsert(id="mem_123", vector=embedding, metadata={...})
-query_embedding = openai.embed("What languages does the user like?")
-results = pinecone.query(query_embedding, top_k=5)
-# Then parse, rank, and format results
+# Generate embedding for the memory
+embedding = openai.embeddings.create(
+    input="User prefers Python for data pipelines",
+    model="text-embedding-3-small"
+)
+
+# Store in vector database
+pinecone.upsert(
+    id="mem_123", 
+    values=embedding.data[0].embedding,
+    metadata={"content": "User prefers Python...", "type": "preference"}
+)
+
+# Later, when retrieving
+query_embedding = openai.embeddings.create(
+    input="What languages does the user like?",
+    model="text-embedding-3-small"
+)
+
+# Search vector store
+results = pinecone.query(
+    vector=query_embedding.data[0].embedding,
+    top_k=5,
+    include_metadata=True
+)
+
+# Parse results, apply relevance filtering, format for LLM context
+relevant_memories = []
+for match in results.matches:
+    if match.score > 0.7:  # You decide this threshold
+        relevant_memories.append(match.metadata['content'])
 ```
-The system already understands how to balance similarity scores with other relevance signals.
 
+### With an agent memory system:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The system abstracts away embedding generation, vector storage, and retrieval logic. You store and retrieve memories without managing the vector operations, similarity thresholds, or result parsing yourself.
+The key difference: you don't wire together multiple services (OpenAI + Pinecone) or implement the ranking and filtering logic. The memory system handles semantic matching as a built-in feature.
+Automatic memory consolidation
+As conversations accumulate, keeping every message becomes expensive and inefficient. Agent memory systems consolidate old conversations to reduce storage and improve retrieval.
+How consolidation typically works:
+The system identifies old memories (for example, older than 30 days) and uses an LLM to extract key facts:
 
