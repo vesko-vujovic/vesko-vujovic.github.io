@@ -126,6 +126,31 @@ Your system needs to understand:
 Building this temporal logic means tracking metadata, implementing decay functions, and handling special cases where old information stays important.
 
 
+### Priority and relevance
+
+Not all memories are equal. A user saying "I prefer dark mode" is more important than "I had coffee this morning." 
+
+Your system needs to distinguish between:
+- Core facts about the user
+- Temporary context from a single conversation
+- Procedural details about how to do something
+- Casual conversation filler
+
+Without explicit priority handling, your agent might retrieve irrelevant details while missing critical context. Building a relevance scorer means defining what "important" means for your use case and training or tuning models accordingly.
+
+### Cost implications
+
+Vector similarity searches aren't free. With DynamoDB plus Pinecone, you're paying for:
+- Storage in both systems
+- API calls to your embedding model (OpenAI, Cohere, AWS Titan etc.)
+- Vector search operations
+- Data transfer between services
+
+A dummy implementation might generate embeddings for every query and search your entire vector store. At scale, this gets expensive fast. `You need caching, batch operations, and smart filtering to keep costs reasonable.`
+
+Compare that to full table scans in DynamoDB - also expensive, but at least you're only paying one service. Either way, you're optimizing costs while maintaining quality.
+
+
 
 
 
