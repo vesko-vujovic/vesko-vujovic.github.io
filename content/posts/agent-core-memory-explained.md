@@ -403,3 +403,55 @@ Examples:
 - An industrial control agent where time-series data and equipment state matter more than conversations
 
 If your memory structure looks nothing like normal agent conversations, the abstractions in agent core memory might not fit.
+
+### Legacy system integration
+
+Maybe you already have a complex data infrastructure that stores user context, and you need your agent to integrate with it.
+
+You might have:
+- An existing CRM with user preferences and history
+- Internal knowledge bases with proprietary search systems
+- Custom databases with business-specific schemas
+
+Building a thin memory layer on top of existing systems can be simpler than migrating everything to a new memory provider.
+
+### You have very specific cost constraints
+
+If you're operating at massive scale (millions of users) or with very tight margins, the economics might favor building your own.
+
+Maybe:
+- You can optimize storage costs by using specific database features
+- Your usage patterns mean you'd pay less with a custom solution
+- You have spare engineering capacity and tight budgets
+
+
+### Being honest about the trade-offs
+
+Here's what you're accepting when you build your own:
+
+You own the complexity. Every bug, every performance issue, every feature request lands on your team.
+
+You're slower to improve. While agent core memory providers add new features (better consolidation, improved retrieval), you're maintaining what you built.
+
+You need expertise on your team. Someone needs to understand vector databases, embedding models, and information retrieval. If that person leaves, knowledge walks out the door.
+
+If you're okay with these trade-offs and have a clear reason to build custom, go for it. Just make sure you're choosing custom for the right reasons, not because "we can build it ourselves" sounds appealing.
+
+Most teams building AI agents should focus on what makes their agent unique, not on rebuilding memory infrastructure that already exists.
+
+
+## 💡 Conclusion
+
+Building your own agent memory system sounds straightforward until you actually do it. What starts as "just storing messages in DynamoDB" turns into weeks of work building semantic search, consolidation logic, and relevance ranking.
+
+Here's what we covered:
+
+Agent memory isn't traditional storage. It needs to understand meaning, time, and relevance in ways databases weren't designed for.
+
+`LangChain's memory interfaces work for demos, but they're too simple for production agents that need semantic search, consolidation, and cross-session context.`
+
+Building your own means 2-4 weeks upfront, plus ongoing maintenance for retrieval quality, cost optimization, and feature additions. You're building infrastructure instead of your agent's unique capabilities.
+
+Agent core memory gives you semantic search, automatic consolidation, time-aware retrieval, and optimized performance out of the box. You write configuration, not code.
+
+Custom solutions make sense for specific compliance needs, highly specialized memory patterns, or deep legacy integration. But most teams should use existing tools.
