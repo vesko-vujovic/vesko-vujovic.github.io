@@ -1,15 +1,15 @@
 ---
 title: "🧠 Why Agent Core Memory Beats Building Your Own: Stop Reinventing the Wheel"
 draft: false
-date: 2026-01-11T15:06:41+02:00
+date: 2026-01-18T15:06:41+02:00
 tags:
   - Agentic
   - AI
   - AWS
 cover:
-  image: "/posts/s3-vector-bucket/s3-vectors-cover.png"
-  alt: "s3-vectors"
-  caption: "S3 vector table search"
+  image: "/posts/agent-core-memory/agent-core-cover.png"
+  alt: "agent-core"
+  caption: "Agent core
 ---
 
 ![agent-core-cover](/posts/agent-core-memory/agent-core-cover.png)
