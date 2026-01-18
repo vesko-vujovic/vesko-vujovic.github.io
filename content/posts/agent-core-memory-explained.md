@@ -278,3 +278,14 @@ issue_memories = session.search_long_term_memories(
 )
 # Returns: "User reported delayed order #ABC-456"
 ```
+
+**Why this matters:**
+
+Without this system, you'd need to:
+- Write extraction logic to identify preferences vs session summaries
+- Build asynchronous processing to analyze conversations
+- Create namespace organization for different memory types
+- Implement semantic search across extracted facts
+- Handle the lifecycle of raw events vs extracted insights
+
+Agent Core handles all of this. You define strategies, capture conversations, and the system automatically extracts, organizes, and makes searchable the relevant long-term context.
