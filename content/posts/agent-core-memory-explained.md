@@ -342,3 +342,5 @@ That's assuming you know what you're building. Add another 1-2 weeks if you're f
 - Optimize consolidation jobs
 - Handle failed embeddings and API rate limits
 - Update schema as requirements change
+
+Every production issue requires understanding your custom retrieval logic. New team members need to learn how your memory system works.
