@@ -9,7 +9,7 @@ tags:
 cover:
   image: "/posts/agent-core-memory/agent-core-cover.png"
   alt: "agent-core"
-  caption: "Agent core
+  caption: "Agent core"
 ---
 
 ![agent-core-cover](/posts/agent-core-memory/agent-core-cover.png)
