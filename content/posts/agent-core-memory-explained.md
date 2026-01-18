@@ -12,6 +12,7 @@ cover:
   caption: "S3 vector table search"
 ---
 
+![agent-core-cover](/posts/agent-core-memory/agent-core-cover.png)
 
 
 ## 🎯 Introduction
@@ -149,6 +150,8 @@ Vector similarity searches aren't free. With DynamoDB plus Pinecone, you're payi
 A dummy implementation might generate embeddings for every query and search your entire vector store. At scale, this gets expensive fast. `You need caching, batch operations, and smart filtering to keep costs reasonable.`
 
 Compare that to full table scans in DynamoDB - also expensive, but at least you're only paying one service. Either way, you're optimizing costs while maintaining quality.
+
+![agent-core-architecture](/posts/agent-core-memory/agent_core_aws.webp)
 
 ## 🚀 How Agent Core Memory Solves These Problems?
 
