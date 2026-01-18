@@ -289,3 +289,25 @@ Without this system, you'd need to:
 - Handle the lifecycle of raw events vs extracted insights
 
 Agent Core handles all of this. You define strategies, capture conversations, and the system automatically extracts, organizes, and makes searchable the relevant long-term context.
+
+
+### Time-aware context retrieval
+
+The system knows that recent information usually matters more, but also preserves long-term facts that stay relevant.
+
+Agent memory systems organize memories with timestamps and metadata, allowing retrieval to balance recency with importance. When you search for memories, the system automatically considers:
+- How recently the memory was created or referenced
+- Whether it's a long-term fact (like a user preference) or temporary context
+- The semantic relevance to the current query
+
+You don't need to write time decay functions or manually track when facts were established. The system handles temporal weighting as part of its retrieval logic.
+
+### Optimized for agent access patterns
+
+The system is designed around how agents actually use memory. It knows:
+- Agents need fast retrieval during conversations (not batch processing)
+- Context windows are limited
+- Relevance depends on the current conversation topic
+- Some facts are more important than others
+
+When you retrieve memories, you can specify constraints like `top_k` to control how many results you get back, ensuring you stay within your LLM's context window while getting the most relevant information.
