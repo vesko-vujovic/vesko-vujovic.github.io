@@ -204,3 +204,77 @@ memories = session.search_long_term_memories(
     top_k=5
 )
 ```
+
+The system handles embedding generation, vector storage, and semantic matching. You query with natural language, and it returns relevant memories without managing multiple services or tuning similarity thresholds.
+
+### Automatic memory consolidation
+
+AWS Bedrock Agent Core uses memory strategies to automatically extract long-term insights from conversations.
+
+**How it works in practice:**
+
+When you create a memory resource, you configure strategies that define what to extract:
+
+```python
+from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import (
+    SummaryStrategy, 
+    UserPreferenceStrategy
+)
+
+# Create memory with extraction strategies
+memory = memory_manager.get_or_create_memory(
+    name="CustomerSupportMemory",
+    strategies=[
+        SummaryStrategy(
+            name="SessionSummarizer",
+            namespaces=["/summaries/{actorId}/{sessionId}"]
+        ),
+        UserPreferenceStrategy(
+            name="PreferenceLearner",
+            namespaces=["/users/{actorId}/preferences"]
+        )
+    ]
+)
+```
+
+**What happens behind the scenes:**
+
+As conversations occur, the system captures raw events:
+```python
+# Conversation captured as events
+session.add_turns(messages=[
+    ConversationalMessage("Hi, my order #ABC-456 is delayed.", MessageRole.USER),
+    ConversationalMessage("I'm sorry to hear that. Let me check the status.", MessageRole.ASSISTANT),
+    ConversationalMessage("For future orders, please use FedEx. I've had issues with other carriers.", MessageRole.USER),
+    ConversationalMessage("Thank you. I've noted to use FedEx for your shipments.", MessageRole.ASSISTANT),
+])
+```
+
+The system then **asynchronously** processes these conversations based on your configured strategies:
+
+- **SummaryStrategy**: Extracts key points from the session ("User reported delayed order #ABC-456")
+- **UserPreferenceStrategy**: Identifies preferences ("User prefers FedEx shipping")
+
+These extracted insights become long-term memories stored in organized namespaces:
+- `/users/sarah-123/preferences` → "Prefers FedEx shipping"
+- `/summaries/sarah-123/session-1` → "Reported order delay, wants FedEx for future orders"
+
+
+**Later retrieval:**
+```python
+# Semantic search across long-term memories
+preference_memories = session.search_long_term_memories(
+    namespace_prefix=f"/users/{user_id}/preferences",
+    query="shipping preferences",
+    top_k=5
+)
+# Returns: "User prefers FedEx for all shipments"
+
+# Search session summaries
+issue_memories = session.search_long_term_memories(
+    namespace_prefix=f"/summaries/{user_id}/{session_id}",
+    query="What problem did the user report?",
+    top_k=5
+)
+# Returns: "User reported delayed order #ABC-456"
+```
