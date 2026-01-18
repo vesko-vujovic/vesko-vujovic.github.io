@@ -344,3 +344,62 @@ That's assuming you know what you're building. Add another 1-2 weeks if you're f
 - Update schema as requirements change
 
 Every production issue requires understanding your custom retrieval logic. New team members need to learn how your memory system works.
+
+**Agent core memory:**
+- Monitor one service
+- Adjust policies through configuration
+- Issues get fixed upstream, not in your codebase
+
+When retrieval quality improves, you get the upgrade automatically.
+
+### Cost at scale
+
+Let's look at a realistic example: 10,000 users, each with 500 memories on average.
+
+**DIY with DynamoDB + Pinecone:**
+- DynamoDB: $25/month for storage, $50-100/month for read/write operations
+- Pinecone: $70/month (starter tier) or $200+/month for production
+- OpenAI embeddings: $20-50/month depending on consolidation frequency
+- **Total: $165-375/month** (and you're managing complexity)
+
+**Agent core memory (AWS Bedrock Agent Core example):**
+- Short-term memory: $0.25 per 1,000 events
+- Long-term memory storage: $0.75 per 1,000 memory records stored per month ($0.25 with custom strategies)
+- Long-term memory retrieval: $0.50 per 1,000 retrieval calls
+
+For a realistic example with 10,000 users and moderate usage (100,000 short-term events, 10,000 long-term memories, 20,000 retrievals per month):
+- Short-term memory: $25/month
+- Long-term storage: $7.50/month
+- Retrieval calls: $10/month
+- **Total: ~$43/month for memory alone**
+
+This doesn't include model inference costs (which you'd pay regardless of your memory solution). Compare this to the DIY approach ($165-375/month for storage and vector search) plus 3 weeks of upfront engineering and ongoing maintenance.
+
+
+## 🎯 When You SHOULD Build Your Own
+
+Agent core memory isn't always the right choice. Here are scenarios where building your own makes sense:
+
+
+### Specific compliance requirements
+
+If you're in healthcare, finance, or government, you might have data residency requirements that agent core memory providers can't meet. 
+
+Maybe you need:
+- Data stored only in specific geographic regions
+- Complete control over encryption keys
+- Air-gapped systems with no external API calls
+- Custom audit logging that meets regulatory standards
+
+In these cases, building your own gives you full control over where data lives and how it's protected.
+
+### Highly specialized memory patterns
+
+Agent core memory is designed for general conversational patterns. If your agent has unique requirements, custom might be better.
+
+Examples:
+- A medical diagnosis agent that needs to store memories following clinical documentation standards
+- A legal research agent where citation chains and precedent relationships are critical
+- An industrial control agent where time-series data and equipment state matter more than conversations
+
+If your memory structure looks nothing like normal agent conversations, the abstractions in agent core memory might not fit.
