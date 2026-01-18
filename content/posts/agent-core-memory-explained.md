@@ -158,13 +158,12 @@ Here's how they work:
 
 Agent memory systems handle the complexity of semantic search so you don't have to build it yourself.
 
-What you'd build manually:
+### What you'd build manually:
 
 ```python
-
 # Generate embedding for the memory
 embedding = openai.embeddings.create(
-    input="User prefers Python for data pipelines",
+    input="User prefers FedEx for shipping",
     model="text-embedding-3-small"
 )
 
@@ -172,12 +171,12 @@ embedding = openai.embeddings.create(
 pinecone.upsert(
     id="mem_123", 
     values=embedding.data[0].embedding,
-    metadata={"content": "User prefers Python...", "type": "preference"}
+    metadata={"content": "User prefers FedEx...", "user_id": "sarah-123"}
 )
 
 # Later, when retrieving
 query_embedding = openai.embeddings.create(
-    input="What languages does the user like?",
+    input="Does user have shipping preferences?",
     model="text-embedding-3-small"
 )
 
@@ -188,19 +187,20 @@ results = pinecone.query(
     include_metadata=True
 )
 
-# Parse results, apply relevance filtering, format for LLM context
-relevant_memories = []
+# Parse results, apply relevance filtering, format for context
 for match in results.matches:
-    if match.score > 0.7:  # You decide this threshold
-        relevant_memories.append(match.metadata['content'])
+    if match.score > 0.7:
+        print(match.metadata['content'])
 ```
+    
 
 ### With an agent memory system:
 
-The system abstracts away embedding generation, vector storage, and retrieval logic. You store and retrieve memories without managing the vector operations, similarity thresholds, or result parsing yourself.
-The key difference: you don't wire together multiple services (OpenAI + Pinecone) or implement the ranking and filtering logic. The memory system handles semantic matching as a built-in feature.
-Automatic memory consolidation
-As conversations accumulate, keeping every message becomes expensive and inefficient. Agent memory systems consolidate old conversations to reduce storage and improve retrieval.
-How consolidation typically works:
-The system identifies old memories (for example, older than 30 days) and uses an LLM to extract key facts:
-
+```python
+# Retrieve memories with semantic search
+memories = session.search_long_term_memories(
+    namespace_prefix=f"/users/{user_id}/preferences",
+    query="Does the user have a preferred shipping carrier?",
+    top_k=5
+)
+```
