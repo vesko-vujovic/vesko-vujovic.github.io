@@ -311,3 +311,34 @@ The system is designed around how agents actually use memory. It knows:
 - Some facts are more important than others
 
 When you retrieve memories, you can specify constraints like `top_k` to control how many results you get back, ensuring you stay within your LLM's context window while getting the most relevant information.
+
+
+## 📊 The Real Cost Comparison
+
+Let's break down what you're actually spending when you build your own versus using agent core memory.
+
+### Development time
+
+**DIY approach:** 2-4 weeks for basic implementation
+- Week 1: Schema design, set up DynamoDB + vector store
+- Week 2: Build retrieval logic, implement basic ranking
+- Week 3-4: Add consolidation, handle edge cases, test at scale
+
+That's assuming you know what you're building. Add another 1-2 weeks if you're figuring out requirements as you go.
+
+**Agent core memory:** A few hours
+- Set up the memory resource
+- Configure strategies (consolidation frequency, retention)
+- Integrate with your agent
+
+`You're writing configuration, not building infrastructure.`
+
+### Operational overhead
+
+**DIY approach:**
+- Monitor two services (DynamoDB + vector store)
+- Debug retrieval quality issues
+- Tune similarity thresholds and ranking weights
+- Optimize consolidation jobs
+- Handle failed embeddings and API rate limits
+- Update schema as requirements change
