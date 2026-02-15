@@ -149,15 +149,15 @@ JOIN order_totals ot ON c.customer_id = ot.customer_id
 JOIN item_counts ic ON c.customer_id = ic.customer_id;
 ```
 
-Same rule as the chasm trap: **aggregate first, join second**.
+Same rule as the [chasm trap](https://blog.veskovujovic.me/posts/sql-chasm-trap/): **aggregate first, join second**.
 
 ## 🎯 Fan Trap vs Chasm Trap
 
 These two get confused a lot. Here's the difference:
 
-**Fan Trap:** One-to-many join fans out rows. You join CUSTOMERS → ORDERS → ORDER_ITEMS, and the items duplicate the order rows. The chain of tables has increasing granularity, and aggregating at the wrong level inflates numbers.
+**Fan Trap:** One-to-many join fans out rows. You join `CUSTOMERS → ORDERS → ORDER_ITEMS`, and the items duplicate the order rows. The chain of tables has increasing granularity, and aggregating at the wrong level inflates numbers.
 
-**Chasm Trap:** Two independent tables join to the same shared table. You join SALES and PAYMENTS both through ORDERS, creating a many-to-many Cartesian product between them.
+**Chasm Trap:** Two independent tables join to the same shared table. You join `SALES and PAYMENTS both through ORDERS`, creating a many-to-many Cartesian product between them.
 
 The quick way to tell them apart:
 
