@@ -57,7 +57,7 @@ item_id | order_id | product
 
 You want Alice's total revenue. Expected: $500 (200 + 300).
 
-Here's the query most people write:
+Here's the query that we often write:
 
 ```sql
 SELECT 
