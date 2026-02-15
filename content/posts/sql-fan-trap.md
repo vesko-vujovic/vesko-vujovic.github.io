@@ -10,10 +10,11 @@ tags:
   - data-quality
 cover:
   image: "/posts/fan-trap/fan-trap-cover.png"
-  alt: "chasm-trap-sql-aggregation"
+  alt: "fan-trap-sql-aggregation"
   caption: "fan-trap-sql"
 ---
 
+![fan-trap](/posts/fan-trap/fan-trap-cover.png)
 
 You run a query to get total revenue per customer. Customer #1 should have $500 in orders. Your query says $1,500. The raw data checks out. So what is wrong here?
 
@@ -170,14 +171,11 @@ The quick way to tell them apart:
 
 The fix is the same idea in both cases: **don't aggregate after a join that multiplies your rows**. Aggregate first, then join the results.
 
+If you missed my last blog post about chasm trap (to have full overview) here is the [link]( https://blog.veskovujovic.me/posts/sql-chasm-trap/).
 ## 🏁 Final Thoughts
 
 The fan trap is one of those bugs that won't throw an error. Your query runs fine. The results look reasonable. But the numbers are wrong, and you might not notice until someone checks the math.
 
 The rule is simple: **if your join increases the number of rows, don't aggregate across that join**. Aggregate first at the right level, then join.
 
-Next time your SUM looks suspiciously high, check your joins. You might have a fan hiding in there.
-
----
-
-Have you been bitten by the fan trap before? What other SQL join pitfalls have caught you off guard? Let me know in the comments.
+`Next time your SUM looks suspiciously high, check your joins. You might have a fan hiding in there.`
