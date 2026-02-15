@@ -77,7 +77,7 @@ customer_id | name  | total_revenue
 1           | Alice | 700
 ```
 
-Why $700 instead of $500?
+Why **$700 instead of $500?**
 
 Look at the intermediate result after the joins:
 
@@ -89,7 +89,7 @@ customer_id | order_id | order_total | item_id
 1           | 102      | 300         | 3
 ```
 
-Order 101 has 2 items, so it appears twice. When you SUM: 200 + 200 + 300 = 700. The order_items table fanned out the orders, inflating your total.
+Order 101 has 2 items, so it appears twice. When you SUM: **200 + 200 + 300 = 700.** The order_items table fanned out the orders, inflating your total.
 
 ## ✅ How to Fix It
 
