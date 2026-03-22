@@ -113,3 +113,41 @@ There's also a flexibility gap. Domain teams evolve their data products quickly.
 Open table formats handle schema evolution more gracefully, which matters a lot when ownership is distributed and you can't coordinate every change through a central team.
 
 None of this means traditional DWHs are obsolete. For smaller organizations with centralized analytical needs and a clear governance model, they're often still the right call. But for organizations scaling toward mesh, the centralized DWH becomes an architectural contradiction — the infrastructure enforces the old model even as the organization tries to move past it.
+
+## 💸 Is the Lakehouse Getting Expensive?
+The honest answer is: **it depends on how you run it, and a lot of teams are running it wrong.**
+
+The promise of the lakehouse was that separating storage from compute would make things cheaper. Object storage like S3 is genuinely cheap. You're not paying for a managed warehouse to hold petabytes of data at warehouse pricing. But the compute side of the **equation is where costs quietly accumulate, and it's where teams get surprised.**
+
+_Spark clusters spun up for every transformation job, poorly optimized queries scanning full Parquet files instead of leveraging partition pruning, small file problems from frequent incremental writes — these aren't theoretical concerns. They're common patterns in lakehouse deployments that turn a cost-efficient architecture into a surprisingly expensive one._
+
+**The lakehouse gives you a lot of control, and with that control comes the responsibility to actually use it well.**
+
+Catalog and governance tooling adds another layer of cost that often gets underestimated in early architecture decisions. Running Unity Catalog, managing an AWS Glue catalog, or operating a data catalog like Apache Atlas or DataHub at scale isn't free. In a mesh model where every domain is registering and managing their own data products, the operational overhead of that layer compounds across teams.
+
+**There's also a maturity tax. A traditional DWH like Snowflake or BigQuery comes with a lot of built-in tooling — query optimization, automatic clustering, concurrency management, access control.**
+
+With a lakehouse, you often have to build or stitch together those capabilities yourself. That engineering time has a real cost even if it doesn't show up on your cloud bill.
+
+That said, at sufficient scale the economics do shift in the lakehouse's favor. When you're storing and processing at petabyte scale across many domains, open storage with flexible compute starts to beat paying warehouse pricing per terabyte significantly. 
+
+The issue is that many teams adopt lakehouse architecture before they've reached the scale where those savings materialize, and they absorb the complexity cost without the offsetting savings.
+
+**T**he practical takeaway: the lakehouse is not automatically cheaper. It's more cost-controllable if you invest in doing it right — optimizing file sizes, using partition pruning aggressively, choosing the right compute engine for each workload, and being deliberate about what you materialize versus what you query on demand.**
+
+## ✅ The Lakehouse and Data Mesh: A Practical Pairing, Not a Swiss Knife
+
+Data mesh and the lakehouse solve related but distinct problems. Data mesh addresses how organizations assign ownership and accountability over data at scale. The lakehouse addresses what the underlying infrastructure looks like when that ownership is distributed across many independent teams.
+
+They fit together well because the lakehouse's open formats and decoupled storage give domain teams genuine independence — the ability to write, manage, and expose their data products without going through a central gatekeeper.
+
+That's the infrastructure mesh needs. But neither solves everything on its own.
+You still need serving databases for **low-latency access patterns. You still need to think hard about whether a traditional DWH might be the right call for your organization's scale and maturity.**
+
+And you still need to manage lakehouse costs actively — the architecture rewards teams that run it well and punishes teams that treat it as a **fire-and-forget solution.**
+
+The organizations that get the most out of this combination are the ones that are honest about the tradeoffs. They don't adopt data mesh because it's the current architectural conversation. 
+
+They adopt it because they've hit the real scaling and ownership problems it's designed to address. And they build their lakehouse with the same pragmatism — knowing when to lean on it, when to layer a serving database on top, and when the added complexity isn't yet worth it.
+
+If you're evaluating whether this architecture fits your organization, the right question isn't whether data mesh and lakehouses are good. It's whether your organization has grown to the point where the centralized model is genuinely breaking down — and whether you have the platform maturity to support distributed ownership responsibly.
