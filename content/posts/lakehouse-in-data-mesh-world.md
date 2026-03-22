@@ -14,6 +14,8 @@ cover:
   caption: "lakehouse in datamesh"
 ---
 
+![lakehouse-in-datamesh](/posts/lahouse-in-data-mesh-world/lakehouse-data-mesh.avif)
+
 ## Introduction
 
 Data mesh has been generating a lot of noise. **Some teams swear by it, others think it's just a rebranding of problems they already had.** 
@@ -133,7 +135,7 @@ That said, at sufficient scale the economics do shift in the lakehouse's favor. 
 
 The issue is that many teams adopt lakehouse architecture before they've reached the scale where those savings materialize, and they absorb the complexity cost without the offsetting savings.
 
-**T**he practical takeaway: the lakehouse is not automatically cheaper. It's more cost-controllable if you invest in doing it right — optimizing file sizes, using partition pruning aggressively, choosing the right compute engine for each workload, and being deliberate about what you materialize versus what you query on demand.**
+**The practical takeaway: the lakehouse is not automatically cheaper. It's more cost-controllable if you invest in doing it right — optimizing file sizes, using partition pruning aggressively, choosing the right compute engine for each workload, and being deliberate about what you materialize versus what you query on demand.**
 
 ## ✅ The Lakehouse and Data Mesh: A Practical Pairing, Not a Swiss Knife
 
