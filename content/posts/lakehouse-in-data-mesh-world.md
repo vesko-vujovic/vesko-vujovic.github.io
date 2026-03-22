@@ -72,3 +72,44 @@ With a lakehouse on open formats, the storage is genuinely neutral. A domain tea
 **The data product is truly portable and independently accessible — which is exactly what data mesh requires.**
 
 The lakehouse also fits the mesh model because it handles both large-scale batch processing and increasingly supports streaming and incremental updates through formats like Iceberg and Delta. Domains don't need separate infrastructure for different processing patterns. One storage layer, one format, multiple engines.
+
+## 🍽️ Why You Still Need Serving Databases
+
+The lakehouse handles storage and processing well. It does not handle every query pattern well, and confusing the two is where architectures get expensive and slow.
+
+A lakehouse query engine — whether Spark, Trino, or Athena — is optimized for large analytical workloads. It scans files, applies predicates, aggregates across millions of rows. That's what it's built for. 
+
+**What it's not built for is a dashboard that refreshes every 30 seconds, an API endpoint that needs to return a customer's order history in under 100 milliseconds, or an operational report that ten finance analysts are running simultaneously at 9am on Monday morning.**
+
+These are fundamentally different access patterns. Low latency, high concurrency, predictable response times. For those workloads, you still need a serving layer — something like Postgres, Redshift, DynamoDB, or even a purpose-built OLAP store like ClickHouse or Apache Druid.
+
+The typical pattern is straightforward: **the lakehouse is where data lives and gets processed, and the serving database is where curated, aggregated results land for consumption.**
+
+Think of it as two different jobs. The lakehouse is your processing and storage backbone — it holds the full history, handles the heavy transformations, and is the source of truth across domains. 
+
+The serving database is the last mile — it holds what consumers actually need to query fast and frequently, populated by pipelines running from the lakehouse.
+
+This is not a failure of the lakehouse architecture. **It's just an honest acknowledgment that no single system optimizes for everything.**
+
+Domain teams in a mesh still need to think about what their data product consumers actually need — and sometimes that means materializing results into a serving layer rather than handing someone a raw Iceberg table and wishing them luck.
+
+## 🚫 Why Not Just Use a Traditional DWH?
+The traditional data warehouse wasn't designed with distributed ownership in mind. It was designed for the opposite.
+
+In a classic DWH setup, there's a central team that controls the schema, manages the ingestion pipelines, and defines how data from across the organization gets modeled and stored. 
+
+That works well when you have a small number of well-understood data sources and a clear analytical mandate. It breaks down when you have dozens of product teams, hundreds of data sources, and domain knowledge scattered across the organization and unstructured data.
+
+The structural problem is schema ownership. **In a traditional DWH, when the payments team wants to add a new field to their dataset, that change often has to go through a central team — because they own the ingestion pipeline, the transformation logic, and the warehouse schema.**
+
+The payments team knows their data best, but they're blocked waiting for someone else to implement a change on their behalf. This is exactly the bottleneck data mesh is trying to eliminate, and a centralized DWH institutionalizes it.
+
+Vendor lock-in is the other practical concern. Traditional warehouses store data in proprietary formats. Your data is inside Snowflake, or inside Redshift, and getting it out in bulk to use with another tool is slow, expensive, or both.
+
+_For a mesh architecture where different domain teams might legitimately want to use different compute engines, that's a serious constraint. You end up paying for every cross-domain query through the same vendor, which gets costly fast at scale._
+
+There's also a flexibility gap. Domain teams evolve their data products quickly. Schemas change, new sources get added, processing logic gets updated. Traditional DWH pipelines tend to be brittle under that kind of churn — tightly coupled ETL jobs that break when upstream schemas shift. 
+
+Open table formats handle schema evolution more gracefully, which matters a lot when ownership is distributed and you can't coordinate every change through a central team.
+
+None of this means traditional DWHs are obsolete. For smaller organizations with centralized analytical needs and a clear governance model, they're often still the right call. But for organizations scaling toward mesh, the centralized DWH becomes an architectural contradiction — the infrastructure enforces the old model even as the organization tries to move past it.
