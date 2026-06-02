@@ -91,3 +91,29 @@ A few things compound this effect in practice:
 - **Most tool results are tabular.** Database query results, vector search hits, API responses with arrays of records, spreadsheet rows. The shape that TOON compresses best is the shape tools return most often.
 - **Context window pressure is real.** Cutting tool result size doesn't just save money; it lets the agent run longer before hitting the model's context limit. On a 200K-token Claude Sonnet window, going from 4K to 2.4K per tool result means you fit roughly 40 more tool calls before things start getting truncated.
 - **The savings scale with run length.** Short agents (2-3 iterations) save a little. Long-running agents (10+ iterations, deep research, multi-step workflows) save a lot, because the same tool result gets re-billed on every subsequent turn.
+
+## 🛠️ Wiring TOON into a LangGraph Agent on Databricks
+
+The good news: you don't rewrite your agent. The encoding swap happens at exactly one point, the moment a tool returns data and that data gets appended to the conversation. Everything else stays the same.
+
+The pattern is simple:
+
+1. Your tool function still queries the database and returns Python dicts/lists, like normal.
+2. Before the result hits the conversation history, you encode it as TOON.
+3. You wrap it with a tiny header so the model knows what it's looking at.
+
+Let's build it. Assume we're on Databricks with the Foundation Model APIs, querying a Delta table of support tickets.
+
+
+### Installing TOON
+
+The reference implementation is in TypeScript, but there's a community Python library. Install it on your Databricks cluster or notebook:
+
+```python
+%pip install toon-format
+dbutils.library.restartPython()
+```
+
+### A tool that returns ticket data
+
+Here's a straightforward LangGraph tool that queries a Delta table. Notice it returns a plain Python list of dicts, same as it would without TOON in the picture:
