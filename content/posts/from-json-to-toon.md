@@ -82,3 +82,5 @@ Suppose your agent runs for 10 iterations. On each iteration, a tool returns rou
 
 Add up the tokens read across all 10 model invocations and you're at roughly **230,000 input tokens** for a single agent run. The same tool result from iteration 2 gets re-read by the model nine more times before the run ends. You pay for it every time.
 
+
+Now flip the lens. If TOON cuts each tool result from 4,000 tokens down to 2,400 tokens (a conservative 40% reduction for tabular results), the same run drops to about **138,000 input tokens**. You just saved ~92,000 tokens on a single run, without changing the agent's behavior, prompts, or tools, only the encoding of what the tools hand back.
