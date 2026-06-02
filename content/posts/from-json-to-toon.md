@@ -84,3 +84,10 @@ Add up the tokens read across all 10 model invocations and you're at roughly **2
 
 
 Now flip the lens. If TOON cuts each tool result from 4,000 tokens down to 2,400 tokens (a conservative 40% reduction for tabular results), the same run drops to about **138,000 input tokens**. You just saved ~92,000 tokens on a single run, without changing the agent's behavior, prompts, or tools, only the encoding of what the tools hand back.
+
+A few things compound this effect in practice:
+
+- **Tool results dominate the conversation.** System prompts and user messages are usually small. The bulk of context window usage in a multi-step agent is tool output sitting in history.
+- **Most tool results are tabular.** Database query results, vector search hits, API responses with arrays of records, spreadsheet rows. The shape that TOON compresses best is the shape tools return most often.
+- **Context window pressure is real.** Cutting tool result size doesn't just save money; it lets the agent run longer before hitting the model's context limit. On a 200K-token Claude Sonnet window, going from 4K to 2.4K per tool result means you fit roughly 40 more tool calls before things start getting truncated.
+- **The savings scale with run length.** Short agents (2-3 iterations) save a little. Long-running agents (10+ iterations, deep research, multi-step workflows) save a lot, because the same tool result gets re-billed on every subsequent turn.
