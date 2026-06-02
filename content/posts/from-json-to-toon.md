@@ -143,3 +143,38 @@ def search_tickets(category: str, days_back: int = 30) -> list[dict]:
 
 This tool, as written, returns JSON to the model when LangGraph serializes it. That's the leak we're plugging.
 
+
+### The encoding wrapper
+
+We want every tool result in the agent to flow through a TOON encoder before it lands in the conversation. The cleanest way is a small wrapper that takes any tool's output and returns a TOON-encoded string:
+
+```python
+from toon_format import encode
+
+def to_toon(data, root_key: str = "result") -> str:
+    """Encode a Python object as TOON for LLM consumption."""
+    # TOON works best when the top level is a named container
+    if isinstance(data, list):
+        payload = {root_key: data}
+    else:
+        payload = data
+    return encode(payload)
+```
+
+Now we wrap our tool. LangGraph lets you post-process tool output before it goes back to the model. The trick is to have the tool return a TOON string instead of a list:
+
+```python
+@tool
+def search_tickets(category: str, days_back: int = 30) -> str:
+    """Search support tickets by category over the last N days."""
+    df = spark.sql(f"""
+        SELECT id, priority, category, status, age_days, customer_tier
+        FROM support.tickets
+        WHERE category = '{category}'
+          AND created_at >= current_date() - INTERVAL {days_back} DAYS
+        ORDER BY priority DESC, age_days DESC
+        LIMIT 50
+    """)
+    rows = [row.asDict() for row in df.collect()]
+    return to_toon(rows, root_key="tickets")
+```
