@@ -117,3 +117,29 @@ dbutils.library.restartPython()
 ### A tool that returns ticket data
 
 Here's a straightforward LangGraph tool that queries a Delta table. Notice it returns a plain Python list of dicts, same as it would without TOON in the picture:
+
+```python
+from langchain_core.tools import tool
+from databricks.sdk.runtime import spark
+
+@tool
+def search_tickets(category: str, days_back: int = 30) -> list[dict]:
+    """Search support tickets by category over the last N days.
+    
+    Args:
+        category: Ticket category (billing, ui, auth, etc.)
+        days_back: How many days of history to search
+    """
+    df = spark.sql(f"""
+        SELECT id, priority, category, status, age_days, customer_tier
+        FROM support.tickets
+        WHERE category = '{category}'
+          AND created_at >= current_date() - INTERVAL {days_back} DAYS
+        ORDER BY priority DESC, age_days DESC
+        LIMIT 50
+    """)
+    return [row.asDict() for row in df.collect()]
+```
+
+This tool, as written, returns JSON to the model when LangGraph serializes it. That's the leak we're plugging.
+
