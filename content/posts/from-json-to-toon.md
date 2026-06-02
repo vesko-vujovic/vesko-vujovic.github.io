@@ -47,7 +47,7 @@ Let's look at a tool result your agent might actually see. Say `search_tickets` 
 
 **TOON (same data, encoded for the model):**
 
-```
+```json
 tickets[5]{id,priority,category,status,age_days}:
   1042,high,billing,open,3
   1043,low,ui,open,1
@@ -55,3 +55,30 @@ tickets[5]{id,priority,category,status,age_days}:
   1045,medium,auth,open,2
   1046,high,billing,open,5
 ```
+
+For 5 rows it's already a decent win. For 50 rows it's a much bigger one, because the per-row overhead (`{"id": ..., "priority": ..., "category": ...}` repeated for every record) is what dominates the JSON token count, and TOON eliminates almost all of it.
+
+The header `tickets[5]{id,priority,category,status,age_days}` is the schema. The rows are pure data. Models read it fine, because it's close enough to CSV that they slot into pattern-matching mode quickly, and the explicit length and field list keep them from hallucinating extra rows or skipping fields.
+
+- **TOON is lossless.** You can encode JSON to TOON, decode TOON back to JSON, and get the original bytes back. It's a representation choice, not a lossy compression.
+- **It's not always a win.** For deeply nested config-style data with no repeated structure, JSON is often more compact. TOON's superpower is uniform arrays of objects, which happens to be exactly what 90% of agent tool calls return.
+
+That's the whole concept. Now let's look at why this matters disproportionately for agents.
+
+## 🔁 Why Agents Specifically Bleed Tokens on Tool Results
+
+A one-shot LLM call pays the token cost of its prompt once. Send 5KB of JSON in, get an answer back, done.
+
+Agents don't work that way. An agent is a loop: model thinks, model calls a tool, tool returns data, that data gets appended to the conversation history, model thinks again with the *expanded* history, calls another tool, and so on. The conversation grows on every iteration, and every byte that's already in there gets re-sent to the model on every subsequent turn.
+
+This is the part that surprises people the first time they look at their bills. Let's walk through what actually happens.
+
+Suppose your agent runs for 10 iterations. On each iteration, a tool returns roughly 4,000 tokens of JSON. The naive expectation is that you've added 40,000 tokens total to the run. The reality is worse:
+
+- **Iteration 1**: model reads system prompt + user message → calls tool → tool returns 4K tokens. Model now sees ~5K tokens on its next call.
+- **Iteration 2**: model reads everything from iteration 1 (5K) + new tool result (4K) = ~9K tokens.
+- **Iteration 3**: ~13K tokens.
+- **Iteration 10**: ~41K tokens on the final model call alone.
+
+Add up the tokens read across all 10 model invocations and you're at roughly **230,000 input tokens** for a single agent run. The same tool result from iteration 2 gets re-read by the model nine more times before the run ends. You pay for it every time.
+
