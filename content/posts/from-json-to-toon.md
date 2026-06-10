@@ -537,3 +537,24 @@ If your tool returns a mix, say a list of tickets where each ticket has a nested
 This one's counterintuitive. Token count isn't the only thing that determines response time. Smaller and locally-hosted models (Llama 3.1 8B on serverless GPU endpoints, quantized models, anything Ollama-style) often process JSON faster than TOON despite the higher token count, because they've seen JSON billions of times and TOON essentially never. The model spends more cycles "figuring out" the format.
 
 For the big frontier models on Databricks (Claude Sonnet, GPT-class, Llama 70B+), this isn't an issue in my testing. They handle TOON about as fast as JSON per-token. But if you're running smaller models for cost reasons, measure end-to-end latency, not just token count. The whole point of switching is reducing total spend, and a slower agent that costs less per token can still cost more overall if you're billed by compute time.
+
+### TOON is young
+
+The format was published in late 2025. The TypeScript reference implementation is solid; ports to other languages vary in maturity. The Python port I used in section 4 works for the common cases but is less battle-tested than something like the standard library `json` module. Pin your version, test your edge cases, and don't expect every JSON oddity (NaN, infinity, deeply nested cycles) to round-trip perfectly without checking first.
+
+
+## 🎬 Conclusion
+
+TOON isn't a revolution. It's a serialization choice, one that happens to align well with how agents actually use structured data. The wins are real and measurable: 30-50% fewer tokens on tabular tool results, 40%+ reduction in total run cost on agents with multiple tool calls, and meaningfully more headroom in the context window before truncation kicks in. None of that requires changing your agent's logic, prompts, or model. Just the encoding of what your tools hand back.
+
+The honest summary:
+
+- **Reach for TOON when** you're running production agents at scale, your tool results are mostly tabular (database queries, search hits, API responses with arrays of records), and your runs loop enough that tool results dominate the context. This describes most agents in production.
+- **Stick with JSON when** your tool results are deeply nested or non-uniform, your agent runs only 1-2 iterations, you're streaming results, or you're using small/local models where format familiarity beats token count.
+- **Measure before you celebrate.** Run the same agent twice with and without TOON, look at the actual tokens and the actual answer quality. The savings I showed are real for the workload I tested. Yours will differ.
+
+The wiring is genuinely small. One wrapper function, one paragraph in the system prompt, swap the return type on your tools. If you're already paying enough on agent token usage that this post caught your attention, the engineering cost is probably a couple of hours and pays back the same week.
+
+If you try it on your own agent, I'd love to hear what your numbers look like, especially edge cases where TOON didn't help or where it helped more than expected. Drop a comment with your workload shape and the before/after token counts. The format is new enough that real-world results from production agents are still pretty rare, and I think we'll all learn faster by sharing what we see.
+
+Happy token-saving.
