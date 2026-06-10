@@ -172,7 +172,7 @@ def search_tickets(category: str, days_back: int = 30) -> str:
     """Search support tickets by category over the last N days."""
     df = spark.sql(f"""
         SELECT id, priority, category, status, age_days, customer_tier
-        FROM support.tickets
+        FROM main.support.tickets      
         WHERE category = '{category}'
           AND created_at >= current_date() - INTERVAL {days_back} DAYS
         ORDER BY priority DESC, age_days DESC
