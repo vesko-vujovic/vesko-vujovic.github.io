@@ -520,3 +520,20 @@ This is the one that bit me first. I dropped TOON-encoded tool results into the 
 
 A one-paragraph primer in the system prompt fixes this completely. The format is simple enough that models pick it up in-context, but they need to be told they're looking at TOON. Don't skip it. The primer in section 4 is the bare minimum; for production I'd recommend adding 2-3 examples covering edge cases (empty arrays, single-row results, mixed types).
 
+### Don't TOON-encode the tool schema or the model's tool calls
+
+TOON is for data flowing *into* the model. Tool definitions, function call arguments the model produces, and structured outputs the model needs to generate. Leave all of those as JSON. Models are heavily trained on JSON-shaped function calling and breaking that pattern just to save a few tokens on the schema is a bad trade.
+
+I tried encoding tool results in TOON *and* converting tool definitions to a TOON-ish format on a whim. The agent immediately started malforming tool calls. Reverted, problem gone.
+
+### Non-uniform arrays are a mixed bag
+
+TOON's compactness comes from uniform arrays where every row has the same fields. The moment you have an array of objects where some have `customer_email` and others don't, TOON has to fall back to a less compact representation, and the savings shrink fast. For deeply nested or heterogeneous tool results, benchmark it. Sometimes JSON wins by a few percent; sometimes TOON still wins by 15%. There's no shortcut here other than measuring.
+
+If your tool returns a mix, say a list of tickets where each ticket has a nested array of comments, encode the outer list as TOON and let the nested structures fall out as TOON does by default. Don't try to flatten the schema yourself just to maximize compression. Readability for the model matters more than the last 5% of token savings.
+
+### Latency on smaller models can be worse despite fewer tokens
+
+This one's counterintuitive. Token count isn't the only thing that determines response time. Smaller and locally-hosted models (Llama 3.1 8B on serverless GPU endpoints, quantized models, anything Ollama-style) often process JSON faster than TOON despite the higher token count, because they've seen JSON billions of times and TOON essentially never. The model spends more cycles "figuring out" the format.
+
+For the big frontier models on Databricks (Claude Sonnet, GPT-class, Llama 70B+), this isn't an issue in my testing. They handle TOON about as fast as JSON per-token. But if you're running smaller models for cost reasons, measure end-to-end latency, not just token count. The whole point of switching is reducing total spend, and a slower agent that costs less per token can still cost more overall if you're billed by compute time.
