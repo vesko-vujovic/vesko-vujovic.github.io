@@ -178,3 +178,177 @@ def search_tickets(category: str, days_back: int = 30) -> str:
     rows = [row.asDict() for row in df.collect()]
     return to_toon(rows, root_key="tickets")
 ```
+
+The tool's return type is now a string, the TOON-encoded payload, which LangGraph will hand straight to the model in the next turn.
+
+
+### Telling the model what TOON is
+
+This is the part that gets skipped and breaks the whole thing. The Foundation Models on Databricks (Claude Sonnet, Llama, etc.) have never seen TOON in training. If you don't tell them what they're looking at, they'll either ignore the structure or invent things.
+
+Add a short primer to your system prompt. One paragraph and one example is enough. The format is simple enough that models pick it up in-context immediately:
+
+```python
+TOON_PRIMER = """
+Tool results are returned in TOON format, a compact tabular encoding.
+The header `name[N]{field1,field2,...}:` declares an array of N records
+with the listed fields. Each subsequent indented line is one record,
+with values in field order, comma-separated.
+
+Example:
+tickets[2]{id,priority,status}:
+  1042,high,open
+  1043,low,resolved
+
+This is equivalent to JSON: 
+{"tickets": [{"id":1042,"priority":"high","status":"open"},
+             {"id":1043,"priority":"low","status":"resolved"}]}
+
+Read TOON the same way you'd read a small CSV with a schema header.
+"""
+
+system_prompt = f"""You are a customer support analyst agent.
+{TOON_PRIMER}
+
+Use the search_tickets tool to investigate patterns and answer the user's question.
+"""
+```
+
+
+### Putting it together in LangGraph
+
+The rest of the agent is boilerplate. Build the graph, bind the tool, point at a Databricks Foundation Model endpoint:
+
+```python
+from langgraph.prebuilt import create_react_agent
+from langchain_databricks import ChatDatabricks
+
+llm = ChatDatabricks(
+    endpoint="databricks-claude-sonnet-4",
+    temperature=0,
+)
+
+agent = create_react_agent(
+    model=llm,
+    tools=[search_tickets],
+    state_modifier=system_prompt,
+)
+
+result = agent.invoke({
+    "messages": [("user", "What are the recurring billing issues from the last 30 days?")]
+})
+```
+
+That's the whole wiring job. The agent calls `search_tickets`, gets a TOON-encoded table back, the model reads it natively because of the primer, and you've cut the per-tool-call token cost by roughly 40% without touching your agent's logic.
+
+A few practical notes:
+
+- **Keep tool *calls* in JSON.** The model produces tool call arguments. Those go through the model's native function-calling format, which is JSON-shaped and trained-in. TOON only swaps in for *results going back* to the model. Don't try to TOON-encode the tool schema or the model's outgoing calls.
+- **The primer goes in the system prompt once.** You don't need to re-explain TOON on every turn.
+- **Apply the wrapper consistently.** If you have ten tools, all ten need to return TOON strings. Mixing JSON and TOON results in the same conversation works, but it's confusing for both you and the model.
+- **Unity Catalog functions work the same way.** If you've registered tools as UC functions, the wrapper goes inside the function body before returning.
+
+
+# 🧪 Setting Up the Benchmark on Databricks
+
+If you want to reproduce the numbers in the next section, or measure TOON's impact on your own agent, here's the full setup. Plain Spark, no extra libraries beyond what we've already installed.
+
+### Generating the dummy ticket data
+
+We need a Delta table with enough rows that a realistic `search_tickets` query returns 30-50 results per category. Plain `spark.range()` with some `when/otherwise` columns gets us there in about 20 lines:
+
+```python
+from pyspark.sql import functions as F
+
+# 12,000 synthetic tickets across 6 categories
+df = (
+    spark.range(0, 12000)
+    .withColumnRenamed("id", "id")
+    .withColumn("category", F.element_at(
+        F.array(F.lit("billing"), F.lit("ui"), F.lit("auth"),
+                F.lit("performance"), F.lit("data"), F.lit("integration")),
+        (F.col("id") % 6 + 1).cast("int")
+    ))
+    .withColumn("priority", F.element_at(
+        F.array(F.lit("low"), F.lit("medium"), F.lit("high"), F.lit("critical")),
+        (F.col("id") % 4 + 1).cast("int")
+    ))
+    .withColumn("status", F.when(F.col("id") % 3 == 0, "resolved")
+                           .when(F.col("id") % 3 == 1, "open")
+                           .otherwise("in_progress"))
+    .withColumn("customer_tier", F.element_at(
+        F.array(F.lit("free"), F.lit("pro"), F.lit("enterprise")),
+        (F.col("id") % 3 + 1).cast("int")
+    ))
+    .withColumn("age_days", (F.col("id") % 30 + 1).cast("int"))
+    .withColumn("created_at",
+        F.date_sub(F.current_date(), F.col("age_days")))
+)
+
+(df.write
+   .mode("overwrite")
+   .saveAsTable("support.tickets"))
+```
+
+Run that once and you've got a table with realistic distribution across categories, priorities, and statuses. The `id % N` pattern isn't truly random but it's deterministic, which is useful for reproducible benchmarks. If you want randomness, swap in `F.rand()` with a seed.
+
+Quick sanity check:
+
+```python
+spark.sql("""
+    SELECT category, status, COUNT(*) as n
+    FROM support.tickets
+    WHERE created_at >= current_date() - INTERVAL 30 DAYS
+    GROUP BY category, status
+    ORDER BY category, status
+""").show()
+```
+
+You should see roughly 600-700 rows per category over the last 30 days, split across statuses. That's plenty for the agent to find patterns in.
+
+### Capturing token usage from each model call
+
+The Databricks Foundation Model API returns a `usage` object with every response: `prompt_tokens`, `completion_tokens`, and `total_tokens`. The cleanest way to grab those across an entire agent run is a LangGraph callback handler:
+
+```python
+from langchain_core.callbacks import BaseCallbackHandler
+
+class TokenTracker(BaseCallbackHandler):
+    """Sums prompt and completion tokens across all LLM calls in a run."""
+    
+    def __init__(self):
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
+        self.calls = 0
+    
+    def on_llm_end(self, response, **kwargs):
+        self.calls += 1
+        # ChatDatabricks surfaces usage in response.llm_output or generation_info
+        usage = (response.llm_output or {}).get("token_usage", {})
+        if not usage and response.generations:
+            usage = response.generations[0][0].generation_info.get("usage", {})
+        self.prompt_tokens += usage.get("prompt_tokens", 0)
+        self.completion_tokens += usage.get("completion_tokens", 0)
+    
+    @property
+    def total_tokens(self):
+        return self.prompt_tokens + self.completion_tokens
+```
+
+Pass it into the agent invocation:
+
+```python
+tracker = TokenTracker()
+result = agent.invoke(
+    {"messages": [("user", "What are the recurring billing issues from the last 30 days?")]},
+    config={"callbacks": [tracker]},
+)
+print(f"Calls: {tracker.calls}")
+print(f"Prompt tokens: {tracker.prompt_tokens:,}")
+print(f"Completion tokens: {tracker.completion_tokens:,}")
+print(f"Total: {tracker.total_tokens:,}")
+```
+
+The `prompt_tokens` count is what TOON actually reduces. Watch that number specifically when comparing the two agents.
+
+If you'd rather use Databricks-native tooling, MLflow autologging captures the same data and stores it in the experiment automatically. `mlflow.langchain.autolog()` at the top of the notebook is enough. Both approaches work; I find the callback simpler for ad-hoc benchmarking.
