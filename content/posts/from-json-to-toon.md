@@ -120,6 +120,7 @@ dbutils.library.restartPython()
 Here's a straightforward LangGraph tool that queries a Delta table. Notice it returns a plain Python list of dicts, same as it would without TOON in the picture:
 
 ```python
+
 from langchain_core.tools import tool
 from databricks.sdk.runtime import spark
 
@@ -140,6 +141,7 @@ def search_tickets(category: str, days_back: int = 30) -> list[dict]:
         LIMIT 50
     """)
     return [row.asDict() for row in df.collect()]
+
 ```
 
 This tool, as written, returns JSON to the model when LangGraph serializes it. That's the leak we're plugging.
