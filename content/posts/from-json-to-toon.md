@@ -184,6 +184,43 @@ def search_tickets(category: str, days_back: int = 30) -> str:
 
 The tool's return type is now a string, the TOON-encoded payload, which LangGraph will hand straight to the model in the next turn.
 
+### Adding some data in the table
+
+```python
+from pyspark.sql import functions as F
+
+df = (
+    spark.range(0, 12000)
+    .withColumn("rand1", F.rand(seed=42))
+    .withColumn("rand2", F.rand(seed=43))
+    .withColumn("rand3", F.rand(seed=44))
+    .withColumn("rand4", F.rand(seed=45))
+    .withColumn("rand5", F.rand(seed=46))
+    .withColumn("category", F.element_at(
+        F.array(F.lit("billing"), F.lit("ui"), F.lit("auth"),
+                F.lit("performance"), F.lit("data"), F.lit("integration")),
+        (F.col("rand1") * 6 + 1).cast("int")
+    ))
+    .withColumn("priority", F.element_at(
+        F.array(F.lit("low"), F.lit("medium"), F.lit("high"), F.lit("critical")),
+        (F.col("rand2") * 4 + 1).cast("int")
+    ))
+    .withColumn("status", F.when(F.col("rand3") < 0.4, "resolved")
+                           .when(F.col("rand3") < 0.7, "open")
+                           .otherwise("in_progress"))
+    .withColumn("customer_tier", F.element_at(
+        F.array(F.lit("free"), F.lit("pro"), F.lit("enterprise")),
+        (F.col("rand4") * 3 + 1).cast("int")
+    ))
+    .withColumn("age_days", (F.col("rand5") * 30 + 1).cast("int"))
+    .withColumn("created_at",
+        F.date_sub(F.current_date(), F.col("age_days")))
+    .drop("rand1", "rand2", "rand3", "rand4", "rand5")
+)
+
+(df.write.mode("overwrite").saveAsTable("main.support.tickets"))
+```
+
 
 ### Telling the model what TOON is
 
@@ -193,27 +230,9 @@ Add a short primer to your system prompt. One paragraph and one example is enoug
 
 ```python
 TOON_PRIMER = """
-Tool results are returned in TOON format, a compact tabular encoding.
-The header `name[N]{field1,field2,...}:` declares an array of N records
-with the listed fields. Each subsequent indented line is one record,
-with values in field order, comma-separated.
-
-Example:
-tickets[2]{id,priority,status}:
-  1042,high,open
-  1043,low,resolved
-
-This is equivalent to JSON: 
-{"tickets": [{"id":1042,"priority":"high","status":"open"},
-             {"id":1043,"priority":"low","status":"resolved"}]}
-
-Read TOON the same way you'd read a small CSV with a schema header.
-"""
-
-system_prompt = f"""You are a customer support analyst agent.
-{TOON_PRIMER}
-
-Use the search_tickets tool to investigate patterns and answer the user's question.
+Tool results use TOON format: header `name[N]{fields}:` followed by N 
+indented rows of comma-separated values in field order. Results are 
+complete; don't re-call expecting a different format.
 """
 ```
 
