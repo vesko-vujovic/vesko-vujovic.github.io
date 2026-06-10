@@ -7,10 +7,12 @@ tags:
   - AI
   - Data
 cover:
-  image: "/posts/agent-core-memory/agent-core-cover.png"
+  image: "/posts/from-json-to-toon/toon-cover.png"
   alt: "toon-format"
   caption: "Toon format"
 ---
+
+![toon cover](/posts/from-json-to-toon/toon-cover.png)
 
 Your agent makes a tool call. The tool returns **40 rows of JSON.** That JSON gets stuffed back into the model's context, the model thinks for a bit, calls another tool, gets another 40 rows back, and on it goes. 
 
