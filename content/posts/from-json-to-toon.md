@@ -110,10 +110,11 @@ Let's build it. Assume we're on Databricks with the Foundation Model APIs, query
 The reference implementation is in TypeScript, but there's a community Python library. Install it on your Databricks cluster or notebook:
 
 ```python
-%pip install toon-format
+%pip uninstall -y toon-format
+%pip install toon-py
+%pip install -U "langgraph>=1.1.5" "langgraph-prebuilt>=1.0.9" databricks-langchain
 dbutils.library.restartPython()
 ```
-
 ### A tool that returns ticket data
 
 Here's a straightforward LangGraph tool that queries a Delta table. Notice it returns a plain Python list of dicts, same as it would without TOON in the picture:
