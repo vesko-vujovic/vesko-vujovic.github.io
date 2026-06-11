@@ -20,7 +20,7 @@ By iteration 10, your prompt is mostly curly braces, quoted keys, and the same f
 
 You're paying for every single one of those tokens. And you're paying for them on *every subsequent model call in the run*, because tool results stick around in the conversation history.
 
-There's a serialization format called TOON — Token-Oriented Object Notation — that encodes the same JSON data with 30-50% fewer tokens. It's lossless, human-readable, and the sweet spot is exactly the shape that tool calls return: arrays of objects with the same fields. 
+There's a serialization format called TOON. Token-Oriented Object Notation that encodes the same JSON data with 30-50% fewer tokens. It's lossless, human-readable, and the sweet spot is exactly the shape that tool calls return: arrays of objects with the same fields. 
 
 _Drop it in front of your tool results, leave the rest of your agent alone, and you cut both your bill and the rate at which you fill up the context window._
 
