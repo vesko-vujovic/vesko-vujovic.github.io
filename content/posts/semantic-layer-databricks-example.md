@@ -1,5 +1,5 @@
 ---
-title: "Semantic Layer Inside Databricks: A Look at Unity Catalog Metric Views (With an Example)"
+title: "📐 Semantic Layer Inside Databricks: A Look at Unity Catalog Metric Views (With an Example)"
 date: 2026-07-26T15:06:41+02:00
 draft: false
 tags:
@@ -15,9 +15,9 @@ cover:
   caption: databricks-semantic-layer
 ---
 
-# 🎯 Semantic Layer Inside Databricks: A Look at Unity Catalog Metric Views (With an Example)
 
-🤔 The enterprise-wide enigma
+
+## 🤔 The enterprise-wide enigma
 
 Ask three people on your data team what "total revenue" means and you'll get three queries. One filters out returns. One rounds before summing. One groups by order date, another by ship date. All three are technically correct, and none of them match.
 
