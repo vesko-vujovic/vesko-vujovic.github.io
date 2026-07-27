@@ -25,4 +25,22 @@ This isn't a data quality problem. The data is fine. The problem is that every d
 
 Standard SQL views don't fix this. A view locks in its GROUP BY and output columns the moment you create it. If someone wants to slice revenue by region instead of by month, they can't just re-group the view. They write a new query against the underlying tables, and the drift starts again.
 
-Unity Catalog metric views take a different approach. They separate what you're measuring from how you're grouping it. Define "total revenue" once, and let people group by whatever field they need at query time. Same metric, same number, no matter who's asking.
+**Unity Catalog metric views take a different approach.** 
+
+_**They separate what you're measuring from how you're grouping it.**_
+
+Define "total revenue" once, and let people group by whatever field they need at query time. Same metric, same number, no matter who's asking.
+
+## 🧱 What a metric view actually is
+
+A metric view is a Unity Catalog object built on five pieces: **a source, optional joins, an optional filter, fields, and measures.**
+
+Source is the base table, view, or SQL query the metric view reads from. Nothing special here, it's just where the data comes from.
+
+Joins let you enrich that source with attributes from other tables, most commonly dimension tables. You declare the join condition and the cardinality, and the engine only pulls in the joined table when a query actually needs a field from it.
+
+Filter applies to every query against the metric view, no exceptions. If a metric view should only ever show completed orders, you bake that into the filter once instead of hoping everyone remembers to add WHERE status = 'completed'.
+
+Fields (also called dimensions) are the things you group and filter by: category, region, order month, status. A field can also be an unaggregated numeric column, like unit price, that gets aggregated later at query time.
+
+Measures are the actual metrics: total revenue, order count, average order value. This is the part that trips people up coming from regular SQL. A measure isn't a precomputed number sitting in a column. It's an aggregate expression with no fixed grouping level attached to it, and it only gets evaluated when you wrap it in MEASURE() in your query:
