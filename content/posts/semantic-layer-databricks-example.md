@@ -37,10 +37,10 @@ A metric view is a Unity Catalog object built on five pieces: **a source, option
 
 Source is the base table, view, or SQL query the metric view reads from. Nothing special here, it's just where the data comes from.
 
-Joins let you enrich that source with attributes from other tables, most commonly dimension tables. You declare the join condition and the cardinality, and the engine only pulls in the joined table when a query actually needs a field from it.
+**Joins** let you enrich that source with attributes from other tables, most commonly dimension tables. You declare the join condition and the cardinality, and the engine only pulls in the joined table when a query actually needs a field from it.
 
-Filter applies to every query against the metric view, no exceptions. If a metric view should only ever show completed orders, you bake that into the filter once instead of hoping everyone remembers to add WHERE status = 'completed'.
+**Filter** applies to every query against the metric view, no exceptions. If a metric view should only ever show completed orders, you bake that into the filter once instead of hoping everyone remembers to add WHERE status = 'completed'.
 
-Fields (also called dimensions) are the things you group and filter by: category, region, order month, status. A field can also be an unaggregated numeric column, like unit price, that gets aggregated later at query time.
+**Fields** (also called dimensions) are the things you group and filter by: category, region, order month, status. A field can also be an unaggregated numeric column, like unit price, that gets aggregated later at query time.
 
-Measures are the actual metrics: total revenue, order count, average order value. This is the part that trips people up coming from regular SQL. A measure isn't a precomputed number sitting in a column. It's an aggregate expression with no fixed grouping level attached to it, and it only gets evaluated when you wrap it in MEASURE() in your query:
+**Measures** are the actual metrics: total revenue, order count, average order value. This is the part that trips people up coming from regular SQL. A measure isn't a precomputed number sitting in a column. It's an aggregate expression with no fixed grouping level attached to it, and it only gets evaluated when you wrap it in MEASURE() in your query:
