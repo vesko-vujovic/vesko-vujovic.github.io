@@ -44,3 +44,51 @@ Source is the base table, view, or SQL query the metric view reads from. Nothing
 **Fields** (also called dimensions) are the things you group and filter by: category, region, order month, status. A field can also be an unaggregated numeric column, like unit price, that gets aggregated later at query time.
 
 **Measures** are the actual metrics: total revenue, order count, average order value. This is the part that trips people up coming from regular SQL, and it's worth being precise about. A measure isn't a **fact table**, and it isn't a precomputed number sitting in a column. The source you point a metric view at is your fact table (or something shaped like one). **A measure is simply the aggregate expressions you'd compute over the fact table's numeric columns**, things like SUM(revenue) or COUNT(order_id), given a name and made reusable instead of retyped slightly differently in every query. It has no fixed grouping level attached to it, and it only gets evaluated when you wrap it in `MEASURE()` in your query.
+
+```sql
+SELECT
+  `Order Month`,
+  MEASURE(`Total Revenue`)
+FROM orders_metric_view
+GROUP BY ALL
+```
+
+## 🏗️ Building a small star schema with dummy data
+
+Databricks ships a samples.tpch dataset that most docs use for metric view examples. It's fine for a syntax reference, but it doesn't really let you see the **"define once, group any way"** payoff, because you don't control the shape of the data. Let's build our own fact table and dimensions instead, so every field and measure below maps directly to something you just created.
+
+```sql
+CREATE TABLE dim_product (
+  product_id INT,
+  product_name STRING,
+  category STRING,
+  subcategory STRING
+);
+
+INSERT INTO dim_product VALUES
+  (1, 'Laptop Pro 14', 'Electronics', 'Laptops'),
+  (2, 'Laptop Air 13', 'Electronics', 'Laptops'),
+  (3, 'Phone X', 'Electronics', 'Phones'),
+  (4, 'Phone SE', 'Electronics', 'Phones'),
+  (5, 'Wireless Mouse', 'Electronics', 'Accessories'),
+  (6, 'Office Chair', 'Home Goods', 'Furniture'),
+  (7, 'Standing Desk', 'Home Goods', 'Furniture'),
+  (8, 'Coffee Maker', 'Home Goods', 'Kitchen'),
+  (9, 'Wool Sweater', 'Apparel', 'Outerwear'),
+  (10, 'Running Shoes', 'Apparel', 'Footwear');
+
+CREATE TABLE dim_region (
+  store_id INT,
+  store_name STRING,
+  region STRING,
+  country STRING
+);
+
+INSERT INTO dim_region VALUES
+  (1, 'Store NYC', 'North America', 'USA'),
+  (2, 'Store Toronto', 'North America', 'Canada'),
+  (3, 'Store London', 'Europe', 'UK'),
+  (4, 'Store Berlin', 'Europe', 'Germany'),
+  (5, 'Store Tokyo', 'APAC', 'Japan'),
+  (6, 'Store Sydney', 'APAC', 'Australia');
+```
