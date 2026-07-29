@@ -176,6 +176,10 @@ measures:
 $$;
 ```
 
+### This is how it looks like in Unity Catalog after created
+
+![uc-semantic-view](/posts/semantic-view-dbx/metric_view_definition.png)
+
 ## ⚡ Where the power shows up
 
 Here's the part that actually justifies building a metric view instead of just writing four separate queries: every query below reuses the same Total Revenue, Units Sold, and Average Order Value measures. Nobody redefines the aggregation logic. Nobody risks the region cut drifting from the category cut.
