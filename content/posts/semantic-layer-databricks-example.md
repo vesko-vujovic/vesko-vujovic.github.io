@@ -230,3 +230,7 @@ FROM sales_metric_view
 GROUP BY ALL
 ORDER BY Region, Category;
 ```
+
+Four completely different shapes of output, one region-only, one category-only, one time-trended, one crossed two ways, and not one line of aggregation logic was rewritten to get there. Total Revenue is defined exactly once, in the metric view. Every query just tells it how to group.
+
+Run these against your own `sales_metric_view` and you'll see the actual numbers, they'll depend on the exact dummy data you generated. What matters isn't the specific figures, it's that switching from a region cut to a category cut took zero SQL changes to the underlying math. Try doing that with four copy-pasted GROUP BY queries against `sales_fact` directly, and you'll either end up hand-maintaining four slightly different `SUM(revenue)` expressions, or you'll write a fifth query to double check the first four agree with each other.
