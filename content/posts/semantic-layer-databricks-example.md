@@ -120,3 +120,5 @@ SELECT
 FROM range(1, 2001);
 
 ```
+
+That's 2,000 order lines spread across a full year, ten products at realistic price points, and a discount pattern that hits roughly 60% of orders at different rates. sales_fact is your fact table here, in the Kimball sense: it's the thing metric view measures will aggregate over.
