@@ -175,3 +175,18 @@ measures:
     comment: 'Average revenue per order line'
 $$;
 ```
+
+## ⚡ Where the power shows up
+
+Here's the part that actually justifies building a metric view instead of just writing four separate queries: every query below reuses the same Total Revenue, Units Sold, and Average Order Value measures. Nobody redefines the aggregation logic. Nobody risks the region cut drifting from the category cut.
+
+```sql
+SELECT
+  Region,
+  MEASURE(`Total Revenue`),
+  MEASURE(`Units Sold`),
+  MEASURE(`Order Count`)
+FROM sales_metric_view
+GROUP BY ALL
+ORDER BY Region;
+```
