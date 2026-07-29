@@ -98,3 +98,25 @@ Ten products across three categories, six stores across three regions. Small eno
 The fact table
 
 This is the part worth being careful about. If every row has the same quantity and the same price, every aggregation you run will look suspiciously clean, and you won't actually be testing anything. So instead of hardcoding a handful of repeated rows, generate a couple thousand with real variance in date, product, store, quantity, and a discount that kicks in on some orders but not others:
+
+```sql
+CREATE OR REPLACE TABLE sales_fact AS
+SELECT
+  id AS order_id,
+  date_add('2024-01-01', CAST(id % 365 AS INT)) AS order_date,
+  CAST((id % 10) + 1 AS INT) AS product_id,
+  CAST((id % 6) + 1 AS INT) AS store_id,
+  CAST(((id * 37) % 12) + 1 AS INT) AS quantity,
+  ROUND(
+    (CAST(((id * 37) % 12) + 1 AS INT)) *
+    CASE (id % 10) + 1
+      WHEN 1 THEN 1800 WHEN 2 THEN 1200 WHEN 3 THEN 999 WHEN 4 THEN 549
+      WHEN 5 THEN 39   WHEN 6 THEN 249  WHEN 7 THEN 459 WHEN 8 THEN 89
+      WHEN 9 THEN 79   WHEN 10 THEN 129
+    END *
+    (1 - (CASE id % 5 WHEN 0 THEN 0.15 WHEN 1 THEN 0.05 WHEN 3 THEN 0.10 ELSE 0.0 END)),
+    2
+  ) AS revenue
+FROM range(1, 2001);
+
+```
