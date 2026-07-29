@@ -94,3 +94,7 @@ INSERT INTO dim_region VALUES
 ```
 
 Ten products across three categories, six stores across three regions. Small enough to eyeball, varied enough that grouping by different fields actually produces different-looking results.
+
+The fact table
+
+This is the part worth being careful about. If every row has the same quantity and the same price, every aggregation you run will look suspiciously clean, and you won't actually be testing anything. So instead of hardcoding a handful of repeated rows, generate a couple thousand with real variance in date, product, store, quantity, and a discount that kicks in on some orders but not others:
