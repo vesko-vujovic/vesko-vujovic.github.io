@@ -235,6 +235,4 @@ Four completely different shapes of output, one region-only, one category-only, 
 
 Run these against your own `sales_metric_view` and you'll see the actual numbers, they'll depend on the exact dummy data you generated. What matters isn't the specific figures, it's that switching from a region cut to a category cut took zero SQL changes to the underlying math. Try doing that with four copy-pasted `GROUP BY` queries against `sales_fact` directly, and you'll either end up hand-maintaining four slightly different `SUM(revenue)` expressions, or you'll write a fifth query to double check the first four agree with each other.
 
-That's the whole pitch of a semantic layer in one paragraph: the grouping is disposable, the metric definition isn't.
-
-Ready for Section 5 (the query mechanics, `MEASURE()`, and the CTE workaround for joining metric views to other tables) when you are.
+**That's the whole pitch of a semantic layer in one paragraph: the grouping is disposable, the `metric` definition isn't.**
