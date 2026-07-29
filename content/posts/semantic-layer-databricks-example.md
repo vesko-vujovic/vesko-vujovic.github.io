@@ -122,3 +122,56 @@ FROM range(1, 2001);
 ```
 
 That's 2,000 order lines spread across a full year, ten products at realistic price points, and a discount pattern that hits roughly 60% of orders at different rates. sales_fact is your fact table here, in the **Kimball sense: it's the thing metric view measures will aggregate over.**
+
+
+```sql
+CREATE OR REPLACE VIEW sales_metric_view WITH METRICS LANGUAGE YAML AS
+$$
+version: 1.1
+comment: 'Sales KPIs across product and region dimensions'
+source: sales_fact
+
+joins:
+  - name: product
+    source: dim_product
+    'on': source.product_id = product.product_id
+    rely:
+      at_most_one_match: true
+  - name: store_region
+    source: dim_region
+    'on': source.store_id = store_region.store_id
+    rely:
+      at_most_one_match: true
+
+fields:
+  - name: Order Month
+    expr: DATE_TRUNC('MONTH', source.order_date)
+    comment: 'Month of the order'
+  - name: Category
+    expr: product.category
+    comment: 'Product category'
+  - name: Subcategory
+    expr: product.subcategory
+    comment: 'Product subcategory'
+  - name: Region
+    expr: store_region.region
+    comment: 'Sales region'
+  - name: Country
+    expr: store_region.country
+    comment: 'Country of sale'
+
+measures:
+  - name: Total Revenue
+    expr: SUM(source.revenue)
+    comment: 'Sum of all order revenue'
+  - name: Units Sold
+    expr: SUM(source.quantity)
+    comment: 'Total quantity sold'
+  - name: Order Count
+    expr: COUNT(1)
+    comment: 'Number of order line items'
+  - name: Average Order Value
+    expr: SUM(source.revenue) / COUNT(1)
+    comment: 'Average revenue per order line'
+$$;
+```
