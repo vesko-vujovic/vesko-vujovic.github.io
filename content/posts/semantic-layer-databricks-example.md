@@ -190,3 +190,43 @@ FROM sales_metric_view
 GROUP BY ALL
 ORDER BY Region;
 ```
+
+![metric-view](/posts/semantic-view-dbx/metric_view_v1.png)
+
+
+Slice 2: by product category
+
+```sql
+SELECT
+  Category,
+  MEASURE(`Total Revenue`),
+  MEASURE(`Average Order Value`)
+FROM sales_metric_view
+GROUP BY ALL
+ORDER BY Category;
+```
+
+Slice 3: by month, trended over the year
+
+```sql
+SELECT
+  `Order Month`,
+  MEASURE(`Total Revenue`),
+  MEASURE(`Order Count`)
+FROM sales_metric_view
+GROUP BY ALL
+ORDER BY `Order Month`;
+```
+
+Slice 4: region and category together
+
+```sql
+SELECT
+  Region,
+  Category,
+  MEASURE(`Total Revenue`),
+  MEASURE(`Units Sold`)
+FROM sales_metric_view
+GROUP BY ALL
+ORDER BY Region, Category;
+```
