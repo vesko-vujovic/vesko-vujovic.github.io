@@ -92,3 +92,5 @@ INSERT INTO dim_region VALUES
   (5, 'Store Tokyo', 'APAC', 'Japan'),
   (6, 'Store Sydney', 'APAC', 'Australia');
 ```
+
+Ten products across three categories, six stores across three regions. Small enough to eyeball, varied enough that grouping by different fields actually produces different-looking results.
