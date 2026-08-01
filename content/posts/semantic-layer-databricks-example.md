@@ -8,13 +8,15 @@ tags:
   - date-modeling
   - AI
   - databricks
+  - analytics
   - Genie
 cover:
-  image: 
+  image: /posts/semantic-view-dbx/cover_semantic_view.png
   alt: databricks-semantic-layer
   caption: databricks-semantic-layer
 ---
 
+![semantic-view-cover](/posts/semantic-view-dbx/cover_semantic_view.png)
 
 
 ## 🤔 The enterprise-wide enigma
@@ -340,7 +342,7 @@ None of this replaces good data modeling upstream. A metric view is only as trus
 
 Worth addressing directly, since this is what most companies already do. The standard pattern is Power BI dataflows and DAX measures defined right inside the Power BI semantic model, per dataset, sometimes per workspace. It works, until it doesn't scale past one team.
 
-The problem is where that logic lives. A DAX measure for "total revenue" defined inside a Power BI dataset is only reachable from Power BI. The moment someone needs the same number in Tableau, in a Genie Agent, in an ad hoc SQL query, or in an alert, they're rewriting that logic from scratch in a completely different language, with no guarantee it matches. Multiply that across workspaces and datasets, and you get exactly the drift problem from the start of this post, just moved one layer downstream and harder to spot because it's buried inside Power BI's model instead of in a SQL query someone can read.
+`The problem is where that logic lives. A DAX measure for "total revenue" defined inside a Power BI dataset is only reachable from Power BI. The moment someone needs the same number in Tableau, in a Genie Agent, in an ad hoc SQL query, or in an alert, they're rewriting that logic from scratch in a completely different language, with no guarantee it matches. Multiply that across workspaces and datasets, and you get exactly the drift problem from the start of this post, just moved one layer downstream and harder to spot because it's buried inside Power BI's model instead of in a SQL query someone can read.`
 
 There's also a data movement cost that's easy to miss. Power BI dataflows and import-mode datasets pull a copy of the data out of the lakehouse and into Power BI's own storage, then refresh it on a schedule. That's a second copy of your data, a second place it can go stale, and a second thing to govern access to. A metric view keeps the data and the metric definition in the same place, Unity Catalog, and Power BI just queries it live through DirectQuery-style access, governed by the same permissions as everything else in the lakehouse.
 
