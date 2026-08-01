@@ -356,9 +356,11 @@ Centralizing the definition in Unity Catalog turns that into a governance proble
 
 None of this means Power BI becomes less useful. Report-level calculations, running totals for a specific visual, formatting for a specific page, that's still exactly where DAX belongs. What shouldn't live in Power BI alone is the definition of what "total revenue" or "active customers" means for the business. That belongs in one governed place, reused by whatever tool asks for it, Power BI included.
 
-✅ Wrap-up
+# ✅ Wrap-up
 
-A metric view solves one specific problem: the same business metric getting slightly reinvented every time someone new needs it. Fields describe how you're allowed to group your data, measures describe what you're calculating, and the two stay separate until someone actually runs a query. Group by region today, by category tomorrow, and the underlying revenue number never drifts between the two.
+**A metric view solves one specific problem: the same business metric getting slightly reinvented every time someone new needs it.**
+
+Fields describe how you're allowed to group your data, measures describe what you're calculating, and the two stay separate until someone actually runs a query. Group by region today, by category tomorrow, and the underlying revenue number never drifts between the two.
 
 That's worth the setup cost when a metric genuinely needs to be consistent across tools and teams, revenue, active users, whatever ends up on an exec dashboard and in a Genie Agent's answer on the same day. It's probably overkill for a one-off analysis nobody else will touch.
 
