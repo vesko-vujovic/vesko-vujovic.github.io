@@ -1,6 +1,7 @@
 ---
 title: "🛡️ Data Quality Checks vs Unit Tests: The Line You Need to Draw"
 draft: false
+description: "Data quality checks and unit tests catch different failures. Where to draw the line so an all-green dashboard stops hiding a broken pipeline."
 date: 2025-10-28T15:06:41+02:00
 tags:
   - Data Quality

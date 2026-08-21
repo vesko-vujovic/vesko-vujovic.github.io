@@ -1,6 +1,7 @@
 ---
 title: "🚨 The Hidden Pitfall That Sabotages SQL Performance: Functions on Indexed Columns 📉"
 draft: false
+description: "Wrapping an indexed column in a function inside your WHERE clause stops the optimizer from using that index. Why it happens, and how to rewrite the query."
 date: 2025-02-05T21:06:41+02:00
 tags:
   - database

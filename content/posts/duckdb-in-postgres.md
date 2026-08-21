@@ -2,6 +2,7 @@
 title: "DuckDB Inside Postgres: The Unlikely Duo Supercharging Analytics"
 date: 2024-10-30T15:06:41+02:00
 draft: false
+description: "Running DuckDB inside Postgres: why analytical queries strain a row store, and how an embedded columnar engine changes what one database can handle."
 tags:
   - postgresql
   - data-engineering

@@ -11,7 +11,7 @@ cover:
   image: posts/spark-union-performance/cover-union-performance.png
   alt: union-killer
   caption: union-killer
-description:
+description: "Splitting a dataset and unioning the pieces back together can quietly wreck performance. The hidden trap in Spark union operations, and how to speed the job up."
 ---
 
 ![optimized-union-cover](/posts/spark-union-performance/cover-union-performance.png)

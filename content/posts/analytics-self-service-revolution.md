@@ -2,6 +2,7 @@
 title: "📊 The Analytics Self-Service Revolution: How Data Catalogs Empower Enterprise Teams 💡"
 date: 2025-04-24T13:06:41+02:00
 draft: false
+description: "Data requests that drag on for weeks are an organizational bottleneck, not a technical one. How modern data catalogs enable self-service analytics without losing governance."
 tags:
   - big-data
   - data-engineering

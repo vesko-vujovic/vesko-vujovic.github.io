@@ -2,6 +2,7 @@
 title: "🔍👁️ Show & Tell Search: The Ultimate End-to-End Tutorial for Building Vector Database Powered Product Discovery  🛍️"
 date: 2025-05-09T13:06:41+02:00
 draft: true
+description: "An end-to-end tutorial for multimodal product search: combining image and text queries in a vector database so shoppers can search by look and by spec."
 tags:
   - vector-database
   - AI

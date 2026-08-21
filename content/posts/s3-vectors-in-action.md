@@ -1,6 +1,7 @@
 ---
 title: "🚀 S3 Just Killed the Vector Database: How Amazon S3 Vectors Changes Everything for AI Data Storage 💾 "
 draft: false
+description: "S3 Vectors runs vector search natively on S3, no database or compute cluster required. How it works, and when it can replace OpenSearch or Pinecone."
 date: 2025-08-10T15:06:41+02:00
 tags:
   - vectors

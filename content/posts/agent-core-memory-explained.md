@@ -1,6 +1,7 @@
 ---
 title: "🧠 Why Agent Core Memory Beats Building Your Own: Stop Reinventing the Wheel"
 draft: false
+description: "Agent memory is not a CRUD problem. Why the instinct to throw conversation history into DynamoDB breaks down, and what agent core memory gives you instead."
 date: 2026-01-18T15:06:41+02:00
 tags:
   - Agentic

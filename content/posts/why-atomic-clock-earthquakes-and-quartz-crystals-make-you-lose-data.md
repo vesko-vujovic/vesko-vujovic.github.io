@@ -1,6 +1,7 @@
 ---
 title: "⚛️ Why Atomic Clocks, Earthquakes 🌍, and $2 Crystals 💎 Make You Lose Data 💸"
 draft: false
+description: "Cheap quartz crystals, leap seconds and clock drift make distributed systems disagree about what time it is, and that disagreement quietly costs you data."
 date: 2025-11-09T21:06:41+02:00
 tags:
   - database

@@ -2,6 +2,7 @@
 title: "AWS: Lambda Event Source Mapping with Confluent Kafka"
 date: 2024-08-04T15:06:41+02:00
 draft: false
+description: "Consuming Confluent Kafka topics with AWS Lambda through Event Source Mapping, and a close look at how its automatic scaling actually behaves."
 tags:
   - AWS
   - lambda
