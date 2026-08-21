@@ -1,6 +1,7 @@
 ---
 title: "🏗️ Data Mesh Needed an Infrastructure. The Lakehouse Needed a Purpose. Was It Love?"
 draft: false
+description: "If you are moving toward domain-owned data, what does the infrastructure look like? Where the lakehouse fits data mesh, and where it still leaves gaps."
 date: 2026-03-22T08:06:41+02:00
 tags:
   - Lakehouse

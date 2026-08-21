@@ -2,6 +2,7 @@
 title: "🏗️ Why Data Warehouses Backed by Open Table Formats Could Completely Replace Traditional DWHs 
 🌊"
 draft: false
+description: "Apache Iceberg, Delta Lake and Hudi decouple storage from compute. Why open table formats could replace traditional vendor-locked data warehouses."
 date: 2025-04-05T15:06:41+02:00
 tags:
   - database

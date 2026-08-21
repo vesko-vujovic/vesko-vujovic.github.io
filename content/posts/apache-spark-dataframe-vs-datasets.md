@@ -2,6 +2,7 @@
 title: "Apache Spark: Dataset vs Dataframe - The Tortoise and Hare"
 date: 2024-07-21T15:06:41+02:00
 draft: false
+description: "Datasets or DataFrames? Concrete benchmarks on where Spark's typed API costs you performance, and the reasons behind the gap."
 tags:
   - big-data
   - data-engineering

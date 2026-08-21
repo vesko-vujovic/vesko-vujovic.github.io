@@ -1,6 +1,7 @@
 ---
 title: "From JSON to TOON: A Drop-in Swap That Cuts Agent Token Costs by 30-50%"
 draft: false
+description: "TOON encodes the same JSON with 30-50% fewer tokens. Wiring it into a LangGraph agent on Databricks, the real savings, and where it does not help."
 date: 2026-06-02T20:06:41+02:00
 tags:
   - Agentic

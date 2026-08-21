@@ -2,6 +2,7 @@
 title: "📐 Semantic Layer Inside Databricks: A Look at Unity Catalog Metric Views (With an Example)"
 date: 2026-07-26T15:06:41+02:00
 draft: false
+description: "Unity Catalog metric views give you one governed definition of a metric instead of copies that drift apart. A worked example of the semantic layer in Databricks."
 tags:
   - big-data
   - data-engineering

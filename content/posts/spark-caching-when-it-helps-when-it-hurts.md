@@ -2,6 +2,7 @@
 title: "💡 Spark Caching: When It Helps and When It Hurts Your Performance 🔧"
 date: 2025-07-20T08:06:41+02:00
 draft: false
+description: "Spark caching speeds up repeated reads and slows you down when misused. When to cache, when to skip it, and how to do it properly."
 tags:
   - apache-spark
   - data-engineering

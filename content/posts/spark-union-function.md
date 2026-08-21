@@ -2,6 +2,7 @@
 title: "Apache Spark: Beware of Column Ordering and Data Types When Using Apache Spark's Union Function"
 date: 2024-10-06T08:06:41+02:00
 draft: false
+description: "Spark's union matches columns by position, not by name. How column ordering and mismatched data types silently corrupt your results, and how to prevent it."
 tags:
   - apache-spark
   - data-engineering

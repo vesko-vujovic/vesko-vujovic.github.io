@@ -1,6 +1,7 @@
 ---
 title: "🤖 From Chatbots to Autonomous Agents: What Business Leaders Need to Know About Agentic AI 💼"
 draft: false
+description: "What agentic AI actually does, where it creates real value versus expensive overkill, and the organizational costs that surface long after the license is signed."
 date: 2025-09-28T15:06:41+02:00
 tags:
   - AI

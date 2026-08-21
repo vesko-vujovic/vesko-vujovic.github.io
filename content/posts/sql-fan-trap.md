@@ -2,6 +2,7 @@
 title: "🪤 The Fan Trap: Why Your SQL Joins Are Inflating Your Numbers"
 date: 2026-02-15T10:30:00+01:00
 draft: false
+description: "The fan trap inflates numbers when you join one-to-many and then aggregate. Why revenue triples with no warning, and the aggregate-first fix."
 tags:
   - sql
   - data-modeling

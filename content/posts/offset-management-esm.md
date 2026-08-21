@@ -2,6 +2,7 @@
 title: "AWS Lambda Event Source Mapping: The Magic Behind Kafka Offset Management"
 date: 2024-11-16T15:06:41+02:00
 draft: false
+description: "Do you need to manage Kafka offsets manually with Lambda? How Event Source Mapping handles them for you, and what happens when offsets expire."
 tags:
   - apache-spark
   - data-engineering

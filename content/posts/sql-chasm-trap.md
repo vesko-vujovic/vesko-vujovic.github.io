@@ -2,6 +2,7 @@
 title: "🕳️ The Chasm Trap: Why Your SQL Is Doubling Your Numbers"
 date: 2026-01-31T10:30:00+01:00
 draft: false
+description: "The chasm trap silently doubles your aggregations. Why a query reports 16 items when the customer bought 8, and how to restructure it correctly."
 tags:
   - sql
   - data-modeling

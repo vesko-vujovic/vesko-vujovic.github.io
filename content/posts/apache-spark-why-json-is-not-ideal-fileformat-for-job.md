@@ -2,6 +2,7 @@
 title: "Apache Spark: Why JSON isn't ideal format for your spark job"
 date: 2024-09-09T15:06:41+02:00
 draft: false
+description: "JSON quietly degrades Spark job performance. A hands-on comparison with Parquet covering schema inference, compression, and columnar reads."
 tags:
   - apache-spark
   - data-engineering
