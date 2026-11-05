@@ -1,0 +1,5 @@
+/* Monokai code block background (matches markup.highlight.style) */
+:root,
+:root[data-theme="dark"] {
+    --code-block-bg: #272822;
+}
