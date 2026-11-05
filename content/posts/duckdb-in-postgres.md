@@ -138,7 +138,7 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
       GROUP BY user_id, provider_id;
    ```
 
-   ```
+   ```text
 
        Finalize GroupAggregate  (cost=2374452.53..2379719.52 rows=20000 width=48) (actual time=12746.024..12760.932 rows=20
     000 loops=1)
@@ -202,7 +202,7 @@ Curious to see DuckDB inside Postgres in action? Here's how you can run your own
    Compare DuckDB's execution time to Postgres.
 
 
-   ```
+   ```text
 
     Custom Scan (DuckDBScan)  (cost=0.00..0.00 rows=0 width=0) (actual time=16092.034..16092.280 rows=1 loops=1)
    DuckDB Execution Plan:

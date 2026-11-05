@@ -73,7 +73,7 @@ The cost? __Fifty cents to two dollars.__
 
 Here's what this looks like in practice:
 
-```
+```text
 Atomic clock (NIST, Boulder):    10:00:00.000000000
 Your server (thinks it's right):  10:00:00.087000000
 Actual drift: 87 milliseconds
@@ -163,7 +163,7 @@ To keep UTC aligned with Earth's messy rotation, the International Earth Rotatio
 
 Here's what a leap second looks like:
 
-```
+```text
 Normal time progression:
 23:59:58 → 23:59:59 → 00:00:00 ✓
 
@@ -203,7 +203,7 @@ Network Time Protocol is what tries to make sense of this mess.
 
 NTP organizes time sources into layers called "strata":
 
-```
+```text
 Stratum 0: Atomic clocks, GPS satellites
     ↓ directly connected
 Stratum 1: Servers with direct connections to atomic clocks
@@ -332,7 +332,7 @@ Welcome to the Bermuda Triangle of distributed systems: the five-minute window b
 Let's reconstruct what happened. The actual moment of purchase—according to an atomic clock nobody in your system can see—was `09:59:59.998`. Two milliseconds before the window closes.
 
 Your pipeline uses five-minute tumbling windows:
-```
+```text
 Window 1: [09:55:00.000 - 10:00:00.000)
 Window 2: [10:00:00.000 - 10:05:00.000)
 Window 3: [10:05:00.000 - 10:10:00.000)
