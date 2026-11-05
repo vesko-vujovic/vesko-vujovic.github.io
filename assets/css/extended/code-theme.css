@@ -3,3 +3,8 @@
 :root[data-theme="dark"] {
     --code-block-bg: #272822;
 }
+
+/* Line numbers are anchor links (anchorLineNos); drop the post link underline */
+.post-content .chroma .lnlinks {
+    box-shadow: none;
+}

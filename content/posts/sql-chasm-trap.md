@@ -35,7 +35,7 @@ It happens when you have two independent fact tables connected to the same dimen
 Let's say you're tracking orders with two fact tables:
 
 **SALES Table:**
-```
+```text
 order_id | product_id | quantity_sold
 ---------|------------|---------------
 1        | 101        | 5
@@ -43,7 +43,7 @@ order_id | product_id | quantity_sold
 ```
 
 **PAYMENTS Table:**
-```
+```text
 order_id | payment_id | amount
 ---------|------------|--------
 1        | P1         | 100
@@ -51,7 +51,7 @@ order_id | payment_id | amount
 ```
 
 **ORDERS Table:**
-```
+```text
 order_id | customer
 ---------|----------
 1        | Alice
@@ -75,7 +75,7 @@ GROUP BY o.order_id;
 ```
 
 **What you get:**
-```
+```text
 order_id | total_quantity | total_payment
 ---------|----------------|---------------
 1        | 16             | 300
@@ -87,7 +87,7 @@ Both numbers doubled. Why?
 
 Before aggregation, your join creates this intermediate result:
 
-```
+```text
 order_id | product_id | quantity_sold | payment_id | amount
 ---------|------------|---------------|------------|--------
 1        | 101        | 5             | P1         | 100

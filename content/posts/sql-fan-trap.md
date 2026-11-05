@@ -34,14 +34,14 @@ The "fan" is the shape of the data — one record fans out into many, and aggreg
 Let's say you have these tables:
 
 **CUSTOMERS:**
-```
+```text
 customer_id | name
 ------------|------
 1           | Alice
 ```
 
 **ORDERS:**
-```
+```text
 order_id | customer_id | order_total
 ---------|-------------|------------
 101      | 1           | 200
@@ -49,7 +49,7 @@ order_id | customer_id | order_total
 ```
 
 **ORDER_ITEMS:**
-```
+```text
 item_id | order_id | product
 --------|----------|--------
 1       | 101      | Widget A
@@ -73,7 +73,7 @@ GROUP BY c.customer_id, c.name;
 ```
 
 **What you get:**
-```
+```text
 customer_id | name  | total_revenue
 ------------|-------|---------------
 1           | Alice | 700
@@ -83,7 +83,7 @@ Why **$700 instead of $500?**
 
 Look at the intermediate result after the joins:
 
-```
+```text
 customer_id | order_id | order_total | item_id
 ------------|----------|-------------|--------
 1           | 101      | 200         | 1
