@@ -60,17 +60,17 @@ params:
   # profile-mode
   profileMode:
     enabled: true # needs to be explicitly set
-    title: "Cronicles of Data engineering"
-    subtitle: "Hi there 👋 Welcome to my blog on Data engineering. I am **Vesko Vujović** and I'm a **data enthusiast** who loves to design 
-    and build **data-intensive applications.**
-    I enjoy the challenges and rewards of creating value from data.
-     In this blog, I write about my adventures and explorations in data, 
-     covering topics such as distributed systems, deep learning, 
-     leadership and many more random stuff that I’m curious about.
-      This blog is also my outlet for satisfying my curiosity and 
-      learning new things, as well as engaging with other data lovers. 
-      I hope you find something that will attract your interest and curiosity here.
-      **My passion is data and everything related to data.**"
+    title: "Chronicles of Data Engineering"
+    subtitle: |
+      Hi there 👋 I’m Vesko Vujović.
+
+      By day I design and build data and AI/ML systems. But I’ve always been more of a maker than a specialist. Before I use something, I need to know how it works. I can’t help it.
+
+      *As a kid I opened every toy I owned just to see what was inside.*
+
+      This blog is where that curiosity goes. Some posts are about data engineering and distributed systems. Others are about AI/ML, leadership, my homelab, or whatever rabbit hole I fell into that week. Expect experiments, half-formed ideas, and the occasional deep dive.
+
+      It’s my creative outlet: a place to experiment, learn in public, and share what I find. If you’re curious too, you’ll probably find something here for you.
     imageUrl: "/le_moi.jpg"
     imageWidth: 200
     imageHeight: 200
