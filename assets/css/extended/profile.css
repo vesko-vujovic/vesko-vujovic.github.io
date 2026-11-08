@@ -1,4 +1,20 @@
-/* Space out the paragraphs of the landing page intro (profileMode.subtitle) */
-.profile_inner span p + p {
-    margin-top: 0.75em;
+/* Landing page intro (profileMode.subtitle) */
+.profile_inner > span {
+    max-width: 620px;
+    line-height: 1.7;
+}
+
+/* Greeting line */
+.profile_inner > span p:first-child {
+    font-size: 1.25em;
+    font-weight: 600;
+}
+
+.profile_inner > span p + p {
+    margin-top: 1em;
+}
+
+/* Standalone aside ("As a kid…") */
+.profile_inner > span em {
+    color: var(--secondary);
 }

@@ -64,7 +64,9 @@ params:
     subtitle: |
       Hi there 👋 I’m Vesko Vujović.
 
-      By day I design and build data and AI/ML systems. But I’ve always been more of a maker than a specialist. Before I use something, I need to know how it works. I can’t help it. As a kid I opened every toy I owned just to see what was inside.
+      By day I design and build data and AI/ML systems. But I’ve always been more of a maker than a specialist. Before I use something, I need to know how it works. I can’t help it.
+
+      *As a kid I opened every toy I owned just to see what was inside.*
 
       This blog is where that curiosity goes. Some posts are about data engineering and distributed systems. Others are about AI/ML, leadership, my homelab, or whatever rabbit hole I fell into that week. Expect experiments, half-formed ideas, and the occasional deep dive.
 
