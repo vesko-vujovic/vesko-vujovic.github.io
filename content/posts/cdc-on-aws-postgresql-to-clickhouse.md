@@ -38,3 +38,41 @@ You will learn:
 - **Debezium** reads the WAL through a replication slot and turns every row change into a JSON event.
 - **Amazon MSK** stores those events in the topic `cdc.public.transactions`.
 - **ClickHouse** reads the topic and keeps the latest version of every row, ready for analytical queries.
+
+## Debezium and MSK Connect in Two Minutes
+
+**Debezium** is an open source CDC tool. For PostgreSQL it uses logical decoding with the built-in `pgoutput` plugin, so you install nothing on the database. On the first start it takes a snapshot of the table. After that it streams every change. Each event says what happened (`c` for create, `u` for update, `d` for delete, `r` for snapshot read) and what the row looks like.
+
+Debezium runs inside **Kafka Connect**, the framework for moving data in and out of Kafka. Running Kafka Connect yourself means managing workers, upgrades and scaling. 
+
+**MSK Connect** is the managed version on AWS. You give it a plugin and a config, and AWS runs it.
+
+Three things to know before you start:
+ 
+1. **The plugin must be a ZIP or a JAR.** Debezium ships as a `.tar.gz`, so you download it and zip it again. The demo repo has a script for this.
+2. **Pick Kafka Connect 3.7.x.** It runs on Java 17, and Debezium 3.x needs Java 17. On the older 2.7.1 option, a new Debezium connector simply isn't found.
+3. **The connector always has one task.** One replication slot has one reader. You scale MSK Connect up (more capacity per worker), not out.
+
+
+
+The important part of the connector config:
+ 
+```properties
+connector.class=io.debezium.connector.postgresql.PostgresConnector
+plugin.name=pgoutput
+slot.name=debezium_slot
+publication.name=dbz_publication
+table.include.list=public.transactions
+decimal.handling.mode=string
+heartbeat.interval.ms=10000
+heartbeat.action.query=UPDATE public.debezium_heartbeat SET ts = now() WHERE id = 1
+transforms=unwrap
+transforms.unwrap.type=io.debezium.transforms.ExtractNewRecordState
+transforms.unwrap.delete.tombstone.handling.mode=rewrite
+transforms.unwrap.add.fields=op,lsn,source.ts_ms
+```
+ 
+`ExtractNewRecordState` flattens Debezium's before/after envelope into a plain row. A delete becomes a row with `__deleted = true`, which makes life easy for ClickHouse.
+
+
+You can find all the code for setup here: https://github.com/vesko-vujovic/cdc-postgres-msk-clickhouse
