@@ -1,6 +1,6 @@
 ---
 title: "CDC on AWS with PostgreSQL, Debezium, Kafka and ClickHouse"
-draft: true
+draft: false
 description: "Build a CDC pipeline on AWS with Terraform: RDS PostgreSQL, Debezium on Kafka Connect, Kafka on Amazon MSK and ClickHouse. Plus how a replication slot work."
 date: 2026-11-14T22:14:14+01:00
 tags: ["CDC", "PostgreSQL", "Debezium", "Kafka", "Amazon MSK", "MSK Connect", "ClickHouse", "AWS", "Terraform"]
@@ -154,7 +154,7 @@ FROM pg_replication_slots;
 
 ## Run the Demo
  
-The whole setup is in the repo: [github.com/vesko-vujovic/...](https://github.com/vesko-vujovic) <!-- TODO: repo link -->. You need Terraform, the AWS CLI and an AWS account.
+The whole setup is in the repo: [github.com/vesko-vujovic/cdc-postgres-msk-clickhouse](https://github.com/vesko-vujovic/cdc-postgres-msk-clickhouse). You need Terraform, the AWS CLI and an AWS account.
  
 **1. Build it**
  
